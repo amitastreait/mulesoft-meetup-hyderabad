@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:file="http://www.mulesoft.org/schema/mule/file"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<file:config name="File_Config1" doc:name="File Config" doc:id="56516c2c-4042-4faa-8f44-e2d64e2868cb" >
+		<file:connection workingDir="C:\Users\amitsingh4\Desktop\mulesoft\files" />
+	</file:config>
+	<flow name="watermarkFlow" doc:id="ccb2ea0b-c571-4825-9580-f34c4a15f28a" initialState="stopped">
+		<file:listener doc:name="On New or Updated File" doc:id="cf70dbc3-a49b-44bd-ac1f-6bd4cc657f81" config-ref="File_Config" directory="./input" moveToDirectory="./output">
+			<scheduling-strategy >
+				<fixed-frequency frequency="1" timeUnit="SECONDS"/>
+			</scheduling-strategy>
+		</file:listener>
+		<ee:transform doc:name="Transform Message" doc:id="6e2bce25-7908-476f-8431-99aeea2855ed" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="863cb532-1613-464f-93dd-0b3d816e6890" />
+	</flow>
+	<flow name="watermarkFlow1" doc:id="86cb12c1-8fb4-4051-ba41-8df90fe05641" initialState="stopped">
+		<scheduler doc:name="Scheduler" doc:id="77f61e9f-86f1-460e-a006-c04857e5cfe9" >
+			<scheduling-strategy >
+				<fixed-frequency frequency="1" timeUnit="SECONDS"/>
+			</scheduling-strategy>
+		</scheduler>
+		<file:read doc:name="Read[contacts.csv]" doc:id="747c5d8d-0c16-4d86-9671-ef5649c2b5fa" config-ref="File_Config" path="./output/contacts.csv"/>
+		<logger level="INFO" doc:name="Logger[contacts.csv]" doc:id="ef2c2c03-6c64-4173-becd-c2fee0b7b6c4" category="Logger[contacts.csv]"/>
+	</flow>
+</mule>

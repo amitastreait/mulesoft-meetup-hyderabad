@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<accounts>
+  <account>
+    <Name>Week 8 - Trigger Demo</Name>
+    <Phone/>
+    <Industry/>
+    <Rating>Warm</Rating>
+    <Description>Before Update Account Name has been changed from Week 7 to Week 8 - Trigger Demo</Description>
+  </account>
+  <account>
+    <Name>GenePoint</Name>
+    <Phone>(650) 867-3450</Phone>
+    <Industry>Biotechnology</Industry>
+    <Rating>Cold</Rating>
+    <Description>Genomics company engaged in mapping and sequencing of the human genome and developing gene-based drugs</Description>
+  </account>
+  <account>
+    <Name>United Oil &amp; Gas, UK</Name>
+    <Phone>+44 191 4956203</Phone>
+    <Industry>Energy</Industry>
+    <Rating/>
+    <Description/>
+  </account>
+  <account>
+    <Name>United Oil &amp; Gas, Singapore</Name>
+    <Phone>(650) 450-8810</Phone>
+    <Industry>Energy</Industry>
+    <Rating/>
+    <Description/>
+  </account>
+  <account>
+    <Name>Edge Communications</Name>
+    <Phone>(512) 757-6000</Phone>
+    <Industry>Electronics</Industry>
+    <Rating>Hot</Rating>
+    <Description>Edge, founded in 1998, is a start-up based in Austin, TX. The company designs and manufactures a device to convert music from one digital format to another. Edge sells its product through retailers and its own website.</Description>
+  </account>
+  <account>
+    <Name>Week 8</Name>
+    <Phone>(336) 222-7000</Phone>
+    <Industry>Banking</Industry>
+    <Rating>Warm</Rating>
+    <Description>Before Update Account Name has been changed from Burlington Textiles Corp of America to Week 8</Description>
+  </account>
+  <account>
+    <Name>Pyramid Construction Inc.</Name>
+    <Phone>(014) 427-4427</Phone>
+    <Industry>Construction</Industry>
+    <Rating/>
+    <Description/>
+  </account>
+  <account>
+    <Name>Dickenson plc</Name>
+    <Phone>(785) 241-6200</Phone>
+    <Industry>Consulting</Industry>
+    <Rating/>
+    <Description/>
+  </account>
+  <account>
+    <Name>Grand Hotels &amp; Resorts Ltd</Name>
+    <Phone>(312) 596-1000</Phone>
+    <Industry>Hospitality</Industry>
+    <Rating>Warm</Rating>
+    <Description>Chain of hotels and resorts across the US, UK, Eastern Europe, Japan, and SE Asia.</Description>
+  </account>
+  <account>
+    <Name>Express Logistics and Transport</Name>
+    <Phone>(503) 421-7800</Phone>
+    <Industry>Transportation</Industry>
+    <Rating>Cold</Rating>
+    <Description>Commerical logistics and transportation company.</Description>
+  </account>
+</accounts>

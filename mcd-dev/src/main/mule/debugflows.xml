@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:validation="http://www.mulesoft.org/schema/mule/validation" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/validation http://www.mulesoft.org/schema/mule/validation/current/mule-validation.xsd">
+	<flow name="debugflowsFlow" doc:id="094a420f-7115-4af3-ab86-e247bf3239de" >
+		<http:listener doc:name="GET :/debug" doc:id="0f89a05d-48b0-4b42-88eb-1338733bd20b" config-ref="HTTP_Listener_config" path="/debug"/>
+		<set-payload value='"Hello Max Mule"' doc:name="Set Payload" doc:id="26d6ed84-d9a3-4ea9-8e25-2eb2490c077c" />
+		<set-variable value="91" doc:name="counter" doc:id="32365fce-ca86-413a-801f-8d809c77afcd" variableName="counter"/>
+		<validation:is-url doc:name="Is URL" doc:id="eafde35c-2fc0-4fdc-919d-5107ff9e3165" config-ref="Validation_Config" url="#[payload]" message="is not a valid URL"/>
+		<logger level="INFO" doc:name="Logger" doc:id="0b767d68-d77e-40d7-a91d-afd8964ea845" />
+	</flow>
+</mule>
