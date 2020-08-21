@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:s3="http://www.mulesoft.org/schema/mule/s3" xmlns:file="http://www.mulesoft.org/schema/mule/file"
+	xmlns:db="http://www.mulesoft.org/schema/mule/db"
+	xmlns:salesforce="http://www.mulesoft.org/schema/mule/salesforce" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/salesforce http://www.mulesoft.org/schema/mule/salesforce/current/mule-salesforce.xsd
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
+http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd
+http://www.mulesoft.org/schema/mule/s3 http://www.mulesoft.org/schema/mule/s3/current/mule-s3.xsd">
+	<file:config name="File_Config" doc:name="File Config" doc:id="c5f3da5f-236e-44ba-a028-5f8652a60b9a" />
+	<salesforce:sfdc-config name="Salesforce_Config" doc:name="Salesforce Config" doc:id="d52b146a-7ecf-47ab-b93e-e5eb64ad33a2" >
+		<salesforce:basic-connection username="backtobasic@sfdcpanther.com" password="Sin122015hrr" />
+	</salesforce:sfdc-config>
+	<flow name="mainFlow" doc:id="ae720c93-53e4-4b42-bccc-ba1b68ce6407" >
+		<http:listener doc:name="Listener" doc:id="b1de8dad-b9f7-4311-828b-f845e2130442" config-ref="HTTP_Listener_config" path="/day2"/>
+		<logger level="INFO" doc:name="Logger" doc:id="0d3e6832-19ea-4290-9651-d21e527d2d1f" />
+		<set-variable value="#[message.attributes.queryParams.firstName as String]" doc:name="firstName" doc:id="32127710-3805-4d39-9b0c-465a999da3bd" variableName="fName"/>
+		<logger level="INFO" doc:name="fName" doc:id="89042805-0543-49ae-8524-615f34cfdba1" message="#[vars.fName]" category="fName"/>
+	</flow>
+	<flow name="SalesforceContacts" doc:id="f0b723d0-724d-4172-ba00-4360ece4ae3c" initialState="started">
+		<http:listener doc:name="Get :/contacts" doc:id="1040a9e5-35bc-418c-bf54-2f6955ae4e5e" config-ref="HTTP_Listener_config" path="/contacts"/>
+		<salesforce:query doc:name="Query [Contacts]" doc:id="96bcce63-715b-4910-ba15-e6720e094a3a" config-ref="Salesforce_Config">
+			<salesforce:salesforce-query >Select Id, Name, FirstName, LastName, Email, Phone, Description, Fax, AccountId From Contact Where Email =':email' Limit 1000</salesforce:salesforce-query>
+			<salesforce:parameters ><![CDATA[#[output application/java
+---
+{
+	"email" : "sfdcdemo_sfdc@outlook.com"
+}]]]></salesforce:parameters>
+		</salesforce:query>
+		<ee:transform doc:name="Transform Message" doc:id="98cc7b30-acf0-4c6e-a596-0720e228aa54" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<file:write doc:name="Write[Contacts]" doc:id="1aa5ecab-8c9e-468b-a316-2935a5032a0c" config-ref="File_Config" path="C:\Users\amitsingh4\Desktop\mulesoft\files\output\contacts.json" mode="APPEND"/>
+	</flow>
+	<flow name="mainFlow1" doc:id="eda07a4e-31d7-4efe-b5c6-d29755329b4c" >
+		<http:listener doc:name="POST :/accounts" doc:id="4cb91c7d-933e-4a98-80c4-22a69e4000b4" config-ref="HTTP_Listener_config" path="/accounts" allowedMethods="POST"/>
+		<ee:transform doc:name="Transform Message" doc:id="fbfeac95-56f1-4774-b4b8-613bc4402cd5" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/java
+---
+payload map ( payload01 , indexOfPayload01 ) -> {
+	Name: payload01.Name,
+	Phone: payload01.Phone as String,
+	Industry: payload01.Industry default "Technology",
+	Description: payload01.Description,
+	Rating: payload01.Rating default "Warm"
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<salesforce:create type="Account" doc:name="POST [ Accounts ] " doc:id="e5e75064-985e-4f7d-882c-7ae6cedff968" config-ref="Salesforce_Config"/>
+		<ee:transform doc:name="Transform Message" doc:id="c5d94d3a-852d-4bb3-99e2-8a65493d5bce" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	records : payload
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+</mule>

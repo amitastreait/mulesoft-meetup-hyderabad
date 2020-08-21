@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<types:mule xmlns:types="http://www.mulesoft.org/schema/mule/types">
+  <types:catalog>
+    <types:type name="accounts" format="json">
+      <types:shape format="weave" example="examples/account.json"><![CDATA[%dw 2.0
+
+type accounts = Array<{|  Name: String,   Phone: Null,   Industry: Null,   Rating: String,   Description: String|}> {"example": "[{\\\"Name\\\":\\\"Week 8 - Trigger Demo\\\",\\\"Phone\\\":null,\\\"Industry\\\":null,\\\"Rating\\\":\\\"Warm\\\",\\\"Description\\\":\\\"Before Update Account Name has been changed from Week 7 to Week 8 - Trigger Demo\\\"},{\\\"Name\\\":\\\"GenePoint\\\",\\\"Phone\\\":\\\"(650) 867-3450\\\",\\\"Industry\\\":\\\"Biotechnology\\\",\\\"Rating\\\":\\\"Cold\\\",\\\"Description\\\":\\\"Genomics company engaged in mapping and sequencing of the human genome and developing gene-based drugs\\\"},{\\\"Name\\\":\\\"United Oil & Gas, UK\\\",\\\"Phone\\\":\\\"+44 191 4956203\\\",\\\"Industry\\\":\\\"Energy\\\",\\\"Rating\\\":null,\\\"Description\\\":null},{\\\"Name\\\":\\\"United Oil & Gas, Singapore\\\",\\\"Phone\\\":\\\"(650) 450-8810\\\",\\\"Industry\\\":\\\"Energy\\\",\\\"Rating\\\":null,\\\"Description\\\":null},{\\\"Name\\\":\\\"Edge Communications\\\",\\\"Phone\\\":\\\"(512) 757-6000\\\",\\\"Industry\\\":\\\"Electronics\\\",\\\"Rating\\\":\\\"Hot\\\",\\\"Description\\\":\\\"Edge, founded in 1998, is a start-up based in Austin, TX. The company designs and manufactures a device to convert music from one digital format to another. Edge sells its product through retailers and its own website.\\\"},{\\\"Name\\\":\\\"Week 8\\\",\\\"Phone\\\":\\\"(336) 222-7000\\\",\\\"Industry\\\":\\\"Banking\\\",\\\"Rating\\\":\\\"Warm\\\",\\\"Description\\\":\\\"Before Update Account Name has been changed from Burlington Textiles Corp of America to Week 8\\\"},{\\\"Name\\\":\\\"Pyramid Construction Inc.\\\",\\\"Phone\\\":\\\"(014) 427-4427\\\",\\\"Industry\\\":\\\"Construction\\\",\\\"Rating\\\":null,\\\"Description\\\":null},{\\\"Name\\\":\\\"Dickenson plc\\\",\\\"Phone\\\":\\\"(785) 241-6200\\\",\\\"Industry\\\":\\\"Consulting\\\",\\\"Rating\\\":null,\\\"Description\\\":null},{\\\"Name\\\":\\\"Grand Hotels & Resorts Ltd\\\",\\\"Phone\\\":\\\"(312) 596-1000\\\",\\\"Industry\\\":\\\"Hospitality\\\",\\\"Rating\\\":\\\"Warm\\\",\\\"Description\\\":\\\"Chain of hotels and resorts across the US, UK, Eastern Europe, Japan, and SE Asia.\\\"},{\\\"Name\\\":\\\"Express Logistics and Transport\\\",\\\"Phone\\\":\\\"(503) 421-7800\\\",\\\"Industry\\\":\\\"Transportation\\\",\\\"Rating\\\":\\\"Cold\\\",\\\"Description\\\":\\\"Commerical logistics and transportation company.\\\"}]"}
+
+]]></types:shape>
+    </types:type>
+    <types:type name="orders" format="xml">
+      <types:example format="xml" element="order" location="examples/order.xml"/>
+    </types:type>
+    <types:type name="contacts" format="json">
+      <types:shape format="weave" example="examples/account-1.json"><![CDATA[%dw 2.0
+
+type contacts = Array<{|  Name: String,   Phone: Null,   Industry: Null,   Rating: String,   Description: String|}> {"example": "[{\\\"Name\\\":\\\"Week 8 - Trigger Demo\\\",\\\"Phone\\\":null,\\\"Industry\\\":null,\\\"Rating\\\":\\\"Warm\\\",\\\"Description\\\":\\\"Before Update Account Name has been changed from Week 7 to Week 8 - Trigger Demo\\\"},{\\\"Name\\\":\\\"GenePoint\\\",\\\"Phone\\\":\\\"(650) 867-3450\\\",\\\"Industry\\\":\\\"Biotechnology\\\",\\\"Rating\\\":\\\"Cold\\\",\\\"Description\\\":\\\"Genomics company engaged in mapping and sequencing of the human genome and developing gene-based drugs\\\"},{\\\"Name\\\":\\\"United Oil & Gas, UK\\\",\\\"Phone\\\":\\\"+44 191 4956203\\\",\\\"Industry\\\":\\\"Energy\\\",\\\"Rating\\\":null,\\\"Description\\\":null},{\\\"Name\\\":\\\"United Oil & Gas, Singapore\\\",\\\"Phone\\\":\\\"(650) 450-8810\\\",\\\"Industry\\\":\\\"Energy\\\",\\\"Rating\\\":null,\\\"Description\\\":null},{\\\"Name\\\":\\\"Edge Communications\\\",\\\"Phone\\\":\\\"(512) 757-6000\\\",\\\"Industry\\\":\\\"Electronics\\\",\\\"Rating\\\":\\\"Hot\\\",\\\"Description\\\":\\\"Edge, founded in 1998, is a start-up based in Austin, TX. The company designs and manufactures a device to convert music from one digital format to another. Edge sells its product through retailers and its own website.\\\"},{\\\"Name\\\":\\\"Week 8\\\",\\\"Phone\\\":\\\"(336) 222-7000\\\",\\\"Industry\\\":\\\"Banking\\\",\\\"Rating\\\":\\\"Warm\\\",\\\"Description\\\":\\\"Before Update Account Name has been changed from Burlington Textiles Corp of America to Week 8\\\"},{\\\"Name\\\":\\\"Pyramid Construction Inc.\\\",\\\"Phone\\\":\\\"(014) 427-4427\\\",\\\"Industry\\\":\\\"Construction\\\",\\\"Rating\\\":null,\\\"Description\\\":null},{\\\"Name\\\":\\\"Dickenson plc\\\",\\\"Phone\\\":\\\"(785) 241-6200\\\",\\\"Industry\\\":\\\"Consulting\\\",\\\"Rating\\\":null,\\\"Description\\\":null},{\\\"Name\\\":\\\"Grand Hotels & Resorts Ltd\\\",\\\"Phone\\\":\\\"(312) 596-1000\\\",\\\"Industry\\\":\\\"Hospitality\\\",\\\"Rating\\\":\\\"Warm\\\",\\\"Description\\\":\\\"Chain of hotels and resorts across the US, UK, Eastern Europe, Japan, and SE Asia.\\\"},{\\\"Name\\\":\\\"Express Logistics and Transport\\\",\\\"Phone\\\":\\\"(503) 421-7800\\\",\\\"Industry\\\":\\\"Transportation\\\",\\\"Rating\\\":\\\"Cold\\\",\\\"Description\\\":\\\"Commerical logistics and transportation company.\\\"}]"}
+
+]]></types:shape>
+    </types:type>
+  </types:catalog>
+  <types:enrichment select="#370f940d-8399-4a4d-9d25-99aad31a849c">
+    <types:processor-declaration>
+      <types:input-event>
+        <types:message>
+          <types:payload type="accounts"/>
+        </types:message>
+      </types:input-event>
+    </types:processor-declaration>
+  </types:enrichment>
+  <types:enrichment select="#4ee8102e-dae9-4b00-a75e-198a212e80c0">
+    <types:processor-declaration>
+      <types:input-event>
+        <types:message>
+          <types:payload type="orders"/>
+        </types:message>
+      </types:input-event>
+    </types:processor-declaration>
+  </types:enrichment>
+  <types:enrichment select="#c164aff4-a60b-4831-87b1-0ad8b421341e">
+    <types:processor-declaration>
+      <types:output-event>
+        <types:message>
+          <types:payload type="accounts"/>
+        </types:message>
+      </types:output-event>
+    </types:processor-declaration>
+  </types:enrichment>
+  <types:enrichment select="#b1de8dad-b9f7-4311-828b-f845e2130442">
+    <types:processor-declaration>
+      <types:output-event>
+        <types:message>
+          <types:payload type="contacts"/>
+        </types:message>
+      </types:output-event>
+    </types:processor-declaration>
+  </types:enrichment>
+  <types:enrichment select="#b3020ab7-87fc-4f51-886c-d8b4a6a7ffdc">
+    <types:processor-declaration>
+      <types:input-event>
+        <types:message>
+          <types:payload type="accounts"/>
+        </types:message>
+      </types:input-event>
+    </types:processor-declaration>
+  </types:enrichment>
+  <types:enrichment select="#4cb91c7d-933e-4a98-80c4-22a69e4000b4">
+    <types:processor-declaration>
+      <types:output-event>
+        <types:message>
+          <types:payload type="accounts"/>
+        </types:message>
+      </types:output-event>
+    </types:processor-declaration>
+  </types:enrichment>
+</types:mule>
