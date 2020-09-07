@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:salesforce="http://www.mulesoft.org/schema/mule/salesforce" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns:batch="http://www.mulesoft.org/schema/mule/batch"
+	xmlns:db="http://www.mulesoft.org/schema/mule/db" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
+http://www.mulesoft.org/schema/mule/batch http://www.mulesoft.org/schema/mule/batch/current/mule-batch.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/salesforce http://www.mulesoft.org/schema/mule/salesforce/current/mule-salesforce.xsd">
+	<flow name="UpdateCustomerDetailsToSalesforce" doc:id="0051a8eb-0e78-4988-9dc5-e435be541b6e" initialState="stopped">
+		<scheduler doc:name="Fetch Data Created in Last 2 Hours" doc:id="1c6d0576-b9ed-4ece-b089-2df8ba6e71a5" >
+			<scheduling-strategy >
+				<fixed-frequency frequency="10" timeUnit="HOURS" />
+			</scheduling-strategy>
+		</scheduler>
+		<db:select doc:name="GetCustomersDetails"
+		 doc:id="ff96c733-419c-4573-86c0-dfad984c216c"
+		  config-ref="DatabaseConfig">
+			<db:sql >SELECT `customers`.`customerNumber`,
+    `customers`.`customerName`,
+    `customers`.`contactLastName`,
+    `customers`.`contactFirstName`,
+    `customers`.`phone`,
+    `customers`.`addressLine1`,
+    `customers`.`addressLine2`,
+    `customers`.`city`,
+    `customers`.`state`,
+    `customers`.`postalCode`,
+    `customers`.`country`,
+    `customers`.`salesRepEmployeeNumber`,
+    `customers`.`creditLimit`,
+    `customers`.`created_at`
+FROM `classicmodels`.`customers`</db:sql>
+		</db:select>
+		<batch:job jobName="ProcessCustomersBatchJob" doc:id="6bac4ab4-c938-42be-a6c8-9fd26cbb5d80" blockSize="200" target="processedRecords" >
+			<batch:process-records >
+				<batch:step name="UpsertCustomers" doc:id="9025a1fb-5c17-4335-950d-9dda0853f5db" >
+					<ee:transform doc:name="Transform Message" doc:id="cc72ccd5-3ac2-459f-8e0f-eead25f08c9b" >
+						<ee:message >
+							<ee:set-payload ><![CDATA[%dw 2.0
+output application/java
+---
+{
+	Name: payload.customerName,
+	ShippingStreet: payload.addressLine1,
+	ShippingCity: payload.city,
+	ShippingState: payload.state,
+	ShippingPostalCode: payload.postalCode,
+	ShippingCountry: payload.country,
+	Phone: payload.phone,
+	Customer_Id__c: payload.customerNumber,
+	AnnualRevenue: payload.creditLimit as String,
+	NumberOfEmployees: payload.salesRepEmployeeNumber
+}]]></ee:set-payload>
+						</ee:message>
+					</ee:transform>
+					<batch:aggregator doc:name="Batch Aggregator" doc:id="a6699263-4b68-43a5-8ea4-e8733656d6fe" size="200" >
+						<salesforce:upsert doc:name="Upsert Customers" doc:id="09992aa0-1940-4480-9f06-d7b64a092de3" config-ref="SalesforceB2B" type="Account" externalIdFieldName="Customer_Id__c" target="upsertedCustomers"/>
+					</batch:aggregator>
+				</batch:step>
+			</batch:process-records>
+			<batch:on-complete >
+				<logger level="INFO" doc:name="BatchCompleted" doc:id="77d812ce-fff6-4881-9ef4-89ca316b6bdb" category="BatchCompleted" />
+			</batch:on-complete>
+		</batch:job>
+		<error-handler >
+			<on-error-continue enableNotifications="true" logException="true" doc:name="On Error Continue" doc:id="c601a94f-d423-4d91-8c4e-5febbc72d112" type="ANY" >
+				<ee:transform doc:name="Transform to JSON" doc:id="b1694ff6-e74a-4319-a4a7-088cc7cff890" >
+					<ee:message >
+						<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"errorMessage" : error.detailedDescription
+}]]></ee:set-payload>
+					</ee:message>
+				</ee:transform>
+				<set-variable value="500" doc:name="httpStatus" doc:id="381b760c-6ce8-47d6-a396-2e6615a7b36e" variableName="httpStatus"/>
+			</on-error-continue>
+		</error-handler>
+	</flow>
+</mule>

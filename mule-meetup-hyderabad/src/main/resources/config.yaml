@@ -1,0 +1,21 @@
+http:
+  host: "localhost"
+  port: "8089"
+  
+sfdc:
+  username: "amit.singh@b2b.com"
+  loginUrl: "https://login.salesforce.com/services/Soap/u/46.0"
+  stoken: "wH59H7cCPJn4zZghEVN7cVfT"
+  password: "wH59H7cCPJn4zZghEVN7cVfT"
+  
+twillio:
+  username: "ACa00a4edbc7287e9341779b4c04a8b3e5"
+  password: "04302702ecfa278213e45dfe2a119dbf"
+  ssid: "ACa00a4edbc7287e9341779b4c04a8b3e5"
+  path: "/2010-04-01"
+  port: "443"
+  scheme: "HTTP"
+  from: "12565888798"
+  host: "api.twilio.com"
+  timeout: "10000"
+  
