@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding='utf-8'?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.mulesoft.munit</groupId>
+        <artifactId>munit-core</artifactId>
+        <version>2.2.1</version>
+    </parent>
+    <artifactId>munit-runner</artifactId>
+    <packaging>mule-plugin</packaging>
+
+    <name>MUnit :: Runner Module</name>
+    <description>Mule plugin containing the base Munit DSL and the runner server</description>
+
+    <properties>
+        <licensePath>../../LICENSE_HEADER.txt</licensePath>
+        <formatterConfigPath>../../formatter.xml</formatterConfigPath>
+        <findbugsExcludePath>../../findbugs-exclude.xml</findbugsExcludePath>
+
+        <mule.extensions.api.version>1.0.0</mule.extensions.api.version>
+
+        <mule.app.plugins.maven.plugin.version>1.0.0</mule.app.plugins.maven.plugin.version>
+
+        <coverageLineLimit>0.76</coverageLineLimit>
+        <coverageBranchLimit>0.79</coverageBranchLimit>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.mule.runtime.plugins</groupId>
+                <artifactId>mule-plugin-maven-plugin</artifactId>
+                <version>${mule.app.plugins.maven.plugin.version}</version>
+                <extensions>true</extensions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.mule.runtime</groupId>
+            <artifactId>mule-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.mule.runtime</groupId>
+            <artifactId>mule-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.mule.runtime</groupId>
+            <artifactId>mule-module-spring-config</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.mulesoft.munit</groupId>
+            <artifactId>munit-common</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.activation</groupId>
+            <artifactId>jakarta.activation</artifactId>
+        </dependency>
+
+        <!-- Test Dependencies -->
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-all</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mule.runtime</groupId>
+            <artifactId>mule-extensions-api-persistence</artifactId>
+            <version>${mule.extensions.api.version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+</project>

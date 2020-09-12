@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extension-documentation>
+    <configs>
+        <config name="config">
+            <description><![CDATA[Default configuration]]></description>
+            <parameters/>
+        </config>
+    </configs>
+    <connections/>
+    <extension name="MUnit Tools">
+        <description><![CDATA[<p> MUnit Tools to perform testing on mule </p>]]></description>
+        <parameters/>
+    </extension>
+    <operations>
+        <operation name="assert">
+            <description><![CDATA[Evaluates if the given that assertion expression is successful. If the assertion fails, it throws an AssertionError]]></description>
+            <parameters>
+                <parameter name="that">
+                    <description><![CDATA[result of the assertion expression]]></description>
+                </parameter>
+                <parameter name="message">
+                    <description><![CDATA[message in case the assertion fails]]></description>
+                </parameter>
+            </parameters>
+        </operation>
+        <operation name="assertEquals">
+            <description><![CDATA[Checks if the given actual value is equal to the expected value. If they differ, an AssertionError is thrown.]]></description>
+            <parameters>
+                <parameter name="actual">
+                    <description><![CDATA[actual value to be asserted]]></description>
+                </parameter>
+                <parameter name="expected">
+                    <description><![CDATA[expected value of the assertion]]></description>
+                </parameter>
+                <parameter name="message">
+                    <description><![CDATA[message in case the assertion fails]]></description>
+                </parameter>
+            </parameters>
+        </operation>
+        <operation name="assertThat">
+            <description><![CDATA[Checks if the expression matches the given is Matcher. If the assertion fails, it throws an AssertionError]]></description>
+            <parameters>
+                <parameter name="expression">
+                    <description><![CDATA[value to be asserted]]></description>
+                </parameter>
+                <parameter name="is">
+                    <description><![CDATA[matcher to validate against the expression]]></description>
+                </parameter>
+                <parameter name="message">
+                    <description><![CDATA[message in case the assertion fails]]></description>
+                </parameter>
+            </parameters>
+        </operation>
+        <operation name="clearStoredData">
+            <description><![CDATA[Removes all stored data]]></description>
+            <parameters/>
+        </operation>
+        <operation name="dequeue">
+            <description><![CDATA[Pops the given data from a temporary queue.]]></description>
+            <parameters>
+                <parameter name="queueName">
+                    <description><![CDATA[The name of the queue where dequeue a value]]></description>
+                </parameter>
+                <parameter name="timeout">
+                    <description><![CDATA[Time to wait for a value until the connector throws a QUEUE_TIMEOUT error]]></description>
+                </parameter>
+                <parameter name="timeoutUnit">
+                    <description><![CDATA[Time Unit to use to wait for a value to arrive]]></description>
+                </parameter>
+                <parameter name="target">
+                    <description><![CDATA[The name of a variable on which the operation's output will be placed]]></description>
+                </parameter>
+                <parameter name="targetValue">
+                    <description><![CDATA[An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable]]></description>
+                </parameter>
+            </parameters>
+        </operation>
+        <operation name="fail">
+            <description><![CDATA[Fails with a AssertionError with the given message]]></description>
+            <parameters>
+                <parameter name="message">
+                    <description><![CDATA[message for the assertion failure]]></description>
+                </parameter>
+            </parameters>
+        </operation>
+        <operation name="mockWhen">
+            <description><![CDATA[Mocks the processor that has the given withAttributes, replacing it with the given answer. <p> During the test execution, if any processor tries to be executed, and it matches the processor name and the withAttributes, its execution its not performed, and instead the answer is used. If Answer#getThenReturn() thenReturn is specified, then that event is returned, or if Answer#getThenCall() thenCall is specified, the given flow is invoked, and the resulting event is returned. If no Answer is specified, the incoming event is returned.]]></description>
+            <parameters>
+                <parameter name="processor">
+                    <description><![CDATA[identifier of the processor to mock]]></description>
+                </parameter>
+                <parameter name="withAttributes">
+                    <description><![CDATA[additional attributes to identify the processor]]></description>
+                </parameter>
+                <parameter name="thenReturn">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="thenCall">
+                    <description><![CDATA[]]></description>
+                </parameter>
+            </parameters>
+        </operation>
+        <operation name="queue">
+            <description><![CDATA[Pushes the given value to a temporary queue so this can be consumed later on demand]]></description>
+            <parameters>
+                <parameter name="value">
+                    <description><![CDATA[Value to queue]]></description>
+                </parameter>
+                <parameter name="queueName">
+                    <description><![CDATA[The name of the queue where dequeue a value]]></description>
+                </parameter>
+            </parameters>
+        </operation>
+        <operation name="remove">
+            <description><![CDATA[Removes the value associated to the given key. <p> If no value exist for the key, then a MUNIT-TOOLS:MISSING_KEY error will be thrown.This operation is synchronized on the key level. No other operation will be able to access the same key while this operation is running.]]></description>
+            <parameters>
+                <parameter name="key">
+                    <description><![CDATA[the key of the object to be removed]]></description>
+                </parameter>
+                <parameter name="target">
+                    <description><![CDATA[The name of a variable on which the operation's output will be placed]]></description>
+                </parameter>
+                <parameter name="targetValue">
+                    <description><![CDATA[An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable]]></description>
+                </parameter>
+            </parameters>
+        </operation>
+        <operation name="retrieve">
+            <description><![CDATA[Retrieves the value stored for the given key. <p> If no value exists for the key, then a MUNIT-TOOLS:MISSING_KEY error will be thrown. This operations is synchronized on the key level. No other operation will be able to access the same key while this operation is running]]></description>
+            <parameters>
+                <parameter name="key">
+                    <description><![CDATA[the key of the value to be retrieved]]></description>
+                </parameter>
+                <parameter name="target">
+                    <description><![CDATA[The name of a variable on which the operation's output will be placed]]></description>
+                </parameter>
+                <parameter name="targetValue">
+                    <description><![CDATA[An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable]]></description>
+                </parameter>
+            </parameters>
+        </operation>
+        <operation name="runCustom">
+            <description><![CDATA[Runs a custom assertion over the given expression with the parameters params <p> The assertion must implement MunitAssertion]]></description>
+            <parameters>
+                <parameter name="assertion">
+                    <description><![CDATA[full qualified name of the custom assertion class]]></description>
+                </parameter>
+                <parameter name="expression">
+                    <description><![CDATA[value to be asserted]]></description>
+                </parameter>
+                <parameter name="params">
+                    <description><![CDATA[parameters of the custom assertion]]></description>
+                </parameter>
+            </parameters>
+        </operation>
+        <operation name="sleep">
+            <description><![CDATA[Causes the currently executing thread to sleep]]></description>
+            <parameters>
+                <parameter name="time">
+                    <description><![CDATA[The length of time to sleep]]></description>
+                </parameter>
+                <parameter name="timeUnit">
+                    <description><![CDATA[Time Unit to use to sleep]]></description>
+                </parameter>
+            </parameters>
+        </operation>
+        <operation name="store">
+            <description><![CDATA[Stores the given value using the given key. <p> This operation can be used either for storing new values or updating existing ones. This operation is synchronized on the key level. No other operation will be able to access the same key.]]></description>
+            <parameters>
+                <parameter name="key">
+                    <description><![CDATA[the key of the value to be stored]]></description>
+                </parameter>
+                <parameter name="value">
+                    <description><![CDATA[the value to be stored]]></description>
+                </parameter>
+                <parameter name="failIfPresent">
+                    <description><![CDATA[whether to fail or update the pre existing value if the key already exists on the store]]></description>
+                </parameter>
+            </parameters>
+        </operation>
+        <operation name="store-oauth-token">
+            <description><![CDATA[Stores a test OAuth token in the supplied ObjectStore]]></description>
+            <parameters>
+                <parameter name="accessToken">
+                    <description><![CDATA[the access token]]></description>
+                </parameter>
+                <parameter name="objectStore">
+                    <description><![CDATA[the object store to store the token in]]></description>
+                </parameter>
+                <parameter name="ownerConfigName">
+                    <description><![CDATA[the config name of the connector that's going to consume the token]]></description>
+                </parameter>
+                <parameter name="resourceOwnerId">
+                    <description><![CDATA[the id of the resource owner]]></description>
+                </parameter>
+                <parameter name="refreshToken">
+                    <description><![CDATA[the refresh token]]></description>
+                </parameter>
+                <parameter name="expiresIn">
+                    <description><![CDATA[the expiration string]]></description>
+                </parameter>
+                <parameter name="state">
+                    <description><![CDATA[the state parameter used in the OAuth dance]]></description>
+                </parameter>
+                <parameter name="additionalParameters">
+                    <description><![CDATA[additional parameters returned by the service provider]]></description>
+                </parameter>
+                <parameter name="overwrite">
+                    <description><![CDATA[whether to overwrite the token if already exists or fail instead.]]></description>
+                </parameter>
+            </parameters>
+        </operation>
+        <operation name="verifyCall">
+            <description><![CDATA[Verifies that the processor that has the given withAttributes has been executed. <p> During the test execution, if any processor is executed, and it matches the processor name and the withAttributes it will be counted as called. <p> If the processor was not called the specified number of times, it will throw an AssertionError]]></description>
+            <parameters>
+                <parameter name="processor">
+                    <description><![CDATA[identifier of the processor to mock]]></description>
+                </parameter>
+                <parameter name="withAttributes">
+                    <description><![CDATA[additional attributes to identify the processor]]></description>
+                </parameter>
+                <parameter name="times">
+                    <description><![CDATA[exact number of times the processor should have been executed]]></description>
+                </parameter>
+                <parameter name="atLeast">
+                    <description><![CDATA[minimum number of times the processor should have been executed]]></description>
+                </parameter>
+                <parameter name="atMost">
+                    <description><![CDATA[maximum number of times the processor should have been executed]]></description>
+                </parameter>
+            </parameters>
+        </operation>
+    </operations>
+    <sources/>
+    <types>
+        <type name="org.mule.munit.assertion.api.MunitAssertion">
+            <description><![CDATA[]]></description>
+            <parameters/>
+        </type>
+        <type name="org.mule.munit.assertion.api.expression.MatcherResult">
+            <description><![CDATA[]]></description>
+            <parameters>
+                <parameter name="description">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="matches">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="reasons">
+                    <description><![CDATA[]]></description>
+                </parameter>
+            </parameters>
+        </type>
+        <type name="org.mule.munit.assertion.api.matchers.Diff">
+            <description><![CDATA[]]></description>
+            <parameters>
+                <parameter name="diffs">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="matches">
+                    <description><![CDATA[]]></description>
+                </parameter>
+            </parameters>
+        </type>
+        <type name="org.mule.munit.assertion.api.matchers.Matcher">
+            <description><![CDATA[]]></description>
+            <parameters>
+                <parameter name="expected">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="type">
+                    <description><![CDATA[]]></description>
+                </parameter>
+            </parameters>
+        </type>
+        <type name="org.mule.munit.common.behavior.BehaviorManager">
+            <description><![CDATA[]]></description>
+            <parameters/>
+        </type>
+        <type name="org.mule.munit.common.model.Attribute">
+            <description><![CDATA[]]></description>
+            <parameters>
+                <parameter name="attributeName">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="whereValue">
+                    <description><![CDATA[]]></description>
+                </parameter>
+            </parameters>
+        </type>
+        <type name="org.mule.munit.common.model.Event">
+            <description><![CDATA[]]></description>
+            <parameters>
+                <parameter name="payload">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="attributes">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="error">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="variables">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="sessionProperties">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="inboundProperties">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="outboundProperties">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="inboundAttachments">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="outboundAttachments">
+                    <description><![CDATA[]]></description>
+                </parameter>
+            </parameters>
+        </type>
+        <type name="org.mule.munit.common.model.FlowName">
+            <description><![CDATA[]]></description>
+            <parameters>
+                <parameter name="flow">
+                    <description><![CDATA[]]></description>
+                </parameter>
+            </parameters>
+        </type>
+        <type name="org.mule.munit.tools.util.GetResourceFunctions">
+            <description><![CDATA[Utility functions to handle resources
+ 
+ @since 2.0.0
+ @author Mulesoft Inc.]]></description>
+            <parameters>
+                <parameter name="resourceAsByteArray">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="resourceAsReusableStream">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="resourceAsStream">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="resourceAsString">
+                    <description><![CDATA[]]></description>
+                </parameter>
+            </parameters>
+        </type>
+        <type name="org.mule.munit.tools.util.queue.api.TemporaryQueueRule">
+            <description><![CDATA[Rule to manage temporary queues
+
+ @author Mulesoft Inc.
+ @since 1.0.0]]></description>
+            <parameters>
+                <parameter name="orCreateQueue">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="queueName">
+                    <description><![CDATA[]]></description>
+                </parameter>
+            </parameters>
+        </type>
+    </types>
+</extension-documentation>

@@ -10,16 +10,16 @@ http://www.mulesoft.org/schema/mule/twilio-connector http://www.mulesoft.org/sch
 http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd">
 	<configuration-properties doc:name="Configuration properties" doc:id="403b2523-17bb-49fa-98a9-93a602a6e550" file="config.yaml" />
 	<configuration doc:name="Configuration" doc:id="4cf00ed9-2c69-4b9a-b451-bb9868ba990a" defaultErrorHandler-ref="globalError_Handler" />
-	<salesforce:sfdc-config name="SalesforceB2B" doc:name="Salesforce Config" doc:id="ebaa36ad-f470-41dc-aaa8-8ba686ae9962" >
-		<salesforce:cached-basic-connection username="${sfdc.username}" password="Eesting@123456" securityToken="${sfdc.stoken}" url="${sfdc.loginUrl}" />
-	</salesforce:sfdc-config>
 	<http:listener-config name="HTTPListener" doc:name="HTTP Listener config" doc:id="d76dbcf5-3e15-438d-ab13-2929e48b482a" >
 		<http:listener-connection host="0.0.0.0" port="${http.port}" />
 	</http:listener-config>
 	<twilio-connector:config name="TwilioConnectorConfig" doc:name="Twilio Connector Config" doc:id="fcb49cdf-2ebd-4388-8fea-a711fb6a0818" property_username="${twillio.username}" property_password="${twillio.password}" property_host="${twillio.host}" property_port="${twillio.port}" property_basePath="${twillio.path}" property_protocol="${twillio.scheme}" property_responseTimeout="${twillio.timeout}" />
 	<db:config name="DatabaseConfig" doc:name="Database Config" doc:id="9dba921f-0b4a-4de3-bb16-11f41b7c4447" >
-		<db:my-sql-connection host="localhost" port="3306" user="root" password="root" database="classicmodels" />
+		<db:my-sql-connection host="localhost" port="3306" user="root" password="root" database="classicmodels" transactionIsolation="READ_COMMITTED"/>
 	</db:config>
+	<salesforce:sfdc-config name="Salesforce_Config" doc:name="Salesforce Config" doc:id="a7ad7d53-3c94-44e9-995b-21c14cc56f85" >
+		<salesforce:basic-connection username="${sfdc.username}" password="Eesting@123456" securityToken="${sfdc.stoken}" url="${sfdc.loginUrl}" />
+	</salesforce:sfdc-config>
 	<error-handler name="globalError_Handler" doc:id="bd59549b-1778-43da-82ea-4df014f98586" >
 		<on-error-continue enableNotifications="true" logException="true" doc:name="On Error Continue" doc:id="2426bd24-6a8b-40e1-bbb5-5d9b8efed6f6" type="ANY">
 			<ee:transform doc:name="Transform Message" doc:id="5c677baf-83fa-4eed-a92b-2dd8c90959ba" >

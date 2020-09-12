@@ -1,0 +1,26 @@
+{
+  "configs": [
+    "hyderadab-meet-up.xml"
+  ],
+  "secureProperties": [],
+  "redeploymentEnabled": true,
+  "name": "com.mycompany:hyderadab-meet-up:1.0.0-SNAPSHOT",
+  "minMuleVersion": "4.2.2-hf2",
+  "requiredProduct": "MULE_EE",
+  "classLoaderModelLoaderDescriptor": {
+    "id": "mule",
+    "attributes": {
+      "exportedPackages": [],
+      "exportedResources": [
+        "application-types.xml",
+        "examples/Accounts.json",
+        "hyderadab-meet-up.xml",
+        "log4j2.xml"
+      ]
+    }
+  },
+  "bundleDescriptorLoader": {
+    "id": "mule",
+    "attributes": {}
+  }
+}

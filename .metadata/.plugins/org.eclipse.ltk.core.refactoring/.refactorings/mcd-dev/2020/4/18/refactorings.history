@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;mcd-dev/src/main/mule/mcd-dev.xml&apos; to &apos;main.xml&apos;" description="Rename resource &apos;mcd-dev.xml&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/main/mule/mcd-dev.xml" name="main.xml" stamp="1587987539916" updateReferences="true"/>
+</session>

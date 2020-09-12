@@ -1,0 +1,30 @@
+{
+  "extensionModelLoaderDescriptor": {
+    "id": "java",
+    "attributes": {
+      "type": "org.mule.extension.email.internal.EmailConnector",
+      "version": "1.1.9"
+    }
+  },
+  "name": "Email",
+  "requiredProduct": "MULE",
+  "classLoaderModelLoaderDescriptor": {
+    "id": "mule",
+    "attributes": {
+      "privilegedExportedPackages": [],
+      "privilegedArtifactIds": [],
+      "exportedPackages": [
+        "org.mule.extension.email.api.exception",
+        "org.mule.extension.email.api.predicate",
+        "org.mule.extension.email.api",
+        "org.mule.extension.email.api.attributes"
+      ],
+      "exportedResources": []
+    }
+  },
+  "bundleDescriptorLoader": {
+    "id": "mule",
+    "attributes": {}
+  },
+  "minMuleVersion": "4.1.1"
+}

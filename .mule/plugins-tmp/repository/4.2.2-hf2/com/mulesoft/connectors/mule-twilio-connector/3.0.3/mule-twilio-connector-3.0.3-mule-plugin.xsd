@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:mule="http://www.mulesoft.org/schema/mule/core" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.mulesoft.org/schema/mule/twilio-connector" attributeFormDefault="unqualified" elementFormDefault="qualified">
+  <xs:import namespace="http://www.w3.org/XML/1998/namespace"></xs:import>
+  <xs:import namespace="http://www.springframework.org/schema/beans" schemaLocation="http://www.springframework.org/schema/beans/spring-beans.xsd"></xs:import>
+  <xs:import namespace="http://www.mulesoft.org/schema/mule/core" schemaLocation="http://www.mulesoft.org/schema/mule/core/current/mule.xsd"></xs:import>
+  <xs:element xmlns:mule="http://www.mulesoft.org/schema/mule/core" substitutionGroup="mule:abstract-shared-extension" name="config">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="mule:abstractExtensionType">
+          <xs:sequence minOccurs="0" maxOccurs="1">
+            <xs:element minOccurs="0" maxOccurs="1" ref="mule:abstractConnectionProvider"></xs:element>
+            <xs:element minOccurs="0" maxOccurs="1" ref="mule:expiration-policy"></xs:element>
+          </xs:sequence>
+          <xs:attribute type="mule:expressionString" use="optional" default="api.twilio.com" name="property_host"></xs:attribute>
+          <xs:attribute type="mule:expressionString" use="optional" default="443" name="property_port"></xs:attribute>
+          <xs:attribute type="mule:expressionString" use="optional" default="/2010-04-01" name="property_basePath"></xs:attribute>
+          <xs:attribute type="mule:expressionString" use="optional" default="HTTPS" name="property_protocol"></xs:attribute>
+          <xs:attribute type="mule:expressionString" use="optional" name="property_proxyConfig"></xs:attribute>
+          <xs:attribute type="mule:expressionString" use="optional" default="10000" name="property_responseTimeout"></xs:attribute>
+          <xs:attribute type="mule:expressionString" use="required" name="property_username"></xs:attribute>
+          <xs:attribute type="mule:expressionString" use="required" name="property_password"></xs:attribute>
+          <xs:attribute type="xs:string" use="required" name="name">
+            <xs:annotation>
+              <xs:documentation>The identifier of this element used to reference it in other components</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element xmlns:mule="http://www.mulesoft.org/schema/mule/core" substitutionGroup="mule:abstractConnectionProvider" name="connection">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="mule:abstractConnectionProviderType">
+          <xs:sequence minOccurs="0" maxOccurs="1"></xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/twilio-connector" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="Delete-mediaType" substitutionGroup="mule:abstract-operator" name="delete-media"></xs:element>
+  <xs:complexType name="Delete-mediaType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractOperatorType">
+        <xs:sequence minOccurs="0" maxOccurs="1"></xs:sequence>
+        <xs:attribute type="mule:expressionString" use="optional" name="date-created">
+          <xs:annotation>
+            <xs:documentation>Only show media created on the given date. Should be formatted as YYYY-MM-DD. You can also specify inequality, such as DateCreated&lt;=YYYY-MM-DD for media generated at or before midnight on a date, and DateCreated&gt;=YYYY-MM-DD for media generated at or after midnight on a date.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="mule:expressionString" use="required" name="account-sid">
+          <xs:annotation>
+            <xs:documentation>A 34 character string that uniquely identifies the user account.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="mule:expressionString" use="required" name="message-sid">
+          <xs:annotation>
+            <xs:documentation>Unique ID for any message successfully created by Twilio’s API. It is a 34 character string that starts with “SM…” for SMS and “MM…” for MMS. To find the SID for a specific message via the API, make a GET request to the Messages List Resource. This will return a list of SMS messages associated with your account along with details about each message. It would be the “Sid” property in a message resource.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="mule:expressionString" use="required" name="media-sid">
+          <xs:annotation>
+            <xs:documentation>Unique ID for any media successfully created by Twilio’s API. It is a 34 character string that starts with “SM…” for SMS and “MM…” for MMS. To find the SID for a specific message via the API, make a GET request to the Messages List Resource. This will return a list of SMS messages associated with your account along with details about each message. It would be the “Sid” property in a message resource.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/twilio-connector" type="AUTOGENERATED_ffde5c1f8190df064f033d2eb170cd214c6e5a0ea7fdc5dc4a9a156aec736114_EnumType" use="optional" name="request-streaming-mode"></xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>The name of the configuration to be used to execute this component</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="target">
+          <xs:annotation>
+            <xs:documentation>The name of a variable on which the operation's output will be placed</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="mule:expressionString" use="optional" default="#[payload]" name="targetValue">
+          <xs:annotation>
+            <xs:documentation>An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/twilio-connector" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="Delete-messageType" substitutionGroup="mule:abstract-operator" name="delete-message"></xs:element>
+  <xs:complexType name="Delete-messageType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractOperatorType">
+        <xs:sequence minOccurs="0" maxOccurs="1"></xs:sequence>
+        <xs:attribute type="mule:expressionString" use="required" name="account-sid">
+          <xs:annotation>
+            <xs:documentation>A 34 character string that uniquely identifies the user account.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="mule:expressionString" use="required" name="message-sid">
+          <xs:annotation>
+            <xs:documentation>Unique ID for any message successfully created by Twilio’s API. It is a 34 character string that starts with “SM…” for SMS and “MM…” for MMS. To find the SID for a specific message via the API, make a GET request to the Messages List Resource. This will return a list of SMS messages associated with your account along with details about each message. It would be the “Sid” property in a message resource.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/twilio-connector" type="AUTOGENERATED_ffde5c1f8190df064f033d2eb170cd214c6e5a0ea7fdc5dc4a9a156aec736114_EnumType" use="optional" name="request-streaming-mode"></xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>The name of the configuration to be used to execute this component</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="target">
+          <xs:annotation>
+            <xs:documentation>The name of a variable on which the operation's output will be placed</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="mule:expressionString" use="optional" default="#[payload]" name="targetValue">
+          <xs:annotation>
+            <xs:documentation>An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/twilio-connector" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="Get-mediaType" substitutionGroup="mule:abstract-operator" name="get-media"></xs:element>
+  <xs:complexType name="Get-mediaType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractOperatorType">
+        <xs:sequence minOccurs="0" maxOccurs="1"></xs:sequence>
+        <xs:attribute type="mule:expressionString" use="optional" name="date-created">
+          <xs:annotation>
+            <xs:documentation>Only show media created on the given date. Should be formatted as YYYY-MM-DD. You can also specify inequality, such as DateCreated&lt;=YYYY-MM-DD for media generated at or before midnight on a date, and DateCreated&gt;=YYYY-MM-DD for media generated at or after midnight on a date.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="mule:expressionString" use="required" name="account-sid">
+          <xs:annotation>
+            <xs:documentation>A 34 character string that uniquely identifies the user account.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="mule:expressionString" use="required" name="message-sid">
+          <xs:annotation>
+            <xs:documentation>Unique ID for any message successfully created by Twilio’s API. It is a 34 character string that starts with “SM…” for SMS and “MM…” for MMS. To find the SID for a specific message via the API, make a GET request to the Messages List Resource. This will return a list of SMS messages associated with your account along with details about each message. It would be the “Sid” property in a message resource.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="mule:expressionString" use="required" name="media-sid">
+          <xs:annotation>
+            <xs:documentation>Unique ID for any media successfully created by Twilio’s API. It is a 34 character string that starts with “SM…” for SMS and “MM…” for MMS. To find the SID for a specific message via the API, make a GET request to the Messages List Resource. This will return a list of SMS messages associated with your account along with details about each message. It would be the “Sid” property in a message resource.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/twilio-connector" type="AUTOGENERATED_ffde5c1f8190df064f033d2eb170cd214c6e5a0ea7fdc5dc4a9a156aec736114_EnumType" use="optional" name="request-streaming-mode"></xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>The name of the configuration to be used to execute this component</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="target">
+          <xs:annotation>
+            <xs:documentation>The name of a variable on which the operation's output will be placed</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="mule:expressionString" use="optional" default="#[payload]" name="targetValue">
+          <xs:annotation>
+            <xs:documentation>An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/twilio-connector" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="Get-media-listType" substitutionGroup="mule:abstract-operator" name="get-media-list"></xs:element>
+  <xs:complexType name="Get-media-listType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractOperatorType">
+        <xs:sequence minOccurs="0" maxOccurs="1"></xs:sequence>
+        <xs:attribute type="mule:expressionString" use="optional" name="date-created">
+          <xs:annotation>
+            <xs:documentation>Only show media created on the given date. Should be formatted as YYYY-MM-DD. You can also specify inequality, such as DateCreated&lt;=YYYY-MM-DD for media generated at or before midnight on a date, and DateCreated&gt;=YYYY-MM-DD for media generated at or after midnight on a date.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="mule:expressionString" use="required" name="account-sid">
+          <xs:annotation>
+            <xs:documentation>A 34 character string that uniquely identifies the user account.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="mule:expressionString" use="required" name="message-sid">
+          <xs:annotation>
+            <xs:documentation>Unique ID for any message successfully created by Twilio’s API. It is a 34 character string that starts with “SM…” for SMS and “MM…” for MMS. To find the SID for a specific message via the API, make a GET request to the Messages List Resource. This will return a list of SMS messages associated with your account along with details about each message. It would be the “Sid” property in a message resource.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/twilio-connector" type="AUTOGENERATED_ffde5c1f8190df064f033d2eb170cd214c6e5a0ea7fdc5dc4a9a156aec736114_EnumType" use="optional" name="request-streaming-mode"></xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>The name of the configuration to be used to execute this component</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="target">
+          <xs:annotation>
+            <xs:documentation>The name of a variable on which the operation's output will be placed</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="mule:expressionString" use="optional" default="#[payload]" name="targetValue">
+          <xs:annotation>
+            <xs:documentation>An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/twilio-connector" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="Get-messageType" substitutionGroup="mule:abstract-operator" name="get-message"></xs:element>
+  <xs:complexType name="Get-messageType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractOperatorType">
+        <xs:sequence minOccurs="0" maxOccurs="1"></xs:sequence>
+        <xs:attribute type="mule:expressionString" use="required" name="account-sid">
+          <xs:annotation>
+            <xs:documentation>A 34 character string that uniquely identifies the user account.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="mule:expressionString" use="required" name="message-sid">
+          <xs:annotation>
+            <xs:documentation>Unique ID for any message successfully created by Twilio’s API. It is a 34 character string that starts with “SM…” for SMS and “MM…” for MMS. To find the SID for a specific message via the API, make a GET request to the Messages List Resource. This will return a list of SMS messages associated with your account along with details about each message. It would be the “Sid” property in a message resource.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/twilio-connector" type="AUTOGENERATED_ffde5c1f8190df064f033d2eb170cd214c6e5a0ea7fdc5dc4a9a156aec736114_EnumType" use="optional" name="request-streaming-mode"></xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>The name of the configuration to be used to execute this component</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="target">
+          <xs:annotation>
+            <xs:documentation>The name of a variable on which the operation's output will be placed</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="mule:expressionString" use="optional" default="#[payload]" name="targetValue">
+          <xs:annotation>
+            <xs:documentation>An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/twilio-connector" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="Get-message-listType" substitutionGroup="mule:abstract-operator" name="get-message-list"></xs:element>
+  <xs:complexType name="Get-message-listType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractOperatorType">
+        <xs:sequence minOccurs="0" maxOccurs="1"></xs:sequence>
+        <xs:attribute type="mule:expressionString" use="optional" name="to">
+          <xs:annotation>
+            <xs:documentation>Only show messages to this phone number.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="mule:expressionString" use="optional" name="from">
+          <xs:annotation>
+            <xs:documentation>Only show messages from this phone number or alphanumeric sender ID.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="mule:expressionString" use="optional" name="date-sent">
+          <xs:annotation>
+            <xs:documentation>Only show messages sent on this date (in GMT format), given as YYYY-MM-DD. Example: DateSent=2009-07-06. You can also specify inequality, such as DateSent&lt;=YYYY-MM-DD for messages that were sent on or before midnight on a date, and DateSent&gt;=YYYY-MM-DD for messages sent on or after midnight on a date.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="mule:expressionString" use="required" name="account-sid">
+          <xs:annotation>
+            <xs:documentation>A 34 character string that uniquely identifies the user account.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/twilio-connector" type="AUTOGENERATED_ffde5c1f8190df064f033d2eb170cd214c6e5a0ea7fdc5dc4a9a156aec736114_EnumType" use="optional" name="request-streaming-mode"></xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>The name of the configuration to be used to execute this component</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="target">
+          <xs:annotation>
+            <xs:documentation>The name of a variable on which the operation's output will be placed</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="mule:expressionString" use="optional" default="#[payload]" name="targetValue">
+          <xs:annotation>
+            <xs:documentation>An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/twilio-connector" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="Redact-messageType" substitutionGroup="mule:abstract-operator" name="redact-message"></xs:element>
+  <xs:complexType name="Redact-messageType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractOperatorType">
+        <xs:sequence minOccurs="0" maxOccurs="1">
+          <xs:element type="xs:string" minOccurs="0" maxOccurs="1" name="redact-message-request-data"></xs:element>
+        </xs:sequence>
+        <xs:attribute type="mule:expressionString" use="required" name="account-sid">
+          <xs:annotation>
+            <xs:documentation>A 34 character string that uniquely identifies the user account.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="mule:expressionString" use="required" name="message-sid">
+          <xs:annotation>
+            <xs:documentation>Unique ID for any message successfully created by Twilio’s API. It is a 34 character string that starts with “SM…” for SMS and “MM…” for MMS. To find the SID for a specific message via the API, make a GET request to the Messages List Resource. This will return a list of SMS messages associated with your account along with details about each message. It would be the “Sid” property in a message resource.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/twilio-connector" type="AUTOGENERATED_ffde5c1f8190df064f033d2eb170cd214c6e5a0ea7fdc5dc4a9a156aec736114_EnumType" use="optional" name="request-streaming-mode"></xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>The name of the configuration to be used to execute this component</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="target">
+          <xs:annotation>
+            <xs:documentation>The name of a variable on which the operation's output will be placed</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="mule:expressionString" use="optional" default="#[payload]" name="targetValue">
+          <xs:annotation>
+            <xs:documentation>An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element xmlns="http://www.mulesoft.org/schema/mule/twilio-connector" xmlns:mule="http://www.mulesoft.org/schema/mule/core" type="Send-messageType" substitutionGroup="mule:abstract-operator" name="send-message"></xs:element>
+  <xs:complexType name="Send-messageType">
+    <xs:complexContent>
+      <xs:extension xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:abstractOperatorType">
+        <xs:sequence minOccurs="0" maxOccurs="1">
+          <xs:element type="xs:string" minOccurs="0" maxOccurs="1" name="send-message-request-data"></xs:element>
+        </xs:sequence>
+        <xs:attribute type="mule:expressionString" use="required" name="account-sid">
+          <xs:annotation>
+            <xs:documentation>A 34 character string that uniquely identifies the user account.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute xmlns="http://www.mulesoft.org/schema/mule/twilio-connector" type="AUTOGENERATED_ffde5c1f8190df064f033d2eb170cd214c6e5a0ea7fdc5dc4a9a156aec736114_EnumType" use="optional" name="request-streaming-mode"></xs:attribute>
+        <xs:attribute type="xs:string" use="required" name="config-ref">
+          <xs:annotation>
+            <xs:documentation>The name of the configuration to be used to execute this component</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" use="optional" name="target">
+          <xs:annotation>
+            <xs:documentation>The name of a variable on which the operation's output will be placed</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="mule:expressionString" use="optional" default="#[payload]" name="targetValue">
+          <xs:annotation>
+            <xs:documentation>An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:simpleType name="AUTOGENERATED_ffde5c1f8190df064f033d2eb170cd214c6e5a0ea7fdc5dc4a9a156aec736114_EnumType">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="AUTO"></xs:enumeration>
+          <xs:enumeration value="NEVER"></xs:enumeration>
+          <xs:enumeration value="ALWAYS"></xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction xmlns:mule="http://www.mulesoft.org/schema/mule/core" base="mule:propertyPlaceholderType"></xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+</xs:schema>

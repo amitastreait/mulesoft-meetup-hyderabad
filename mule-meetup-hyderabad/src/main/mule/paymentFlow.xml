@@ -6,49 +6,7 @@
 http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
 http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
 http://www.mulesoft.org/schema/mule/salesforce http://www.mulesoft.org/schema/mule/salesforce/current/mule-salesforce.xsd">
-	<flow name="paymentFlowFlow" doc:id="3f53be00-ac39-4449-847a-964d95e47f30" initialState="stopped">
-		<db:listener table="payment" doc:name="PaymentCreated" doc:id="a238a7b0-6870-4e71-a46c-5cf67bc0c366" watermarkColumn="id" config-ref="DatabaseConfig">
-			<scheduling-strategy >
-				<fixed-frequency frequency="30" timeUnit="SECONDS" />
-			</scheduling-strategy>
-		</db:listener>
-		<logger level="INFO" doc:name="Logger[]" doc:id="f00f45b1-86a9-4f22-8c7a-d297871b51ed" message="#[payload]"/>
-		<set-variable value="#[payload.*customerNumber]" doc:name="setCustomerId" doc:id="d2d9e34f-8574-4f44-ad48-b8107584e3df" variableName="customerId"/>
-		<set-variable value="#[payload]" doc:name="setPayment" doc:id="9861bf9f-676a-422d-90c8-88b1a43e8068" variableName="Payment"/>
-		<logger level="INFO" doc:name="vars.customerId" doc:id="6e2ad61f-60ce-4203-816f-6d6301cdc027" message="#[vars.customerId]" category="vars.customerId"/>
-		<salesforce:query doc:name="QueryCustomers" doc:id="f5220cd0-0d66-45fa-a954-236140afea9c" target="existingCustomers" config-ref="SalesforceB2B">
-			<salesforce:salesforce-query >Select Id, Name, Customer_Id__c From Account Where Customer_Id__c   IN  ':customerId'</salesforce:salesforce-query>
-			<salesforce:parameters ><![CDATA[#[output application/json
----
-{
-	customerId : vars.customerId
-}]]]></salesforce:parameters>
-		</salesforce:query>
-		<logger level="INFO" doc:name="Logger[SOQL]" doc:id="2b28ada1-3ad6-4a9b-8542-0c94cf3f723b" />
-		<ee:transform doc:name="Transform Message" doc:id="3b51cbc0-ffff-4684-adde-62ee73564447" >
-			<ee:message >
-				<ee:set-payload ><![CDATA[%dw 2.0
-output application/json
----
-vars.existingCustomers]]></ee:set-payload>
-			</ee:message>
-		</ee:transform>
-		<foreach doc:name="For Each Customer" doc:id="23eeab8b-0b0d-4848-8f7e-8cfe4c64c25b" collection="#[vars.existingCustomers]">
-			<choice doc:name="Choice" doc:id="2c302e52-3764-4331-988f-0215760f33d3" >
-				<when expression="#[payload.Customer_Id__c == vars.Payment.customerNumber]">
-					<ee:transform doc:name="Transform Message" doc:id="2821d50e-b154-4d7a-9bab-85857abbb1a2">
-				<ee:message>
-					<ee:set-payload><![CDATA[%dw 2.0
-output application/json
----
-{
-}]]></ee:set-payload>
-				</ee:message>
-			</ee:transform>
-					<salesforce:create doc:name="CreatePayment" doc:id="b55b8e6c-2d17-4e2b-808c-d8ffaa8362e4" type="Payments__c" config-ref="SalesforceB2B"/>
-				</when>
-			</choice>
-			<logger level="INFO" doc:name="Logger" doc:id="96e16107-1c70-4a41-aa20-660605a2d727" />
-		</foreach>
+	<flow name="paymentFlowFlow" doc:id="0a33a2be-62cf-4271-9283-40b7e5d84531" >
+		<logger level="INFO" doc:name="Logger" doc:id="6247d187-ab24-4c49-bd23-02d393e92c33" />
 	</flow>
 </mule>

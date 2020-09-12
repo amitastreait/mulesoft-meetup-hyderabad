@@ -1,0 +1,1781 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extension-documentation>
+    <configs>
+        <config name="config">
+            <description><![CDATA[]]></description>
+            <parameters>
+                <parameter name="expirationPolicy">
+                    <description><![CDATA[Configures the minimum amount of time that a dynamic configuration instance can remain idle before the runtime considers it eligible for expiration. This does not mean that the platform will expire the instance at the exact moment that it becomes eligible. The runtime will actually purge the instances when it sees it fit.]]></description>
+                </parameter>
+            </parameters>
+        </config>
+    </configs>
+    <connections>
+        <connection name="basic">
+            <description><![CDATA[]]></description>
+            <parameters>
+                <parameter name="sessionToken">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="connectionTimeout">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="maxConnections">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="socketTimeout">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="accessKey">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="secretKey">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="tryDefaultAWSCredentialsProviderChain">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="region">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="tlsContext">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="reconnection">
+                    <description><![CDATA[When the application is deployed, a connectivity test is performed on all connectors. If set to true, deployment will fail if the test doesn't pass after exhausting the associated reconnection strategy]]></description>
+                </parameter>
+                <parameter name="proxyHost">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="proxyPort">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="proxyUsername">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="proxyPassword">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="proxyDomain">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="proxyWorkstation">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="storageUrl">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="forceGlobalBucketAccess">
+                    <description><![CDATA[]]></description>
+                </parameter>
+            </parameters>
+        </connection>
+        <connection name="role">
+            <description><![CDATA[]]></description>
+            <parameters>
+                <parameter name="roleARN">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="connectionTimeout">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="maxConnections">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="socketTimeout">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="accessKey">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="secretKey">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="tryDefaultAWSCredentialsProviderChain">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="region">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="tlsContext">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="reconnection">
+                    <description><![CDATA[When the application is deployed, a connectivity test is performed on all connectors. If set to true, deployment will fail if the test doesn't pass after exhausting the associated reconnection strategy]]></description>
+                </parameter>
+                <parameter name="proxyHost">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="proxyPort">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="proxyUsername">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="proxyPassword">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="proxyDomain">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="proxyWorkstation">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="storageUrl">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="forceGlobalBucketAccess">
+                    <description><![CDATA[]]></description>
+                </parameter>
+            </parameters>
+        </connection>
+    </connections>
+    <extension name="Amazon S3">
+        <description><![CDATA[]]></description>
+        <parameters/>
+    </extension>
+    <operations>
+        <operation name="abortMultipartUpload">
+            <description><![CDATA[Aborts a multipart upload. After a multipart upload is aborted, no additional parts can be uploaded using that upload ID. The storage consumed by any previously uploaded parts will be freed. However, if any part uploads are currently in progress, those part uploads may or may not succeed. As a result, it may be necessary to abort a given multipart upload multiple times in order to completely free all storage consumed by all parts.]]></description>
+            <parameters>
+                <parameter name="bucketName">
+                    <description><![CDATA[the name of the bucket containing the multipart upload to abort.]]></description>
+                </parameter>
+                <parameter name="key">
+                    <description><![CDATA[the key of the multipart upload to abort.]]></description>
+                </parameter>
+                <parameter name="uploadId">
+                    <description><![CDATA[the ID of the upload to abort.]]></description>
+                </parameter>
+                <parameter name="reconnectionStrategy">
+                    <description><![CDATA[A retry strategy in case of connectivity errors]]></description>
+                </parameter>
+            </parameters>
+        </operation>
+        <operation name="completeMultipartUpload">
+            <description><![CDATA[Completes a multipart upload by assembling previously uploaded parts.]]></description>
+            <parameters>
+                <parameter name="bucketName">
+                    <description><![CDATA[the name of the bucket containing the multipart upload to complete.]]></description>
+                </parameter>
+                <parameter name="key">
+                    <description><![CDATA[the key under which the multipart upload to complete is stored.]]></description>
+                </parameter>
+                <parameter name="uploadId">
+                    <description><![CDATA[the ID of the multipart upload to complete.]]></description>
+                </parameter>
+                <parameter name="partETags">
+                    <description><![CDATA[the list of part numbers and ETags that identify the individual parts of the multipart upload to complete.]]></description>
+                </parameter>
+                <parameter name="target">
+                    <description><![CDATA[The name of a variable on which the operation's output will be placed]]></description>
+                </parameter>
+                <parameter name="targetValue">
+                    <description><![CDATA[An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable]]></description>
+                </parameter>
+                <parameter name="reconnectionStrategy">
+                    <description><![CDATA[A retry strategy in case of connectivity errors]]></description>
+                </parameter>
+            </parameters>
+        </operation>
+        <operation name="copyObject">
+            <description><![CDATA[Copies a source object to a new destination; to copy an object, the caller's account must have read access to the source object and write access to the destination bucket. By default, all object metadata for the source object are copied to the new destination object, unless new object metadata in the specified is provided. The AccessControlList is not copied to the new object, and, unless another ACL specified, PRIVATE is assumed. If no destination bucket is specified, the same that the source bucket is used - local copy. Destination object's Content-Type http header would be set with the specified value and if it is passed null, then the default MIME type 'application/octet-stream' would be set.]]></description>
+            <parameters>
+                <parameter name="sourceBucketName">
+                    <description><![CDATA[the source object's bucket]]></description>
+                </parameter>
+                <parameter name="sourceKey">
+                    <description><![CDATA[the source object's key]]></description>
+                </parameter>
+                <parameter name="sourceVersionId">
+                    <description><![CDATA[the specific version of the source object to copy, if versioning is enabled.]]></description>
+                </parameter>
+                <parameter name="destinationBucketName">
+                    <description><![CDATA[the destination object's bucket. If none provided, object is copied within the same bucket.]]></description>
+                </parameter>
+                <parameter name="destinationKey">
+                    <description><![CDATA[the destination object's key]]></description>
+                </parameter>
+                <parameter name="destinationAcl">
+                    <description><![CDATA[the acl of the destination object.]]></description>
+                </parameter>
+                <parameter name="destinationStorageClass">
+                    <description><![CDATA[one of StorageClass enumerated values, defaults to StorageClass#STANDARD]]></description>
+                </parameter>
+                <parameter name="destinationUserMetadata">
+                    <description><![CDATA[the new metadata of the destination object. If specified, overrides that copied from the source object]]></description>
+                </parameter>
+                <parameter name="modifiedSince">
+                    <description><![CDATA[The modified constraint that restricts this request to executing only if the object has been modified after the specified date.]]></description>
+                </parameter>
+                <parameter name="unmodifiedSince">
+                    <description><![CDATA[The unmodified constraint that restricts this request to executing only if the object has not been modified after this date.]]></description>
+                </parameter>
+                <parameter name="encryption">
+                    <description><![CDATA[Encryption method for server-side encryption. Supported value AES256.]]></description>
+                </parameter>
+                <parameter name="contentType">
+                    <description><![CDATA[the destination object's Content-Type HTTP header]]></description>
+                </parameter>
+                <parameter name="target">
+                    <description><![CDATA[The name of a variable on which the operation's output will be placed]]></description>
+                </parameter>
+                <parameter name="targetValue">
+                    <description><![CDATA[An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable]]></description>
+                </parameter>
+                <parameter name="reconnectionStrategy">
+                    <description><![CDATA[A retry strategy in case of connectivity errors]]></description>
+                </parameter>
+            </parameters>
+        </operation>
+        <operation name="createBucket">
+            <description><![CDATA[Creates a new bucket; connector must not be configured as anonymous for this operation to succeed. Bucket names must be unique across all of Amazon S3, that is, among all their users. Bucket ownership is similar to the ownership of Internet domain names. Within Amazon S3, only a single user owns each bucket. Once a uniquely named bucket is created in Amazon S3, organize and name the objects within the bucket in any way. Ownership of the bucket is retained as long as the owner has an Amazon S3 account. To conform with DNS requirements, buckets names must: not contain underscores, be between 3 and 63 characters long, not end with a dash, not contain adjacent periods, not contain dashes next to periods and not contain uppercase characters. Do not make bucket create or delete calls in the high availability code path of an application. Create or delete buckets in a separate initialization or setup.]]></description>
+            <parameters>
+                <parameter name="bucketName">
+                    <description><![CDATA[The bucket to create. It must not exist yet.]]></description>
+                </parameter>
+                <parameter name="region">
+                    <description><![CDATA[the region where to create the new bucket]]></description>
+                </parameter>
+                <parameter name="acl">
+                    <description><![CDATA[the access control list of the new bucket]]></description>
+                </parameter>
+                <parameter name="target">
+                    <description><![CDATA[The name of a variable on which the operation's output will be placed]]></description>
+                </parameter>
+                <parameter name="targetValue">
+                    <description><![CDATA[An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable]]></description>
+                </parameter>
+                <parameter name="reconnectionStrategy">
+                    <description><![CDATA[A retry strategy in case of connectivity errors]]></description>
+                </parameter>
+            </parameters>
+        </operation>
+        <operation name="createObject">
+            <description><![CDATA[Uploads an object to S3. Supported contents are InputStreams, Strings, byte arrays and Files.]]></description>
+            <parameters>
+                <parameter name="bucketName">
+                    <description><![CDATA[the object's bucket]]></description>
+                </parameter>
+                <parameter name="key">
+                    <description><![CDATA[the object's key]]></description>
+                </parameter>
+                <parameter name="objectContent">
+                    <description><![CDATA[the content to be uploaded to S3, capable of creating a PutObjectRequest.]]></description>
+                </parameter>
+                <parameter name="acl">
+                    <description><![CDATA[the access control list of the new object]]></description>
+                </parameter>
+                <parameter name="kmsMasterKey">
+                    <description><![CDATA[Encrypt objects uploaded to S3 buckets with AWS KMS master key]]></description>
+                </parameter>
+                <parameter name="userMetadata">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="lastModified">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="contentLength">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="contentType">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="contentLanguage">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="contentEncoding">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="cacheControl">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="contentMD5">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="contentDisposition">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="etag">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="versionId">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="sseAlgorithm">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="sseCustomerAlgorithm">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="sseCustomerKeyMd5">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="expirationTime">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="expirationTimeRuleId">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="restoreExpirationTime">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="ongoingRestore">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="httpExpiresDate">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="storageClass">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="sseAwsKmsKeyId">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="requesterCharged">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="replicationStatus">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="target">
+                    <description><![CDATA[The name of a variable on which the operation's output will be placed]]></description>
+                </parameter>
+                <parameter name="targetValue">
+                    <description><![CDATA[An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable]]></description>
+                </parameter>
+                <parameter name="reconnectionStrategy">
+                    <description><![CDATA[A retry strategy in case of connectivity errors]]></description>
+                </parameter>
+            </parameters>
+        </operation>
+        <operation name="createObjectPresignedUri">
+            <description><![CDATA[Returns a pre-signed URL for accessing an Amazon S3 object. The pre-signed URL can be shared to other users, allowing access to the resource without providing an account's AWS security credentials.]]></description>
+            <parameters>
+                <parameter name="bucketName">
+                    <description><![CDATA[the name of the bucket involved in this request.]]></description>
+                </parameter>
+                <parameter name="key">
+                    <description><![CDATA[the key of the object involved in this request.]]></description>
+                </parameter>
+                <parameter name="expiration">
+                    <description><![CDATA[the expiration date at which point the new pre-signed URL will no longer be accepted by Amazon S3.]]></description>
+                </parameter>
+                <parameter name="contentMd5">
+                    <description><![CDATA[the expected content-md5 header of the request.]]></description>
+                </parameter>
+                <parameter name="contentType">
+                    <description><![CDATA[the expected content-type of the request.]]></description>
+                </parameter>
+                <parameter name="method">
+                    <description><![CDATA[the HTTP method (GET, PUT, DELETE, HEAD) to be used in this request.]]></description>
+                </parameter>
+                <parameter name="sseS3Encryption">
+                    <description><![CDATA[the encryption method (KMS, AES256) to use for the presigned URL.]]></description>
+                </parameter>
+                <parameter name="target">
+                    <description><![CDATA[The name of a variable on which the operation's output will be placed]]></description>
+                </parameter>
+                <parameter name="targetValue">
+                    <description><![CDATA[An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable]]></description>
+                </parameter>
+                <parameter name="reconnectionStrategy">
+                    <description><![CDATA[A retry strategy in case of connectivity errors]]></description>
+                </parameter>
+            </parameters>
+        </operation>
+        <operation name="deleteBucket">
+            <description><![CDATA[Deletes the specified bucket. All objects (and all object versions, if versioning was ever enabled) in the bucket must be deleted before the bucket itself can be deleted; this restriction can be relaxed by specifying the attribute force="true".]]></description>
+            <parameters>
+                <parameter name="bucketName">
+                    <description><![CDATA[the bucket to delete]]></description>
+                </parameter>
+                <parameter name="force">
+                    <description><![CDATA[optional true if the bucket must be deleted even if it is not empty, false if operation should fail in such scenario.]]></description>
+                </parameter>
+                <parameter name="reconnectionStrategy">
+                    <description><![CDATA[A retry strategy in case of connectivity errors]]></description>
+                </parameter>
+            </parameters>
+        </operation>
+        <operation name="deleteBucketCorsConfiguration">
+            <description><![CDATA[Deletes the Cross Origin Configuration information set for the bucket. To use this operation, you must have permission to perform the s3:PutCORSConfiguration action. The bucket owner has this permission by default and can grant this permission to others.]]></description>
+            <parameters>
+                <parameter name="bucketName">
+                    <description><![CDATA[the bucket to delete Cross Origin Configuration.]]></description>
+                </parameter>
+                <parameter name="reconnectionStrategy">
+                    <description><![CDATA[A retry strategy in case of connectivity errors]]></description>
+                </parameter>
+            </parameters>
+        </operation>
+        <operation name="deleteBucketLifecycleConfiguration">
+            <description><![CDATA[Deletes the lifecycle configuration from the specified bucket. Amazon S3 removes all the lifecycle configuration rules in the lifecycle subresource associated with the bucket. Your objects never expire, and Amazon S3 no longer automatically deletes any objects on the basis of rules contained in the deleted lifecycle configuration.]]></description>
+            <parameters>
+                <parameter name="bucketName">
+                    <description><![CDATA[the bucket whose lifecycle configuration to delete.]]></description>
+                </parameter>
+                <parameter name="reconnectionStrategy">
+                    <description><![CDATA[A retry strategy in case of connectivity errors]]></description>
+                </parameter>
+            </parameters>
+        </operation>
+        <operation name="deleteBucketPolicy">
+            <description><![CDATA[Deletes the bucket's policy. Only the owner of the bucket can delete the bucket policy. Bucket policies provide access control management at the bucket level for both the bucket resource and contained object resources.]]></description>
+            <parameters>
+                <parameter name="bucketName">
+                    <description><![CDATA[the bucket whose policy to delete]]></description>
+                </parameter>
+                <parameter name="reconnectionStrategy">
+                    <description><![CDATA[A retry strategy in case of connectivity errors]]></description>
+                </parameter>
+            </parameters>
+        </operation>
+        <operation name="deleteBucketTaggingConfiguration">
+            <description><![CDATA[Deletes the tagging configuration associated with the specified bucket. By default, the bucket owner has this permission and can grant this permission to others.]]></description>
+            <parameters>
+                <parameter name="bucketName">
+                    <description><![CDATA[the bucket whose tag to delete.]]></description>
+                </parameter>
+                <parameter name="reconnectionStrategy">
+                    <description><![CDATA[A retry strategy in case of connectivity errors]]></description>
+                </parameter>
+            </parameters>
+        </operation>
+        <operation name="deleteBucketWebsiteConfiguration">
+            <description><![CDATA[Removes the website configuration for a bucket; this operation requires the DeleteBucketWebsite permission. By default, only the bucket owner can delete the website configuration attached to a bucket. However, bucket owners can grant other users permission to delete the website configuration by writing a bucket policy granting them the <code>S3:DeleteBucketWebsite</code> permission. Calling this operation on a bucket with no website configuration does not fail, but calling this operation a bucket that does not exist does.]]></description>
+            <parameters>
+                <parameter name="bucketName">
+                    <description><![CDATA[the bucket whose website configuration to delete]]></description>
+                </parameter>
+                <parameter name="reconnectionStrategy">
+                    <description><![CDATA[A retry strategy in case of connectivity errors]]></description>
+                </parameter>
+            </parameters>
+        </operation>
+        <operation name="deleteObject">
+            <description><![CDATA[Deletes a given object, only the owner of the bucket containing the version can perform this operation. If version is specified, versioning must be enabled, and once deleted, there is no method to restore such version. Otherwise, once deleted, the object can only be restored if versioning was enabled when the object was deleted. If attempting to delete an object that does not exist, Amazon S3 will return a success message instead of an error message.]]></description>
+            <parameters>
+                <parameter name="bucketName">
+                    <description><![CDATA[the object's bucket]]></description>
+                </parameter>
+                <parameter name="key">
+                    <description><![CDATA[the object's key]]></description>
+                </parameter>
+                <parameter name="versionId">
+                    <description><![CDATA[the specific version of the object to delete, if versioning is enabled.]]></description>
+                </parameter>
+                <parameter name="reconnectionStrategy">
+                    <description><![CDATA[A retry strategy in case of connectivity errors]]></description>
+                </parameter>
+            </parameters>
+        </operation>
+        <operation name="deleteObjects">
+            <description><![CDATA[Deletes multiple objects in a single bucket from S3. Version of the keys is optional. <p> In some cases, some objects will be successfully deleted, while some attempts will cause an error. If any object in the request cannot be deleted, this method throws a com.amazonaws.services.s3.model.MultiObjectDeleteException with details of the error. </p>]]></description>
+            <parameters>
+                <parameter name="bucketName">
+                    <description><![CDATA[the objects bucket name]]></description>
+                </parameter>
+                <parameter name="keys">
+                    <description><![CDATA[the objects keys, version is optional]]></description>
+                </parameter>
+                <parameter name="reconnectionStrategy">
+                    <description><![CDATA[A retry strategy in case of connectivity errors]]></description>
+                </parameter>
+            </parameters>
+        </operation>
+        <operation name="getBucketAcl">
+            <description><![CDATA[Answers the access control list of the specified bucket.]]></description>
+            <parameters>
+                <parameter name="bucketName">
+                    <description><![CDATA[the bucket whose acl to retrieve.]]></description>
+                </parameter>
+                <parameter name="target">
+                    <description><![CDATA[The name of a variable on which the operation's output will be placed]]></description>
+                </parameter>
+                <parameter name="targetValue">
+                    <description><![CDATA[An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable]]></description>
+                </parameter>
+                <parameter name="reconnectionStrategy">
+                    <description><![CDATA[A retry strategy in case of connectivity errors]]></description>
+                </parameter>
+            </parameters>
+        </operation>
+        <operation name="getBucketCorsConfiguration">
+            <description><![CDATA[Answers the cors configuration information set for the bucket.]]></description>
+            <parameters>
+                <parameter name="bucketName">
+                    <description><![CDATA[the bucket whose cors to retrieve.]]></description>
+                </parameter>
+                <parameter name="target">
+                    <description><![CDATA[The name of a variable on which the operation's output will be placed]]></description>
+                </parameter>
+                <parameter name="targetValue">
+                    <description><![CDATA[An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable]]></description>
+                </parameter>
+                <parameter name="reconnectionStrategy">
+                    <description><![CDATA[A retry strategy in case of connectivity errors]]></description>
+                </parameter>
+            </parameters>
+        </operation>
+        <operation name="getBucketLifecycleConfiguration">
+            <description><![CDATA[Returns the lifecycle configuration information set on the bucket.]]></description>
+            <parameters>
+                <parameter name="bucketName">
+                    <description><![CDATA[the bucket whose lifecycle configuration information to retrieve.]]></description>
+                </parameter>
+                <parameter name="target">
+                    <description><![CDATA[The name of a variable on which the operation's output will be placed]]></description>
+                </parameter>
+                <parameter name="targetValue">
+                    <description><![CDATA[An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable]]></description>
+                </parameter>
+                <parameter name="reconnectionStrategy">
+                    <description><![CDATA[A retry strategy in case of connectivity errors]]></description>
+                </parameter>
+            </parameters>
+        </operation>
+        <operation name="getBucketLocation">
+            <description><![CDATA[Gets the geographical region where Amazon S3 stores the specified bucket.]]></description>
+            <parameters>
+                <parameter name="bucketName">
+                    <description><![CDATA[The target bucket name.]]></description>
+                </parameter>
+                <parameter name="target">
+                    <description><![CDATA[The name of a variable on which the operation's output will be placed]]></description>
+                </parameter>
+                <parameter name="targetValue">
+                    <description><![CDATA[An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable]]></description>
+                </parameter>
+                <parameter name="reconnectionStrategy">
+                    <description><![CDATA[A retry strategy in case of connectivity errors]]></description>
+                </parameter>
+            </parameters>
+        </operation>
+        <operation name="getBucketLoggingConfiguration">
+            <description><![CDATA[Answers the logging status of a bucket and the permissions users have to view and modify that status.]]></description>
+            <parameters>
+                <parameter name="bucketName">
+                    <description><![CDATA[the bucket whose logging status to retrieve.]]></description>
+                </parameter>
+                <parameter name="target">
+                    <description><![CDATA[The name of a variable on which the operation's output will be placed]]></description>
+                </parameter>
+                <parameter name="targetValue">
+                    <description><![CDATA[An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable]]></description>
+                </parameter>
+                <parameter name="reconnectionStrategy">
+                    <description><![CDATA[A retry strategy in case of connectivity errors]]></description>
+                </parameter>
+            </parameters>
+        </operation>
+        <operation name="getBucketNotificationConfiguration">
+            <description><![CDATA[Return the notification configuration of a bucket. Currently only topic configuration is supported.]]></description>
+            <parameters>
+                <parameter name="bucketName">
+                    <description><![CDATA[the bucket whose notification configuration to retrieve.]]></description>
+                </parameter>
+                <parameter name="target">
+                    <description><![CDATA[The name of a variable on which the operation's output will be placed]]></description>
+                </parameter>
+                <parameter name="targetValue">
+                    <description><![CDATA[An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable]]></description>
+                </parameter>
+                <parameter name="reconnectionStrategy">
+                    <description><![CDATA[A retry strategy in case of connectivity errors]]></description>
+                </parameter>
+            </parameters>
+        </operation>
+        <operation name="getBucketPolicy">
+            <description><![CDATA[Answers the policy for the given bucket. Only the owner of the bucket can retrieve it. If no policy has been set for the bucket, then a null policy text field will be returned.]]></description>
+            <parameters>
+                <parameter name="bucketName">
+                    <description><![CDATA[the bucket whose policy to retrieve]]></description>
+                </parameter>
+                <parameter name="target">
+                    <description><![CDATA[The name of a variable on which the operation's output will be placed]]></description>
+                </parameter>
+                <parameter name="targetValue">
+                    <description><![CDATA[An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable]]></description>
+                </parameter>
+                <parameter name="reconnectionStrategy">
+                    <description><![CDATA[A retry strategy in case of connectivity errors]]></description>
+                </parameter>
+            </parameters>
+        </operation>
+        <operation name="getBucketTaggingConfiguration">
+            <description><![CDATA[Return the tag set associated with the bucket.]]></description>
+            <parameters>
+                <parameter name="bucketName">
+                    <description><![CDATA[the bucket whose tagging configuration to retrieve.]]></description>
+                </parameter>
+                <parameter name="target">
+                    <description><![CDATA[The name of a variable on which the operation's output will be placed]]></description>
+                </parameter>
+                <parameter name="targetValue">
+                    <description><![CDATA[An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable]]></description>
+                </parameter>
+                <parameter name="reconnectionStrategy">
+                    <description><![CDATA[A retry strategy in case of connectivity errors]]></description>
+                </parameter>
+            </parameters>
+        </operation>
+        <operation name="getBucketVersioningConfiguration">
+            <description><![CDATA[Returns the versioning configuration for the specified bucket.]]></description>
+            <parameters>
+                <parameter name="bucketName">
+                    <description><![CDATA[The bucket whose versioning configuration will be retrieved.]]></description>
+                </parameter>
+                <parameter name="target">
+                    <description><![CDATA[The name of a variable on which the operation's output will be placed]]></description>
+                </parameter>
+                <parameter name="targetValue">
+                    <description><![CDATA[An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable]]></description>
+                </parameter>
+                <parameter name="reconnectionStrategy">
+                    <description><![CDATA[A retry strategy in case of connectivity errors]]></description>
+                </parameter>
+            </parameters>
+        </operation>
+        <operation name="getBucketWebsiteConfiguration">
+            <description><![CDATA[Answers the website of the given bucket. This operation requires the GetBucketWebsite permission. By default, only the bucket owner can read the bucket website configuration. However, bucket owners can allow other users to read the website configuration by writing a bucket policy granting them the GetBucketWebsite permission.]]></description>
+            <parameters>
+                <parameter name="bucketName">
+                    <description><![CDATA[the target bucket's name]]></description>
+                </parameter>
+                <parameter name="target">
+                    <description><![CDATA[The name of a variable on which the operation's output will be placed]]></description>
+                </parameter>
+                <parameter name="targetValue">
+                    <description><![CDATA[An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable]]></description>
+                </parameter>
+                <parameter name="reconnectionStrategy">
+                    <description><![CDATA[A retry strategy in case of connectivity errors]]></description>
+                </parameter>
+            </parameters>
+        </operation>
+        <operation name="getObject">
+            <description><![CDATA[Gets the object stored in Amazon S3 under the specified bucket and key. Returns null if the specified constraints weren't met. To get an object from Amazon S3, the caller must have com.amazonaws.services.s3.model.Permission#Read access to the object. Callers should be very careful when using this method; the returned Amazon S3 object contains a direct stream of data from the HTTP connection. The underlying HTTP connection cannot be closed until the user finishes reading the data and closes the stream. Regarding conditional get constraints, Amazon S3 will ignore any dates occurring in the future.]]></description>
+            <parameters>
+                <parameter name="bucketName">
+                    <description><![CDATA[the object's bucket]]></description>
+                </parameter>
+                <parameter name="key">
+                    <description><![CDATA[the object's key]]></description>
+                </parameter>
+                <parameter name="versionId">
+                    <description><![CDATA[the specific version of the object to get its contents, if versioning is enabled.]]></description>
+                </parameter>
+                <parameter name="modifiedSince">
+                    <description><![CDATA[The modified constraint that restricts this request to executing only if the object has been modified after the specified date.]]></description>
+                </parameter>
+                <parameter name="unmodifiedSince">
+                    <description><![CDATA[The unmodified constraint that restricts this request to executing only if the object has not been modified after this date.]]></description>
+                </parameter>
+                <parameter name="outputMimeType">
+                    <description><![CDATA[The mime type of the payload that this operation outputs.]]></description>
+                </parameter>
+                <parameter name="outputEncoding">
+                    <description><![CDATA[The encoding of the payload that this operation outputs.]]></description>
+                </parameter>
+                <parameter name="streamingStrategy">
+                    <description><![CDATA[Configure if repeatable streams should be used and their behaviour]]></description>
+                </parameter>
+                <parameter name="start">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="end">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="target">
+                    <description><![CDATA[The name of a variable on which the operation's output will be placed]]></description>
+                </parameter>
+                <parameter name="targetValue">
+                    <description><![CDATA[An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable]]></description>
+                </parameter>
+                <parameter name="reconnectionStrategy">
+                    <description><![CDATA[A retry strategy in case of connectivity errors]]></description>
+                </parameter>
+            </parameters>
+        </operation>
+        <operation name="getObjectAcl">
+            <description><![CDATA[Returns the access control list (ACL) of an object. By default, GET returns ACL information about the current version of an object. To return ACL information about a different version, use the versionId attribute.]]></description>
+            <parameters>
+                <parameter name="bucketName">
+                    <description><![CDATA[the object's bucket]]></description>
+                </parameter>
+                <parameter name="key">
+                    <description><![CDATA[the object's key]]></description>
+                </parameter>
+                <parameter name="versionId">
+                    <description><![CDATA[the object's version id]]></description>
+                </parameter>
+                <parameter name="target">
+                    <description><![CDATA[The name of a variable on which the operation's output will be placed]]></description>
+                </parameter>
+                <parameter name="targetValue">
+                    <description><![CDATA[An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable]]></description>
+                </parameter>
+                <parameter name="reconnectionStrategy">
+                    <description><![CDATA[A retry strategy in case of connectivity errors]]></description>
+                </parameter>
+            </parameters>
+        </operation>
+        <operation name="getObjectMetadata">
+            <description><![CDATA[Gets only the object metadata stored in Amazon S3 under the specified bucket and key. To get an object metadata from Amazon S3, the caller must have com.amazonaws.services.s3.model.Permission#Read access to the object.]]></description>
+            <parameters>
+                <parameter name="bucketName">
+                    <description><![CDATA[the object's bucket]]></description>
+                </parameter>
+                <parameter name="key">
+                    <description><![CDATA[the object's key]]></description>
+                </parameter>
+                <parameter name="versionId">
+                    <description><![CDATA[the specific version of the object to get its contents, if versioning is enabled.]]></description>
+                </parameter>
+                <parameter name="target">
+                    <description><![CDATA[The name of a variable on which the operation's output will be placed]]></description>
+                </parameter>
+                <parameter name="targetValue">
+                    <description><![CDATA[An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable]]></description>
+                </parameter>
+                <parameter name="reconnectionStrategy">
+                    <description><![CDATA[A retry strategy in case of connectivity errors]]></description>
+                </parameter>
+            </parameters>
+        </operation>
+        <operation name="initiateMultipartUpload">
+            <description><![CDATA[Initiates a multipart upload and returns an upload ID. This upload ID is used to associate all the parts in the specific multipart upload. You specify this upload ID in each of your subsequent upload part requests. You also include this upload ID in the final request to either complete or abort the multipart upload request.]]></description>
+            <parameters>
+                <parameter name="bucketName">
+                    <description><![CDATA[the name of the bucket in which to create the new multipart upload.]]></description>
+                </parameter>
+                <parameter name="key">
+                    <description><![CDATA[the key by which to store the new multipart upload.]]></description>
+                </parameter>
+                <parameter name="objectMetadata">
+                    <description><![CDATA[the additional information about the new object being created, such as content type & encoding, etc.]]></description>
+                </parameter>
+                <parameter name="acl">
+                    <description><![CDATA[the optional canned Access Control List (ACL) to set permissions for the new object created when the multipart upload is completed.]]></description>
+                </parameter>
+                <parameter name="redirectLocation">
+                    <description><![CDATA[Gets the optional redirect location for the new object.]]></description>
+                </parameter>
+                <parameter name="target">
+                    <description><![CDATA[The name of a variable on which the operation's output will be placed]]></description>
+                </parameter>
+                <parameter name="targetValue">
+                    <description><![CDATA[An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable]]></description>
+                </parameter>
+                <parameter name="reconnectionStrategy">
+                    <description><![CDATA[A retry strategy in case of connectivity errors]]></description>
+                </parameter>
+            </parameters>
+        </operation>
+        <operation name="listBuckets">
+            <description><![CDATA[Answers a list of all Amazon S3 buckets that the authenticated sender of the request owns. Users must authenticate with a valid AWS Access Key ID that is registered with Amazon S3. Anonymous requests cannot list buckets, and users cannot list buckets that they did not create.]]></description>
+            <parameters>
+                <parameter name="region">
+                    <description><![CDATA[the region from where to list the buckets.]]></description>
+                </parameter>
+                <parameter name="target">
+                    <description><![CDATA[The name of a variable on which the operation's output will be placed]]></description>
+                </parameter>
+                <parameter name="targetValue">
+                    <description><![CDATA[An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable]]></description>
+                </parameter>
+                <parameter name="reconnectionStrategy">
+                    <description><![CDATA[A retry strategy in case of connectivity errors]]></description>
+                </parameter>
+            </parameters>
+        </operation>
+        <operation name="listMultipartUploads">
+            <description><![CDATA[Lists in-progress multipart uploads. An in-progress multipart upload is a multipart upload that has been initiated, using the InitiateMultipartUpload request, but has not yet been completed or aborted.]]></description>
+            <parameters>
+                <parameter name="bucketName">
+                    <description><![CDATA[the name of the bucket containing the uploads to list.]]></description>
+                </parameter>
+                <parameter name="delimiter">
+                    <description><![CDATA[the optional delimiter parameter that causes multipart uploads for keys that contain the same string between the prefix and the first occurrence of the delimiter to be combined into a single result element.]]></description>
+                </parameter>
+                <parameter name="encodingType">
+                    <description><![CDATA[the optional encodingType parameter indicating the encoding method to be applied on the response.]]></description>
+                </parameter>
+                <parameter name="keyMarker">
+                    <description><![CDATA[the optional key marker indicating where in the results to begin listing.]]></description>
+                </parameter>
+                <parameter name="maxUploads">
+                    <description><![CDATA[the optional maximum number of uploads to return, or null if no maximum number of uploads has been set for this request.]]></description>
+                </parameter>
+                <parameter name="prefix">
+                    <description><![CDATA[the optional prefix parameter that restricts the response to multipart uploads for keys that begin with the specified prefix.]]></description>
+                </parameter>
+                <parameter name="uploadIdMarker">
+                    <description><![CDATA[the optional upload ID marker indicating where in the results to begin listing.]]></description>
+                </parameter>
+                <parameter name="target">
+                    <description><![CDATA[The name of a variable on which the operation's output will be placed]]></description>
+                </parameter>
+                <parameter name="targetValue">
+                    <description><![CDATA[An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable]]></description>
+                </parameter>
+                <parameter name="reconnectionStrategy">
+                    <description><![CDATA[A retry strategy in case of connectivity errors]]></description>
+                </parameter>
+            </parameters>
+        </operation>
+        <operation name="listObjects">
+            <description><![CDATA[Lazily lists all objects for a given prefix. As S3 does not limit in any way the number of objects, such listing can retrieve an arbitrary amount of objects, and may need to perform extra calls to the api while it is iterated.]]></description>
+            <parameters>
+                <parameter name="bucketName">
+                    <description><![CDATA[the target bucket's name]]></description>
+                </parameter>
+                <parameter name="prefix">
+                    <description><![CDATA[the prefix of the objects to be listed. If unspecified, all objects are listed]]></description>
+                </parameter>
+                <parameter name="marker">
+                    <description><![CDATA[where in the bucket to begin listing. The list will only include keys that occur lexicographically after the marker]]></description>
+                </parameter>
+                <parameter name="delimiter">
+                    <description><![CDATA[causes keys that contain the same string between a prefix and the first occurrence of the delimiter to be rolled up into a single result element.]]></description>
+                </parameter>
+                <parameter name="maxKeys">
+                    <description><![CDATA[The maximum number of keys to return per page. If not specified S3 will limit the number of returned results per page.]]></description>
+                </parameter>
+                <parameter name="encodingType">
+                    <description><![CDATA[The encoding method to be applied on the response.]]></description>
+                </parameter>
+                <parameter name="streamingStrategy">
+                    <description><![CDATA[Configure if repeatable streams should be used and their behaviour]]></description>
+                </parameter>
+                <parameter name="target">
+                    <description><![CDATA[The name of a variable on which the operation's output will be placed]]></description>
+                </parameter>
+                <parameter name="targetValue">
+                    <description><![CDATA[An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable]]></description>
+                </parameter>
+                <parameter name="reconnectionStrategy">
+                    <description><![CDATA[A retry strategy in case of connectivity errors]]></description>
+                </parameter>
+            </parameters>
+        </operation>
+        <operation name="listParts">
+            <description><![CDATA[Lists the parts that have been uploaded for a specific multipart upload.]]></description>
+            <parameters>
+                <parameter name="bucketName">
+                    <description><![CDATA[the name of the bucket containing the multipart upload whose parts are being listed.]]></description>
+                </parameter>
+                <parameter name="key">
+                    <description><![CDATA[the key of the associated multipart upload whose parts are being listed.]]></description>
+                </parameter>
+                <parameter name="uploadId">
+                    <description><![CDATA[the ID of the multipart upload whose parts are being listed.]]></description>
+                </parameter>
+                <parameter name="encodingType">
+                    <description><![CDATA[the optional encodingType parameter indicating the encoding method to be applied on the response.]]></description>
+                </parameter>
+                <parameter name="maxParts">
+                    <description><![CDATA[the optional maximum number of parts to be returned in the part listing.]]></description>
+                </parameter>
+                <parameter name="partNumberMarker">
+                    <description><![CDATA[the optional part number marker indicating where in the results to being listing parts.]]></description>
+                </parameter>
+                <parameter name="target">
+                    <description><![CDATA[The name of a variable on which the operation's output will be placed]]></description>
+                </parameter>
+                <parameter name="targetValue">
+                    <description><![CDATA[An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable]]></description>
+                </parameter>
+                <parameter name="reconnectionStrategy">
+                    <description><![CDATA[A retry strategy in case of connectivity errors]]></description>
+                </parameter>
+            </parameters>
+        </operation>
+        <operation name="listVersions">
+            <description><![CDATA[Lazily lists all object versions for a given bucket that has versioning enabled. As S3 does not limit in any way the number of objects, such listing can retrieve an arbitrary amount of object versions, and may need to perform extra calls to the api while it is iterated.]]></description>
+            <parameters>
+                <parameter name="bucketName">
+                    <description><![CDATA[the target bucket's name]]></description>
+                </parameter>
+                <parameter name="prefix">
+                    <description><![CDATA[optional parameter restricting the response to keys which begin with the specified prefix.]]></description>
+                </parameter>
+                <parameter name="keyMarker">
+                    <description><![CDATA[where in the sorted list of all versions in the specified bucket to begin returning results. Results are always ordered first alphabetically and then from most recent version to least recent version.]]></description>
+                </parameter>
+                <parameter name="versionIdMarker">
+                    <description><![CDATA[where in the sorted list of all versions in the specified bucket to begin returning results. Results are always ordered first alphabetically and then from most recent version to least recent version.]]></description>
+                </parameter>
+                <parameter name="delimiter">
+                    <description><![CDATA[causes keys that contain the same string between the prefix and the first occurrence of the delimiter to be rolled up into a single result element in the list.]]></description>
+                </parameter>
+                <parameter name="maxResults">
+                    <description><![CDATA[The maximum number of results to return per page. If not specified, S3 will limit the number of returned results per page.]]></description>
+                </parameter>
+                <parameter name="encodingType">
+                    <description><![CDATA[the encoding method to be applied on the response.]]></description>
+                </parameter>
+                <parameter name="streamingStrategy">
+                    <description><![CDATA[Configure if repeatable streams should be used and their behaviour]]></description>
+                </parameter>
+                <parameter name="target">
+                    <description><![CDATA[The name of a variable on which the operation's output will be placed]]></description>
+                </parameter>
+                <parameter name="targetValue">
+                    <description><![CDATA[An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable]]></description>
+                </parameter>
+                <parameter name="reconnectionStrategy">
+                    <description><![CDATA[A retry strategy in case of connectivity errors]]></description>
+                </parameter>
+            </parameters>
+        </operation>
+        <operation name="setBucketAcl">
+            <description><![CDATA[Set the permissions on an existing bucket using access control lists (ACL)]]></description>
+            <parameters>
+                <parameter name="bucketName">
+                    <description><![CDATA[the bucket name]]></description>
+                </parameter>
+                <parameter name="owner">
+                    <description><![CDATA[The owner of the ACL.]]></description>
+                </parameter>
+                <parameter name="grants">
+                    <description><![CDATA[The grants of the ACL.]]></description>
+                </parameter>
+                <parameter name="reconnectionStrategy">
+                    <description><![CDATA[A retry strategy in case of connectivity errors]]></description>
+                </parameter>
+            </parameters>
+        </operation>
+        <operation name="setBucketCorsConfiguration">
+            <description><![CDATA[Sets the cors configuration for your bucket. If the configuration exists, Amazon S3 replaces it.]]></description>
+            <parameters>
+                <parameter name="bucketName">
+                    <description><![CDATA[the bucket name]]></description>
+                </parameter>
+                <parameter name="rules">
+                    <description><![CDATA[the cross-origin rules of a bucket.]]></description>
+                </parameter>
+                <parameter name="reconnectionStrategy">
+                    <description><![CDATA[A retry strategy in case of connectivity errors]]></description>
+                </parameter>
+            </parameters>
+        </operation>
+        <operation name="setBucketLifecycleConfiguration">
+            <description><![CDATA[Creates a new lifecycle configuration for the bucket or replaces an existing lifecycle configuration.]]></description>
+            <parameters>
+                <parameter name="bucketName">
+                    <description><![CDATA[the bucket name]]></description>
+                </parameter>
+                <parameter name="lifecycleConfigurationRules">
+                    <description><![CDATA[the lifecycle configuration rules of a bucket.]]></description>
+                </parameter>
+                <parameter name="reconnectionStrategy">
+                    <description><![CDATA[A retry strategy in case of connectivity errors]]></description>
+                </parameter>
+            </parameters>
+        </operation>
+        <operation name="setBucketLoggingConfiguration">
+            <description><![CDATA[Set the logging parameters for a bucket and to specify permissions for who can view and modify the logging parameters.]]></description>
+            <parameters>
+                <parameter name="bucketName">
+                    <description><![CDATA[The bucket name.]]></description>
+                </parameter>
+                <parameter name="bucketLoggingConfiguration">
+                    <description><![CDATA[The bucket logging configuration.]]></description>
+                </parameter>
+                <parameter name="reconnectionStrategy">
+                    <description><![CDATA[A retry strategy in case of connectivity errors]]></description>
+                </parameter>
+            </parameters>
+        </operation>
+        <operation name="setBucketNotificationConfiguration">
+            <description><![CDATA[Sets the notification configuration for the specified bucket. By default, new buckets have no notification configuration set.]]></description>
+            <parameters>
+                <parameter name="bucketName">
+                    <description><![CDATA[The name of the Amazon S3 bucket whose notification configuration is being set.]]></description>
+                </parameter>
+                <parameter name="topicConfigurations">
+                    <description><![CDATA[The request object containing all options for setting the bucket notification configuration.]]></description>
+                </parameter>
+                <parameter name="reconnectionStrategy">
+                    <description><![CDATA[A retry strategy in case of connectivity errors]]></description>
+                </parameter>
+            </parameters>
+        </operation>
+        <operation name="setBucketPolicy">
+            <description><![CDATA[Sets the bucket's policy, overriding any previously set. Only the owner of the bucket can set a bucket policy. Bucket policies provide access control management at the bucket level for both the bucket resource and contained object resources. Only one policy can be specified per-bucket.]]></description>
+            <parameters>
+                <parameter name="bucketName">
+                    <description><![CDATA[the bucket name]]></description>
+                </parameter>
+                <parameter name="policyText">
+                    <description><![CDATA[the policy text]]></description>
+                </parameter>
+                <parameter name="reconnectionStrategy">
+                    <description><![CDATA[A retry strategy in case of connectivity errors]]></description>
+                </parameter>
+            </parameters>
+        </operation>
+        <operation name="setBucketTaggingConfiguration">
+            <description><![CDATA[Add a set of tags to an existing bucket]]></description>
+            <parameters>
+                <parameter name="bucketName">
+                    <description><![CDATA[the bucket name]]></description>
+                </parameter>
+                <parameter name="tagSets">
+                    <description><![CDATA[a set of tags]]></description>
+                </parameter>
+                <parameter name="reconnectionStrategy">
+                    <description><![CDATA[A retry strategy in case of connectivity errors]]></description>
+                </parameter>
+            </parameters>
+        </operation>
+        <operation name="setBucketVersioningConfiguration">
+            <description><![CDATA[Sets the versioning status for the given bucket. A bucket's versioning configuration can be in one of three possible states: Off, Enabled and Suspended. By default, new buckets are in the Off state. Once versioning is enabled for a bucket the status can never be reverted to Off.]]></description>
+            <parameters>
+                <parameter name="bucketName">
+                    <description><![CDATA[the bucket name]]></description>
+                </parameter>
+                <parameter name="versioningStatus">
+                    <description><![CDATA[The configuration to set.]]></description>
+                </parameter>
+                <parameter name="reconnectionStrategy">
+                    <description><![CDATA[A retry strategy in case of connectivity errors]]></description>
+                </parameter>
+            </parameters>
+        </operation>
+        <operation name="setBucketWebsiteConfiguration">
+            <description><![CDATA[Sets the given bucket's website configuration. This operation requires the PutBucketWebsite permission. By default, only the bucket owner can configure the website attached to a bucket. However, bucket owners can allow other users to set the website configuration by writing a bucket policy granting them the S3:PutBucketWebsite permission.]]></description>
+            <parameters>
+                <parameter name="bucketName">
+                    <description><![CDATA[the bucket name]]></description>
+                </parameter>
+                <parameter name="bucketWebsiteConfiguration">
+                    <description><![CDATA[the bucket website configuration]]></description>
+                </parameter>
+                <parameter name="reconnectionStrategy">
+                    <description><![CDATA[A retry strategy in case of connectivity errors]]></description>
+                </parameter>
+            </parameters>
+        </operation>
+        <operation name="setObjectAcl">
+            <description><![CDATA[Set the access control list (ACL) permissions for an object that already exists in a bucket]]></description>
+            <parameters>
+                <parameter name="bucketName">
+                    <description><![CDATA[the object's bucket name]]></description>
+                </parameter>
+                <parameter name="key">
+                    <description><![CDATA[the object's key]]></description>
+                </parameter>
+                <parameter name="versionId">
+                    <description><![CDATA[the specific version of the object]]></description>
+                </parameter>
+                <parameter name="owner">
+                    <description><![CDATA[the owner of the ACL]]></description>
+                </parameter>
+                <parameter name="grants">
+                    <description><![CDATA[the Grants of the ACL]]></description>
+                </parameter>
+                <parameter name="reconnectionStrategy">
+                    <description><![CDATA[A retry strategy in case of connectivity errors]]></description>
+                </parameter>
+            </parameters>
+        </operation>
+        <operation name="setObjectStorageClass">
+            <description><![CDATA[Sets the Amazon S3 storage class for the given object. Changing the storage class of an object in a bucket that has enabled versioning creates a new version of the object with the new storage class. The existing version of the object preservers the previous storage class.]]></description>
+            <parameters>
+                <parameter name="bucketName">
+                    <description><![CDATA[the object's bucket name]]></description>
+                </parameter>
+                <parameter name="key">
+                    <description><![CDATA[the object's key]]></description>
+                </parameter>
+                <parameter name="storageClass">
+                    <description><![CDATA[the storage class to set]]></description>
+                </parameter>
+                <parameter name="reconnectionStrategy">
+                    <description><![CDATA[A retry strategy in case of connectivity errors]]></description>
+                </parameter>
+            </parameters>
+        </operation>
+        <operation name="uploadPart">
+            <description><![CDATA[Uploads a part in a multipart upload. You must initiate a multipart upload before you can upload any part.]]></description>
+            <parameters>
+                <parameter name="bucketName">
+                    <description><![CDATA[the name of the bucket containing the existing, initiated multipart upload, with which this new part will be associated.]]></description>
+                </parameter>
+                <parameter name="key">
+                    <description><![CDATA[the key of the initiated multipart upload.]]></description>
+                </parameter>
+                <parameter name="uploadId">
+                    <description><![CDATA[the ID of the existing, initiated multipart upload with which this new part will be associated.]]></description>
+                </parameter>
+                <parameter name="partNumber">
+                    <description><![CDATA[the part number describing this part's position relative to the other parts in the multipart upload.]]></description>
+                </parameter>
+                <parameter name="partSize">
+                    <description><![CDATA[the size of this part, in bytes.]]></description>
+                </parameter>
+                <parameter name="md5Digest">
+                    <description><![CDATA[optional, but recommended, MD5 hash of the content of this part.]]></description>
+                </parameter>
+                <parameter name="content">
+                    <description><![CDATA[the stream containing the data to upload for the new part.]]></description>
+                </parameter>
+                <parameter name="fileOffset">
+                    <description><![CDATA[the optional offset in the specified file, at which to begin uploading data for this part.]]></description>
+                </parameter>
+                <parameter name="isLastPart">
+                    <description><![CDATA[true if the creator of this request has indicated this part is the last part being uploaded in a multipart upload.]]></description>
+                </parameter>
+                <parameter name="target">
+                    <description><![CDATA[The name of a variable on which the operation's output will be placed]]></description>
+                </parameter>
+                <parameter name="targetValue">
+                    <description><![CDATA[An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable]]></description>
+                </parameter>
+                <parameter name="reconnectionStrategy">
+                    <description><![CDATA[A retry strategy in case of connectivity errors]]></description>
+                </parameter>
+            </parameters>
+        </operation>
+        <operation name="uploadPartCopy">
+            <description><![CDATA[Copies a source object to a part of a multipart upload. To copy an object, the caller's account must have read access to the source object and write access to the destination bucket.]]></description>
+            <parameters>
+                <parameter name="sourceBucketName">
+                    <description><![CDATA[the name of the bucket containing the source object to be copied.]]></description>
+                </parameter>
+                <parameter name="sourceKey">
+                    <description><![CDATA[the source bucket key under which the source object to be copied is stored.]]></description>
+                </parameter>
+                <parameter name="sourceVersionId">
+                    <description><![CDATA[the version of the source object that was copied, if you have enabled versioning on the source bucket.]]></description>
+                </parameter>
+                <parameter name="destinationBucketName">
+                    <description><![CDATA[the destination bucket name which will contain the new, copied object.]]></description>
+                </parameter>
+                <parameter name="destinationKey">
+                    <description><![CDATA[the destination bucket key under which the new, copied object will be stored.]]></description>
+                </parameter>
+                <parameter name="uploadId">
+                    <description><![CDATA[the ID of the existing, initiated multipart upload with which this new part will be associated.]]></description>
+                </parameter>
+                <parameter name="partNumber">
+                    <description><![CDATA[the part number describing this part's position relative to the other parts in the multipart upload.]]></description>
+                </parameter>
+                <parameter name="matchingETagConstraints">
+                    <description><![CDATA[perform a copy if the source object entity tag (ETag) matches the specified value.]]></description>
+                </parameter>
+                <parameter name="modifiedSince">
+                    <description><![CDATA[the optional modified constraint that restricts this request to executing only if the source object has been modified after the specified date.]]></description>
+                </parameter>
+                <parameter name="unmodifiedSince">
+                    <description><![CDATA[the optional unmodified constraint that restricts this request to executing only if the source object has not been modified after the specified date.]]></description>
+                </parameter>
+                <parameter name="firstByte">
+                    <description><![CDATA[the optional first byte from the source bucket to start copy from (starts from 0).]]></description>
+                </parameter>
+                <parameter name="lastByte">
+                    <description><![CDATA[the optional last byte from the source bucket to copy till.]]></description>
+                </parameter>
+                <parameter name="target">
+                    <description><![CDATA[The name of a variable on which the operation's output will be placed]]></description>
+                </parameter>
+                <parameter name="targetValue">
+                    <description><![CDATA[An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable]]></description>
+                </parameter>
+                <parameter name="reconnectionStrategy">
+                    <description><![CDATA[A retry strategy in case of connectivity errors]]></description>
+                </parameter>
+            </parameters>
+        </operation>
+    </operations>
+    <sources>
+        <source name="deleted-object-trigger">
+            <description><![CDATA[]]></description>
+            <parameters>
+                <parameter name="bucketName">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="notificationQueueName">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="primaryNodeOnly">
+                    <description><![CDATA[Whether this source should only be executed on the primary node when runnning in Cluster]]></description>
+                </parameter>
+                <parameter name="schedulingStrategy">
+                    <description><![CDATA[Configures the scheduler that triggers the polling]]></description>
+                </parameter>
+                <parameter name="redeliveryPolicy">
+                    <description><![CDATA[Defines a policy for processing the redelivery of the same message]]></description>
+                </parameter>
+                <parameter name="reconnectionStrategy">
+                    <description><![CDATA[A retry strategy in case of connectivity errors]]></description>
+                </parameter>
+            </parameters>
+        </source>
+        <source name="new-object-trigger">
+            <description><![CDATA[]]></description>
+            <parameters>
+                <parameter name="bucketName">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="notificationQueueName">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="primaryNodeOnly">
+                    <description><![CDATA[Whether this source should only be executed on the primary node when runnning in Cluster]]></description>
+                </parameter>
+                <parameter name="schedulingStrategy">
+                    <description><![CDATA[Configures the scheduler that triggers the polling]]></description>
+                </parameter>
+                <parameter name="redeliveryPolicy">
+                    <description><![CDATA[Defines a policy for processing the redelivery of the same message]]></description>
+                </parameter>
+                <parameter name="reconnectionStrategy">
+                    <description><![CDATA[A retry strategy in case of connectivity errors]]></description>
+                </parameter>
+            </parameters>
+        </source>
+    </sources>
+    <types>
+        <type name="org.mule.extension.s3.api.attributes.AccessControlListAttributes">
+            <description><![CDATA[]]></description>
+            <parameters>
+                <parameter name="ownerDisplayName">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="ownerId">
+                    <description><![CDATA[]]></description>
+                </parameter>
+            </parameters>
+        </type>
+        <type name="org.mule.extension.s3.api.attributes.S3ObjectAttributes">
+            <description><![CDATA[]]></description>
+            <parameters>
+                <parameter name="bucketName">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="cacheControl">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="contentDisposition">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="contentEncoding">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="contentLanguage">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="contentLength">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="contentMD5">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="contentType">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="etag">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="expirationTime">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="expirationTimeRuleId">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="httpExpiresDate">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="key">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="lastModified">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="ongoingRestore">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="redirectLocation">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="replicationStatus">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="requesterCharged">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="restoreExpirationTime">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="sseAlgorithm">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="sseAwsKmsKeyId">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="sseCustomerAlgorithm">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="sseCustomerKeyMd5">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="storageClass">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="userMetadata">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="versionId">
+                    <description><![CDATA[]]></description>
+                </parameter>
+            </parameters>
+        </type>
+        <type name="org.mule.extension.s3.api.group.ObjectMetadataParameterGroup">
+            <description><![CDATA[]]></description>
+            <parameters>
+                <parameter name="userMetadata">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="lastModified">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="contentLength">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="contentType">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="contentLanguage">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="contentEncoding">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="cacheControl">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="contentMD5">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="contentDisposition">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="etag">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="versionId">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="sseAlgorithm">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="sseCustomerAlgorithm">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="sseCustomerKeyMd5">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="expirationTime">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="expirationTimeRuleId">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="restoreExpirationTime">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="ongoingRestore">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="httpExpiresDate">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="storageClass">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="sseAwsKmsKeyId">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="requesterCharged">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="replicationStatus">
+                    <description><![CDATA[]]></description>
+                </parameter>
+            </parameters>
+        </type>
+        <type name="org.mule.extension.s3.api.model.BLCRule">
+            <description><![CDATA[]]></description>
+            <parameters>
+                <parameter name="expirationDate">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="expirationInDays">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="id">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="noncurrentVersionExpirationInDays">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="noncurrentVersionTransition">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="prefix">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="status">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="transition">
+                    <description><![CDATA[]]></description>
+                </parameter>
+            </parameters>
+        </type>
+        <type name="org.mule.extension.s3.api.model.Bucket">
+            <description><![CDATA[]]></description>
+            <parameters>
+                <parameter name="creationDate">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="name">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="owner">
+                    <description><![CDATA[]]></description>
+                </parameter>
+            </parameters>
+        </type>
+        <type name="org.mule.extension.s3.api.model.BucketLoggingConfiguration">
+            <description><![CDATA[]]></description>
+            <parameters>
+                <parameter name="destinationBucketName">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="logFilePrefix">
+                    <description><![CDATA[]]></description>
+                </parameter>
+            </parameters>
+        </type>
+        <type name="org.mule.extension.s3.api.model.BucketWebsiteConfiguration">
+            <description><![CDATA[]]></description>
+            <parameters>
+                <parameter name="errorDocument">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="indexDocumentSuffix">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="redirectAllRequestsTo">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="routingRules">
+                    <description><![CDATA[]]></description>
+                </parameter>
+            </parameters>
+        </type>
+        <type name="org.mule.extension.s3.api.model.CORSRule">
+            <description><![CDATA[]]></description>
+            <parameters>
+                <parameter name="allowedHeaders">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="allowedMethods">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="allowedOrigins">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="exposedHeaders">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="id">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="maxAgeSeconds">
+                    <description><![CDATA[]]></description>
+                </parameter>
+            </parameters>
+        </type>
+        <type name="org.mule.extension.s3.api.model.CompleteMultipartUploadResult">
+            <description><![CDATA[]]></description>
+            <parameters>
+                <parameter name="bucketName">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="eTag">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="expirationTime">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="expirationTimeRuleId">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="key">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="location">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="versionId">
+                    <description><![CDATA[]]></description>
+                </parameter>
+            </parameters>
+        </type>
+        <type name="org.mule.extension.s3.api.model.CopyPartResult">
+            <description><![CDATA[]]></description>
+            <parameters>
+                <parameter name="etag">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="lastModifiedDate">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="partNumber">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="versionId">
+                    <description><![CDATA[]]></description>
+                </parameter>
+            </parameters>
+        </type>
+        <type name="org.mule.extension.s3.api.model.Grant">
+            <description><![CDATA[]]></description>
+            <parameters>
+                <parameter name="grantee">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="permission">
+                    <description><![CDATA[]]></description>
+                </parameter>
+            </parameters>
+        </type>
+        <type name="org.mule.extension.s3.api.model.KeyVersion">
+            <description><![CDATA[]]></description>
+            <parameters>
+                <parameter name="value">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="version">
+                    <description><![CDATA[]]></description>
+                </parameter>
+            </parameters>
+        </type>
+        <type name="org.mule.extension.s3.api.model.MultipartUploadListing">
+            <description><![CDATA[]]></description>
+            <parameters>
+                <parameter name="bucketName">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="commonPrefixes">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="delimiter">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="encodingType">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="keyMarker">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="maxUploads">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="multipartUploads">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="nextKeyMarker">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="nextUploadIdMarker">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="prefix">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="truncated">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="uploadIdMarker">
+                    <description><![CDATA[]]></description>
+                </parameter>
+            </parameters>
+        </type>
+        <type name="org.mule.extension.s3.api.model.ObjectResult">
+            <description><![CDATA[]]></description>
+            <parameters>
+                <parameter name="etag">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="expirationTime">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="expirationTimeRuleId">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="lastModifiedDate">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="versionId">
+                    <description><![CDATA[]]></description>
+                </parameter>
+            </parameters>
+        </type>
+        <type name="org.mule.extension.s3.api.model.Owner">
+            <description><![CDATA[]]></description>
+            <parameters>
+                <parameter name="displayName">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="id">
+                    <description><![CDATA[]]></description>
+                </parameter>
+            </parameters>
+        </type>
+        <type name="org.mule.extension.s3.api.model.PartETag">
+            <description><![CDATA[]]></description>
+            <parameters>
+                <parameter name="etag">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="partNumber">
+                    <description><![CDATA[]]></description>
+                </parameter>
+            </parameters>
+        </type>
+        <type name="org.mule.extension.s3.api.model.PartListing">
+            <description><![CDATA[]]></description>
+            <parameters>
+                <parameter name="bucketName">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="encodingType">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="initiator">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="key">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="maxParts">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="nextPartNumberMarker">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="owner">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="partNumberMarker">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="parts">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="storageClass">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="truncated">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="uploadId">
+                    <description><![CDATA[]]></description>
+                </parameter>
+            </parameters>
+        </type>
+        <type name="org.mule.extension.s3.api.model.S3ObjectSummary">
+            <description><![CDATA[]]></description>
+            <parameters>
+                <parameter name="ETag">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="bucketName">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="key">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="lastModified">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="owner">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="size">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="storageClass">
+                    <description><![CDATA[]]></description>
+                </parameter>
+            </parameters>
+        </type>
+        <type name="org.mule.extension.s3.api.model.S3VersionSummary">
+            <description><![CDATA[]]></description>
+            <parameters>
+                <parameter name="ETag">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="bucketName">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="deleteMarker">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="key">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="lastModified">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="latest">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="owner">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="size">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="storageClass">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="versionId">
+                    <description><![CDATA[]]></description>
+                </parameter>
+            </parameters>
+        </type>
+        <type name="org.mule.extension.s3.api.model.TopicConfiguration">
+            <description><![CDATA[]]></description>
+            <parameters>
+                <parameter name="events">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="objectPrefixes">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="topicARN">
+                    <description><![CDATA[]]></description>
+                </parameter>
+            </parameters>
+        </type>
+        <type name="org.mule.extension.s3.api.model.UploadPartResult">
+            <description><![CDATA[]]></description>
+            <parameters>
+                <parameter name="etag">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="partNumber">
+                    <description><![CDATA[]]></description>
+                </parameter>
+            </parameters>
+        </type>
+    </types>
+</extension-documentation>

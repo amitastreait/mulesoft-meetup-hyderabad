@@ -1,0 +1,586 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extension-documentation>
+    <configs>
+        <config name="imap">
+            <description><![CDATA[Configuration for operations that are performed through the IMAP (Internet Message Access Protocol) protocol.]]></description>
+            <parameters>
+                <parameter name="eagerlyFetchContent">
+                    <description><![CDATA[Indicates whether the retrieved emails should be opened and read. The default value is "true".]]></description>
+                </parameter>
+                <parameter name="expirationPolicy">
+                    <description><![CDATA[Configures the minimum amount of time that a dynamic configuration instance can remain idle before the runtime considers it eligible for expiration. This does not mean that the platform will expire the instance at the exact moment that it becomes eligible. The runtime will actually purge the instances when it sees it fit.]]></description>
+                </parameter>
+            </parameters>
+        </config>
+        <config name="pop3">
+            <description><![CDATA[Configuration for operations that are performed through the POP3 (Post Office Protocol 3) protocol.]]></description>
+            <parameters>
+                <parameter name="expirationPolicy">
+                    <description><![CDATA[Configures the minimum amount of time that a dynamic configuration instance can remain idle before the runtime considers it eligible for expiration. This does not mean that the platform will expire the instance at the exact moment that it becomes eligible. The runtime will actually purge the instances when it sees it fit.]]></description>
+                </parameter>
+            </parameters>
+        </config>
+        <config name="smtp">
+            <description><![CDATA[Configuration for operations that are performed through the SMTP (Simple Mail Transfer Protocol) protocol.]]></description>
+            <parameters>
+                <parameter name="from">
+                    <description><![CDATA[The "From" sender address. The person that is going to send the messages.]]></description>
+                </parameter>
+                <parameter name="defaultEncoding">
+                    <description><![CDATA[Default character encoding to be used in all the messages. If not specified, the default charset in the mule configuration will be used]]></description>
+                </parameter>
+                <parameter name="defaultContentTransferEncoding">
+                    <description><![CDATA[]]></description>
+                </parameter>
+                <parameter name="expirationPolicy">
+                    <description><![CDATA[Configures the minimum amount of time that a dynamic configuration instance can remain idle before the runtime considers it eligible for expiration. This does not mean that the platform will expire the instance at the exact moment that it becomes eligible. The runtime will actually purge the instances when it sees it fit.]]></description>
+                </parameter>
+            </parameters>
+        </config>
+    </configs>
+    <connections>
+        <connection name="imap">
+            <description><![CDATA[A ConnectionProvider that returns instances of imap based MailboxConnections.]]></description>
+            <parameters>
+                <parameter name="properties">
+                    <description><![CDATA[An additional custom set of properties to configure the connection session.]]></description>
+                </parameter>
+                <parameter name="timeoutUnit">
+                    <description><![CDATA[A TimeUnit which qualifies the #connectionTimeout, #writeTimeout and #readTimeout attributes. <p> Defaults to SECONDS]]></description>
+                </parameter>
+                <parameter name="connectionTimeout">
+                    <description><![CDATA[The socket connection timeout value. This attribute works in tandem with #timeoutUnit. <p> Defaults to 5]]></description>
+                </parameter>
+                <parameter name="readTimeout">
+                    <description><![CDATA[The socket read timeout value. This attribute works in tandem with #timeoutUnit. <p> Defaults to 5]]></description>
+                </parameter>
+                <parameter name="writeTimeout">
+                    <description><![CDATA[The socket write timeout value. This attribute works in tandem with #timeoutUnit. <p> Defaults to 5]]></description>
+                </parameter>
+                <parameter name="host">
+                    <description><![CDATA[Host name of the mail server.]]></description>
+                </parameter>
+                <parameter name="user">
+                    <description><![CDATA[Username used to connect with the mail server.]]></description>
+                </parameter>
+                <parameter name="password">
+                    <description><![CDATA[Username password to connect with the mail server.]]></description>
+                </parameter>
+                <parameter name="port">
+                    <description><![CDATA[The port number of the mail server. '993' by default.]]></description>
+                </parameter>
+                <parameter name="reconnection">
+                    <description><![CDATA[When the application is deployed, a connectivity test is performed on all connectors. If set to true, deployment will fail if the test doesn't pass after exhausting the associated reconnection strategy]]></description>
+                </parameter>
+                <parameter name="poolingProfile">
+                    <description><![CDATA[Characteristics of the connection pool]]></description>
+                </parameter>
+            </parameters>
+        </connection>
+        <connection name="imaps">
+            <description><![CDATA[A ConnectionProvider that returns instances of imaps (secure) based MailboxConnections. <p> The returned connection is secured by TLS.]]></description>
+            <parameters>
+                <parameter name="properties">
+                    <description><![CDATA[An additional custom set of properties to configure the connection session.]]></description>
+                </parameter>
+                <parameter name="timeoutUnit">
+                    <description><![CDATA[A TimeUnit which qualifies the #connectionTimeout, #writeTimeout and #readTimeout attributes. <p> Defaults to SECONDS]]></description>
+                </parameter>
+                <parameter name="connectionTimeout">
+                    <description><![CDATA[The socket connection timeout value. This attribute works in tandem with #timeoutUnit. <p> Defaults to 5]]></description>
+                </parameter>
+                <parameter name="readTimeout">
+                    <description><![CDATA[The socket read timeout value. This attribute works in tandem with #timeoutUnit. <p> Defaults to 5]]></description>
+                </parameter>
+                <parameter name="writeTimeout">
+                    <description><![CDATA[The socket write timeout value. This attribute works in tandem with #timeoutUnit. <p> Defaults to 5]]></description>
+                </parameter>
+                <parameter name="host">
+                    <description><![CDATA[Host name of the mail server.]]></description>
+                </parameter>
+                <parameter name="user">
+                    <description><![CDATA[Username used to connect with the mail server.]]></description>
+                </parameter>
+                <parameter name="password">
+                    <description><![CDATA[Username password to connect with the mail server.]]></description>
+                </parameter>
+                <parameter name="port">
+                    <description><![CDATA[The port number of the mail server. '993' by default.]]></description>
+                </parameter>
+                <parameter name="tlsContextFactory">
+                    <description><![CDATA[A factory for TLS contexts. A TLS context is configured with a key store and a trust store. Allows to create a TLS secured connections.]]></description>
+                </parameter>
+                <parameter name="reconnection">
+                    <description><![CDATA[When the application is deployed, a connectivity test is performed on all connectors. If set to true, deployment will fail if the test doesn't pass after exhausting the associated reconnection strategy]]></description>
+                </parameter>
+                <parameter name="poolingProfile">
+                    <description><![CDATA[Characteristics of the connection pool]]></description>
+                </parameter>
+            </parameters>
+        </connection>
+        <connection name="pop3">
+            <description><![CDATA[A ConnectionProvider that returns instances of pop3 based MailboxConnections.]]></description>
+            <parameters>
+                <parameter name="properties">
+                    <description><![CDATA[An additional custom set of properties to configure the connection session.]]></description>
+                </parameter>
+                <parameter name="timeoutUnit">
+                    <description><![CDATA[A TimeUnit which qualifies the #connectionTimeout, #writeTimeout and #readTimeout attributes. <p> Defaults to SECONDS]]></description>
+                </parameter>
+                <parameter name="connectionTimeout">
+                    <description><![CDATA[The socket connection timeout value. This attribute works in tandem with #timeoutUnit. <p> Defaults to 5]]></description>
+                </parameter>
+                <parameter name="readTimeout">
+                    <description><![CDATA[The socket read timeout value. This attribute works in tandem with #timeoutUnit. <p> Defaults to 5]]></description>
+                </parameter>
+                <parameter name="writeTimeout">
+                    <description><![CDATA[The socket write timeout value. This attribute works in tandem with #timeoutUnit. <p> Defaults to 5]]></description>
+                </parameter>
+                <parameter name="host">
+                    <description><![CDATA[Host name of the mail server.]]></description>
+                </parameter>
+                <parameter name="user">
+                    <description><![CDATA[Username used to connect with the mail server.]]></description>
+                </parameter>
+                <parameter name="password">
+                    <description><![CDATA[Username password to connect with the mail server.]]></description>
+                </parameter>
+                <parameter name="port">
+                    <description><![CDATA[The port number of the mail server. '110' by default.]]></description>
+                </parameter>
+                <parameter name="reconnection">
+                    <description><![CDATA[When the application is deployed, a connectivity test is performed on all connectors. If set to true, deployment will fail if the test doesn't pass after exhausting the associated reconnection strategy]]></description>
+                </parameter>
+                <parameter name="poolingProfile">
+                    <description><![CDATA[Characteristics of the connection pool]]></description>
+                </parameter>
+            </parameters>
+        </connection>
+        <connection name="pop3s">
+            <description><![CDATA[A ConnectionProvider that returns instances of pop3s (secured) based MailboxConnections. <p> The returned connection is secured by TLS.]]></description>
+            <parameters>
+                <parameter name="properties">
+                    <description><![CDATA[An additional custom set of properties to configure the connection session.]]></description>
+                </parameter>
+                <parameter name="timeoutUnit">
+                    <description><![CDATA[A TimeUnit which qualifies the #connectionTimeout, #writeTimeout and #readTimeout attributes. <p> Defaults to SECONDS]]></description>
+                </parameter>
+                <parameter name="connectionTimeout">
+                    <description><![CDATA[The socket connection timeout value. This attribute works in tandem with #timeoutUnit. <p> Defaults to 5]]></description>
+                </parameter>
+                <parameter name="readTimeout">
+                    <description><![CDATA[The socket read timeout value. This attribute works in tandem with #timeoutUnit. <p> Defaults to 5]]></description>
+                </parameter>
+                <parameter name="writeTimeout">
+                    <description><![CDATA[The socket write timeout value. This attribute works in tandem with #timeoutUnit. <p> Defaults to 5]]></description>
+                </parameter>
+                <parameter name="host">
+                    <description><![CDATA[Host name of the mail server.]]></description>
+                </parameter>
+                <parameter name="user">
+                    <description><![CDATA[Username used to connect with the mail server.]]></description>
+                </parameter>
+                <parameter name="password">
+                    <description><![CDATA[Username password to connect with the mail server.]]></description>
+                </parameter>
+                <parameter name="port">
+                    <description><![CDATA[The port number of the mail server. '995' by default.]]></description>
+                </parameter>
+                <parameter name="tlsContextFactory">
+                    <description><![CDATA[A factory for TLS contexts. A TLS context is configured with a key store and a trust store. Allows to create a TLS secured connections.]]></description>
+                </parameter>
+                <parameter name="reconnection">
+                    <description><![CDATA[When the application is deployed, a connectivity test is performed on all connectors. If set to true, deployment will fail if the test doesn't pass after exhausting the associated reconnection strategy]]></description>
+                </parameter>
+                <parameter name="poolingProfile">
+                    <description><![CDATA[Characteristics of the connection pool]]></description>
+                </parameter>
+            </parameters>
+        </connection>
+        <connection name="smtp">
+            <description><![CDATA[A ConnectionProvider that returns instances of smtp based SenderConnections.]]></description>
+            <parameters>
+                <parameter name="properties">
+                    <description><![CDATA[An additional custom set of properties to configure the connection session.]]></description>
+                </parameter>
+                <parameter name="timeoutUnit">
+                    <description><![CDATA[A TimeUnit which qualifies the #connectionTimeout, #writeTimeout and #readTimeout attributes. <p> Defaults to SECONDS]]></description>
+                </parameter>
+                <parameter name="connectionTimeout">
+                    <description><![CDATA[The socket connection timeout value. This attribute works in tandem with #timeoutUnit. <p> Defaults to 5]]></description>
+                </parameter>
+                <parameter name="readTimeout">
+                    <description><![CDATA[The socket read timeout value. This attribute works in tandem with #timeoutUnit. <p> Defaults to 5]]></description>
+                </parameter>
+                <parameter name="writeTimeout">
+                    <description><![CDATA[The socket write timeout value. This attribute works in tandem with #timeoutUnit. <p> Defaults to 5]]></description>
+                </parameter>
+                <parameter name="host">
+                    <description><![CDATA[Host name of the mail server.]]></description>
+                </parameter>
+                <parameter name="user">
+                    <description><![CDATA[Username used to connect with the mail server.]]></description>
+                </parameter>
+                <parameter name="password">
+                    <description><![CDATA[Username password to connect with the mail server.]]></description>
+                </parameter>
+                <parameter name="port">
+                    <description><![CDATA[The port number of the mail server. '25' by default.]]></description>
+                </parameter>
+                <parameter name="reconnection">
+                    <description><![CDATA[When the application is deployed, a connectivity test is performed on all connectors. If set to true, deployment will fail if the test doesn't pass after exhausting the associated reconnection strategy]]></description>
+                </parameter>
+                <parameter name="poolingProfile">
+                    <description><![CDATA[Characteristics of the connection pool]]></description>
+                </parameter>
+            </parameters>
+        </connection>
+        <connection name="smtps">
+            <description><![CDATA[A ConnectionProvider that returns instances of smtps based MailboxConnections. <p> The returned connection is secured by TLS.]]></description>
+            <parameters>
+                <parameter name="properties">
+                    <description><![CDATA[An additional custom set of properties to configure the connection session.]]></description>
+                </parameter>
+                <parameter name="timeoutUnit">
+                    <description><![CDATA[A TimeUnit which qualifies the #connectionTimeout, #writeTimeout and #readTimeout attributes. <p> Defaults to SECONDS]]></description>
+                </parameter>
+                <parameter name="connectionTimeout">
+                    <description><![CDATA[The socket connection timeout value. This attribute works in tandem with #timeoutUnit. <p> Defaults to 5]]></description>
+                </parameter>
+                <parameter name="readTimeout">
+                    <description><![CDATA[The socket read timeout value. This attribute works in tandem with #timeoutUnit. <p> Defaults to 5]]></description>
+                </parameter>
+                <parameter name="writeTimeout">
+                    <description><![CDATA[The socket write timeout value. This attribute works in tandem with #timeoutUnit. <p> Defaults to 5]]></description>
+                </parameter>
+                <parameter name="host">
+                    <description><![CDATA[Host name of the mail server.]]></description>
+                </parameter>
+                <parameter name="user">
+                    <description><![CDATA[Username used to connect with the mail server.]]></description>
+                </parameter>
+                <parameter name="password">
+                    <description><![CDATA[Username password to connect with the mail server.]]></description>
+                </parameter>
+                <parameter name="port">
+                    <description><![CDATA[The port number of the mail server. '465' by default.]]></description>
+                </parameter>
+                <parameter name="tlsContextFactory">
+                    <description><![CDATA[A factory for TLS contexts. A TLS context is configured with a key store and a trust store. Allows to create a TLS secured connections.]]></description>
+                </parameter>
+                <parameter name="reconnection">
+                    <description><![CDATA[When the application is deployed, a connectivity test is performed on all connectors. If set to true, deployment will fail if the test doesn't pass after exhausting the associated reconnection strategy]]></description>
+                </parameter>
+                <parameter name="poolingProfile">
+                    <description><![CDATA[Characteristics of the connection pool]]></description>
+                </parameter>
+            </parameters>
+        </connection>
+    </connections>
+    <extension name="Email">
+        <description><![CDATA[Email connector used to list and send emails and perform operations in different mailboxes, such as delete and mark as read. <p> This connector supports the SMTP, SMTPS, IMAP, IMAPS, POP3 and POP3s protocols.]]></description>
+        <parameters/>
+    </extension>
+    <operations>
+        <operation name="delete">
+            <description><![CDATA[Eliminates from the mailbox the email with id emailId. <p> For IMAP mailboxes all the messages scheduled for deletion (marked as DELETED) will also be erased from the folder.]]></description>
+            <parameters>
+                <parameter name="mailboxFolder">
+                    <description><![CDATA[Mailbox folder where the emails are going to be deleted]]></description>
+                </parameter>
+                <parameter name="emailId">
+                    <description><![CDATA[Email ID Number of the email to delete.]]></description>
+                </parameter>
+                <parameter name="reconnectionStrategy">
+                    <description><![CDATA[A retry strategy in case of connectivity errors]]></description>
+                </parameter>
+            </parameters>
+        </operation>
+        <operation name="expungeFolder">
+            <description><![CDATA[Eliminates from the mailbox all the messages scheduled for deletion with the DELETED flag set.]]></description>
+            <parameters>
+                <parameter name="mailboxFolder">
+                    <description><![CDATA[Mailbox folder where the emails with the 'DELETED' flag are going to be scheduled to be definitely deleted]]></description>
+                </parameter>
+                <parameter name="reconnectionStrategy">
+                    <description><![CDATA[A retry strategy in case of connectivity errors]]></description>
+                </parameter>
+            </parameters>
+        </operation>
+        <operation name="listImap">
+            <description><![CDATA[List all the emails (with pagination) in the configured imap mailBoxFolder that match with the specified imapMatcher criteria.]]></description>
+            <parameters>
+                <parameter name="mailboxFolder">
+                    <description><![CDATA[Mailbox folder where the emails are going to be fetched]]></description>
+                </parameter>
+                <parameter name="imapMatcher">
+                    <description><![CDATA[Email Matcher which gives the capability of filter the retrieved emails]]></description>
+                </parameter>
+                <parameter name="deleteAfterRetrieve">
+                    <description><![CDATA[Specifies if the returned emails must be deleted after being retrieved or not.]]></description>
+                </parameter>
+                <parameter name="pageSize">
+                    <description><![CDATA[Size of the page used by the PagingProvider implementation for fetching the emails from the IMAP server]]></description>
+                </parameter>
+                <parameter name="limit">
+                    <description><![CDATA[Maximum amount of emails retrieved by the operation. Take into account that this limit only applies to the emails effectively retrieved by the operation (the ones which matched the IMAPEmailPredicateBuilder criteria) and doesn't imply any restriction over the amount of emails being retrieved from the mailbox server.]]></description>
+                </parameter>
+                <parameter name="streamingStrategy">
+                    <description><![CDATA[Configure if repeatable streams should be used and their behaviour]]></description>
+                </parameter>
+                <parameter name="target">
+                    <description><![CDATA[The name of a variable on which the operation's output will be placed]]></description>
+                </parameter>
+                <parameter name="targetValue">
+                    <description><![CDATA[An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable]]></description>
+                </parameter>
+                <parameter name="reconnectionStrategy">
+                    <description><![CDATA[A retry strategy in case of connectivity errors]]></description>
+                </parameter>
+            </parameters>
+        </operation>
+        <operation name="markAsDeleted">
+            <description><![CDATA[Marks an incoming email as DELETED, this way the marked email(s) are scheduled for deletion when the folder closes, this means that the email is not physically eliminated from the mailbox folder, but it's state changes. <p> All DELETED marked emails are going to be eliminated from the mailbox when one of IMAPOperations#expungeFolder(MailboxConnection, String) or IMAPOperations#delete(MailboxConnection, String, long) is executed. <p> This operation targets a single email.]]></description>
+            <parameters>
+                <parameter name="mailboxFolder">
+                    <description><![CDATA[Mailbox folder where the emails are going to be marked as deleted]]></description>
+                </parameter>
+                <parameter name="emailId">
+                    <description><![CDATA[Email ID Number of the email to mark as deleted.]]></description>
+                </parameter>
+                <parameter name="reconnectionStrategy">
+                    <description><![CDATA[A retry strategy in case of connectivity errors]]></description>
+                </parameter>
+            </parameters>
+        </operation>
+        <operation name="markAsRead">
+            <description><![CDATA[Marks a single email as READ changing it's state in the specified mailbox folder. <p> This operation can targets a single email.]]></description>
+            <parameters>
+                <parameter name="mailboxFolder">
+                    <description><![CDATA[Folder where the emails are going to be marked as read]]></description>
+                </parameter>
+                <parameter name="emailId">
+                    <description><![CDATA[Email ID Number of the email to mark as read.]]></description>
+                </parameter>
+                <parameter name="reconnectionStrategy">
+                    <description><![CDATA[A retry strategy in case of connectivity errors]]></description>
+                </parameter>
+            </parameters>
+        </operation>
+        <operation name="listPop3">
+            <description><![CDATA[List all the emails (with pagination) in the configured pop3 mailBoxFolder that match with the specified pop3Matcher criteria. <p> As the POP3 protocol does not support the capability to find specific emails from its UID in a folder to move/delete it. a parameter deleteAfterRetrieve is available for deleting the emails from the server right after being retrieved.]]></description>
+            <parameters>
+                <parameter name="mailboxFolder">
+                    <description><![CDATA[Mailbox folder where the emails are going to be fetched]]></description>
+                </parameter>
+                <parameter name="pop3Matcher">
+                    <description><![CDATA[Email Matcher which gives the capability of filter the retrieved emails]]></description>
+                </parameter>
+                <parameter name="deleteAfterRetrieve">
+                    <description><![CDATA[Specifies if the returned emails must be deleted after being retrieved or not.]]></description>
+                </parameter>
+                <parameter name="pageSize">
+                    <description><![CDATA[Size of the page used by the PagingProvider implementation for fetching the emails from the POP3 server]]></description>
+                </parameter>
+                <parameter name="limit">
+                    <description><![CDATA[Maximum amount of emails retrieved by the operation. Take into account that this limit only applies to the emails effectively retrieved by the operation (the ones which matched the IMAPEmailPredicateBuilder criteria) and doesn't imply any restriction over the amount of emails being retrieved from the mailbox server.]]></description>
+                </parameter>
+                <parameter name="streamingStrategy">
+                    <description><![CDATA[Configure if repeatable streams should be used and their behaviour]]></description>
+                </parameter>
+                <parameter name="target">
+                    <description><![CDATA[The name of a variable on which the operation's output will be placed]]></description>
+                </parameter>
+                <parameter name="targetValue">
+                    <description><![CDATA[An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable]]></description>
+                </parameter>
+                <parameter name="reconnectionStrategy">
+                    <description><![CDATA[A retry strategy in case of connectivity errors]]></description>
+                </parameter>
+            </parameters>
+        </operation>
+        <operation name="send">
+            <description><![CDATA[Sends an email message. The message will be sent to all recipient toAddresses, ccAddresses, bccAddresses specified in the message. <p> The content of the message aims to be some type of text (text/plan, text/html) and its composed by the body and it's content type. If no content is specified then the incoming payload it's going to be converted into plain text if possible.]]></description>
+            <parameters>
+                <parameter name="fromAddress">
+                    <description><![CDATA[The "From" sender address. The person that is going to send the messages, if not set, it defaults to the from address specified in the config.]]></description>
+                </parameter>
+                <parameter name="toAddresses">
+                    <description><![CDATA[The recipient addresses of "To" (primary) type.]]></description>
+                </parameter>
+                <parameter name="ccAddresses">
+                    <description><![CDATA[The recipient addresses of "Cc" (carbon copy) type]]></description>
+                </parameter>
+                <parameter name="bccAddresses">
+                    <description><![CDATA[The recipient addresses of "Bcc" (blind carbon copy) type]]></description>
+                </parameter>
+                <parameter name="replyToAddresses">
+                    <description><![CDATA[The email addresses to which this email should be replied.]]></description>
+                </parameter>
+                <parameter name="subject">
+                    <description><![CDATA[The subject of the email.]]></description>
+                </parameter>
+                <parameter name="headers">
+                    <description><![CDATA[The headers that this email carry.]]></description>
+                </parameter>
+                <parameter name="content">
+                    <description><![CDATA[Text body of the message. Aims to be text in any format]]></description>
+                </parameter>
+                <parameter name="contentType">
+                    <description><![CDATA[ContentType of the body text. Example: "text/plain".]]></description>
+                </parameter>
+                <parameter name="encoding">
+                    <description><![CDATA[The character encoding of the body. If it is configured, it overrides the one inferred from the body.]]></description>
+                </parameter>
+                <parameter name="contentTransferEncoding">
+                    <description><![CDATA[Encoding used to indicate the type of transformation that has been used in order to represent the body in an acceptable manner for transport. The value is case insensitive. <p> Known encodings: <ul> <li>BASE64</li> <li>QUOTED-PRINTABLE</li> <li>8BIT</li> <li>7BIT</li> <li>BINARY</li> </ul>]]></description>
+                </parameter>
+                <parameter name="attachments">
+                    <description><![CDATA[The attachments for an Email, that will be sent along the email body.]]></description>
+                </parameter>
+                <parameter name="attachmentsContentTransferEncoding">
+                    <description><![CDATA[Encoding used to indicate the type of transformation that has been used in order to represent the body in an acceptable manner for transport. The value is case insensitive. <p> Known encodings: <ul> <li>BASE64</li> <li>QUOTED-PRINTABLE</li> <li>8BIT</li> <li>7BIT</li> <li>BINARY</li> </ul>]]></description>
+                </parameter>
+                <parameter name="reconnectionStrategy">
+                    <description><![CDATA[A retry strategy in case of connectivity errors]]></description>
+                </parameter>
+            </parameters>
+        </operation>
+    </operations>
+    <sources>
+        <source name="listener-imap">
+            <description><![CDATA[Retrieves all the emails from an IMAP mailbox folder, watermark can be enabled for polled items.]]></description>
+            <parameters>
+                <parameter name="folder">
+                    <description><![CDATA[The name of the folder to poll emails from. Defaults to "INBOX".]]></description>
+                </parameter>
+                <parameter name="deleteAfterRetrieve">
+                    <description><![CDATA[Enables the deletion of the polled emails after being retrieved. This is disabled by default.]]></description>
+                </parameter>
+                <parameter name="watermarkEnabled">
+                    <description><![CDATA[If watermark should be applied to the polled emails or not. Default to true.]]></description>
+                </parameter>
+                <parameter name="imapMatcher">
+                    <description><![CDATA[A matcher to filter emails retrieved by this polling source. For default already read emails will be filtered.]]></description>
+                </parameter>
+                <parameter name="primaryNodeOnly">
+                    <description><![CDATA[Whether this source should only be executed on the primary node when runnning in Cluster]]></description>
+                </parameter>
+                <parameter name="schedulingStrategy">
+                    <description><![CDATA[Configures the scheduler that triggers the polling]]></description>
+                </parameter>
+                <parameter name="redeliveryPolicy">
+                    <description><![CDATA[Defines a policy for processing the redelivery of the same message]]></description>
+                </parameter>
+                <parameter name="reconnectionStrategy">
+                    <description><![CDATA[A retry strategy in case of connectivity errors]]></description>
+                </parameter>
+            </parameters>
+        </source>
+        <source name="listener-pop3">
+            <description><![CDATA[Retrieves all the emails from an POP3 mailbox folder.]]></description>
+            <parameters>
+                <parameter name="folder">
+                    <description><![CDATA[The name of the folder to poll emails from. Defaults to "INBOX".]]></description>
+                </parameter>
+                <parameter name="deleteAfterRetrieve">
+                    <description><![CDATA[Enables the deletion of the polled emails after being retrieved. This is disabled by default.]]></description>
+                </parameter>
+                <parameter name="pop3Matcher">
+                    <description><![CDATA[A matcher to filter emails retrieved by this polling source.]]></description>
+                </parameter>
+                <parameter name="primaryNodeOnly">
+                    <description><![CDATA[Whether this source should only be executed on the primary node when runnning in Cluster]]></description>
+                </parameter>
+                <parameter name="schedulingStrategy">
+                    <description><![CDATA[Configures the scheduler that triggers the polling]]></description>
+                </parameter>
+                <parameter name="redeliveryPolicy">
+                    <description><![CDATA[Defines a policy for processing the redelivery of the same message]]></description>
+                </parameter>
+                <parameter name="reconnectionStrategy">
+                    <description><![CDATA[A retry strategy in case of connectivity errors]]></description>
+                </parameter>
+            </parameters>
+        </source>
+    </sources>
+    <types>
+        <type name="org.mule.extension.email.api.exception.EmailException">
+            <description><![CDATA[Is the generic RuntimeException type for the Email Connector, used when an error could not be specified.
+
+ @since 1.0]]></description>
+            <parameters/>
+        </type>
+        <type name="org.mule.extension.email.api.predicate.IMAPEmailPredicateBuilder">
+            <description><![CDATA[Builds a IMAPEmailAttributes instance is compliant with a number of criteria.
+ This builder is stateful and not thread-safe. A new instance should be use per each desired Predicate.
+ <p>
+ This builder adds the capability to build a predicate that filters by the EmailFlags contained in
+ an email returned from an IMAP mailbox
+ <p>
+ The class is also given the &quot;imap-matcher&quot; alias to make it DSL/XML friendly.
+
+ @since 1.0]]></description>
+            <parameters>
+                <parameter name="receivedSince">
+                    <description><![CDATA[Indicates since which date the received emails must be retrieved]]></description>
+                </parameter>
+                <parameter name="receivedUntil">
+                    <description><![CDATA[Indicates until which date the received emails must be retrieved]]></description>
+                </parameter>
+                <parameter name="sentSince">
+                    <description><![CDATA[Indicates since which date the sent emails must be retrieved]]></description>
+                </parameter>
+                <parameter name="sentUntil">
+                    <description><![CDATA[Indicates until which date the sent emails must be retrieved]]></description>
+                </parameter>
+                <parameter name="subjectRegex">
+                    <description><![CDATA[Subject Regex to match with the wanted emails]]></description>
+                </parameter>
+                <parameter name="fromRegex">
+                    <description><![CDATA[From Email Address Regex to match with the wanted emails]]></description>
+                </parameter>
+                <parameter name="seen">
+                    <description><![CDATA[Indicates if should retrieve 'seen' or 'not seen' emails]]></description>
+                </parameter>
+                <parameter name="answered">
+                    <description><![CDATA[Indicates if should retrieve 'answered' or 'not answered' emails]]></description>
+                </parameter>
+                <parameter name="deleted">
+                    <description><![CDATA[Indicates if should retrieve 'marked as deleted' or 'not marked as deleted' emails]]></description>
+                </parameter>
+                <parameter name="recent">
+                    <description><![CDATA["Indicates if should retrieve 'recent' or 'not recent' emails]]></description>
+                </parameter>
+            </parameters>
+        </type>
+        <type name="org.mule.extension.email.api.predicate.POP3EmailPredicateBuilder">
+            <description><![CDATA[Builds a POP3EmailAttributes instance is compliant with a number of criteria.
+ <p>
+ The class main purpose is to give the &quot;pop3-matcher&quot; alias to make it unique and distinguishable from the other
+ matcher implementations besides that is more DSL/XML friendly.
+
+ @since 1.0]]></description>
+            <parameters>
+                <parameter name="receivedSince">
+                    <description><![CDATA[Indicates since which date the received emails must be retrieved]]></description>
+                </parameter>
+                <parameter name="receivedUntil">
+                    <description><![CDATA[Indicates until which date the received emails must be retrieved]]></description>
+                </parameter>
+                <parameter name="sentSince">
+                    <description><![CDATA[Indicates since which date the sent emails must be retrieved]]></description>
+                </parameter>
+                <parameter name="sentUntil">
+                    <description><![CDATA[Indicates until which date the sent emails must be retrieved]]></description>
+                </parameter>
+                <parameter name="subjectRegex">
+                    <description><![CDATA[Subject Regex to match with the wanted emails]]></description>
+                </parameter>
+                <parameter name="fromRegex">
+                    <description><![CDATA[From Email Address Regex to match with the wanted emails]]></description>
+                </parameter>
+            </parameters>
+        </type>
+    </types>
+</extension-documentation>

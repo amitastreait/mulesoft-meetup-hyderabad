@@ -1,0 +1,37 @@
+{
+  "extensionModelLoaderDescriptor": {
+    "id": "java",
+    "attributes": {
+      "type": "org.mule.munit.tools.MunitTools",
+      "version": "2.2.1"
+    }
+  },
+  "name": "MUnit Tools",
+  "requiredProduct": "MULE",
+  "classLoaderModelLoaderDescriptor": {
+    "id": "mule",
+    "attributes": {
+      "privilegedExportedPackages": [],
+      "privilegedArtifactIds": [],
+      "exportedPackages": [
+        "org.mule.munit.assertion.api.matchers",
+        "org.mule.munit.assertion.api.expression",
+        "org.mule.munit.assertion.api",
+        "org.mule.munit.common.behavior",
+        "org.mule.munit.tools.util",
+        "org.mule.munit.tools.util.queue.api",
+        "org.mule.munit.common.model"
+      ],
+      "exportedResources": [
+        "MunitTools.dwl",
+        "dw/test/Asserts.dwl",
+        "dw/test/internal/Utils.dwl"
+      ]
+    }
+  },
+  "bundleDescriptorLoader": {
+    "id": "mule",
+    "attributes": {}
+  },
+  "minMuleVersion": "4.1.1"
+}

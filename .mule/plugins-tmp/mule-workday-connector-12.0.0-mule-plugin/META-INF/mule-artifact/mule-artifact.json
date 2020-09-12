@@ -1,0 +1,31 @@
+{
+  "extensionModelLoaderDescriptor": {
+    "id": "java",
+    "attributes": {
+      "type": "com.mulesoft.connector.workday.extension.internal.extension.WorkdayConnector",
+      "version": "12.0.0"
+    }
+  },
+  "license": {
+    "allowsEvaluation": true
+  },
+  "name": "Workday",
+  "requiredProduct": "MULE_EE",
+  "classLoaderModelLoaderDescriptor": {
+    "id": "mule",
+    "attributes": {
+      "privilegedExportedPackages": [],
+      "privilegedArtifactIds": [],
+      "exportedPackages": [
+        "com.mulesoft.connector.workday.extension.api.proxy",
+        "com.mulesoft.connector.workday.extension.api"
+      ],
+      "exportedResources": []
+    }
+  },
+  "bundleDescriptorLoader": {
+    "id": "mule",
+    "attributes": {}
+  },
+  "minMuleVersion": "4.1.1"
+}

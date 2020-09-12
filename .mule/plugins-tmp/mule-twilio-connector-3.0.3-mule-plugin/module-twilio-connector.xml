@@ -1,0 +1,605 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module name="Twilio Connector"
+        prefix="twilio-connector"
+        namespace="http://www.mulesoft.org/schema/mule/twilio-connector"
+        
+        xmlns="http://www.mulesoft.org/schema/mule/module"
+        xmlns:mule="http://www.mulesoft.org/schema/mule/core"
+        xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+        xmlns:http="http://www.mulesoft.org/schema/mule/http"
+        
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="
+           http://www.mulesoft.org/schema/mule/module http://www.mulesoft.org/schema/mule/module/current/mule-module.xsd
+           http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+           
+           http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+
+
+    <property name="property_host" displayName="host" type="string" defaultValue="api.twilio.com" summary="Host for consuming API"/>
+    <property name="property_port" displayName="port" type="string" defaultValue="443" summary="Port for consuming API"/>
+    <property name="property_basePath" displayName="basePath" type="string" defaultValue="/2010-04-01" summary="Basepath for consuming API"/>
+    <property name="property_protocol" displayName="protocol" type="string" defaultValue="HTTPS" summary="Protocol for consuming API"/>
+
+        <property name="property_proxyConfig" displayName="Proxy Config Reference" type="string" use="OPTIONAL" summary="Proxy config reference" tab="Proxy"/>
+        <property name="property_responseTimeout" displayName="Response timeout" type="string" defaultValue="10000" summary="Maximum time in milliseconds that the request element will block the execution of the flow waiting for the HTTP response."/>
+
+        <property name="property_username"
+               displayName="username"              type="string"
+                            summary="Username"                             />
+        <property name="property_password"
+               displayName="password"              type="string"
+                            summary="Password"                            password="true" />
+    
+    
+
+    <http:request-config
+name="twilio-connector-httpreq-config" xmlns:connection="true"
+responseTimeout="#[vars.property_responseTimeout]"
+basePath="#[vars.property_basePath]">
+<http:request-connection
+host="#[vars.property_host]"
+protocol="#[vars.property_protocol]"
+port="#[vars.property_port]"
+proxyConfig="#[vars.property_proxyConfig]"
+><http:authentication>
+<http:basic-authentication
+username="#[vars.property_username]"
+password="#[vars.property_password]"
+/>
+</http:authentication>
+
+</http:request-connection>
+</http:request-config>
+
+
+
+
+    <operation name="get-message-list" displayName="Get Message List" >
+        <parameters>
+                                        <parameter name="to"
+                                        type="string"
+                                        use="OPTIONAL"                    doc:description="Only show messages to this phone number."/>
+                            <parameter name="from"
+                                        type="string"
+                                        use="OPTIONAL"                    doc:description="Only show messages from this phone number or alphanumeric sender ID."/>
+                            <parameter name="date-sent"
+                                        type="string"
+                                        use="OPTIONAL"                    doc:description="Only show messages sent on this date (in GMT format), given as YYYY-MM-DD.
+Example: DateSent=2009-07-06.
+You can also specify inequality, such as DateSent&lt;=YYYY-MM-DD for messages that were sent on or before midnight on a date, and DateSent&gt;=YYYY-MM-DD for messages sent on or after midnight on a date."/>
+                            <parameter name="account-sid"
+                                        type="string"
+                                        use="REQUIRED"                    doc:description="A 34 character string that uniquely identifies the user account."/>
+                                    <parameter name="request-streaming-mode" displayName="Request streaming mode" type="request-streaming-mode-enum" use="OPTIONAL" tab="Advanced" />
+        </parameters>
+        <body>
+                <http:request config-ref="twilio-connector-httpreq-config"
+              path="/Accounts/{AccountSid}/Messages.json"
+              method="GET"
+              requestStreamingMode='#[vars["request-streaming-mode"]]'
+>
+                <mule:error-mapping sourceType="HTTP:PARSING" targetType="TWILIO-CONNECTOR:PARSING" />
+            <mule:error-mapping sourceType="HTTP:TIMEOUT" targetType="TWILIO-CONNECTOR:TIMEOUT" />
+            <mule:error-mapping sourceType="HTTP:SECURITY" targetType="TWILIO-CONNECTOR:SECURITY" />
+            <mule:error-mapping sourceType="HTTP:CONNECTIVITY" targetType="TWILIO-CONNECTOR:CONNECTIVITY" />
+            <mule:error-mapping sourceType="HTTP:BAD_REQUEST" targetType="TWILIO-CONNECTOR:BAD_REQUEST" />
+            <mule:error-mapping sourceType="HTTP:UNAUTHORIZED" targetType="TWILIO-CONNECTOR:UNAUTHORIZED" />
+            <mule:error-mapping sourceType="HTTP:FORBIDDEN" targetType="TWILIO-CONNECTOR:FORBIDDEN" />
+            <mule:error-mapping sourceType="HTTP:METHOD_NOT_ALLOWED" targetType="TWILIO-CONNECTOR:METHOD_NOT_ALLOWED" />
+            <mule:error-mapping sourceType="HTTP:NOT_FOUND" targetType="TWILIO-CONNECTOR:NOT_FOUND" />
+            <mule:error-mapping sourceType="HTTP:NOT_ACCEPTABLE" targetType="TWILIO-CONNECTOR:NOT_ACCEPTABLE" />
+            <mule:error-mapping sourceType="HTTP:UNSUPPORTED_MEDIA_TYPE" targetType="TWILIO-CONNECTOR:UNSUPPORTED_MEDIA_TYPE" />
+            <mule:error-mapping sourceType="HTTP:TOO_MANY_REQUESTS" targetType="TWILIO-CONNECTOR:TOO_MANY_REQUESTS" />
+            <mule:error-mapping sourceType="HTTP:INTERNAL_SERVER_ERROR" targetType="TWILIO-CONNECTOR:INTERNAL_SERVER_ERROR" />
+            <mule:error-mapping sourceType="HTTP:SERVICE_UNAVAILABLE" targetType="TWILIO-CONNECTOR:SERVICE_UNAVAILABLE" />
+            <mule:error-mapping sourceType="HTTP:RETRY_EXHAUSTED" targetType="TWILIO-CONNECTOR:RETRY_EXHAUSTED" />
+        
+            <http:headers>
+            <![CDATA[#[ { 'Accept': 'application/json' } filterObject $ != null ]]]>
+        </http:headers>
+                <http:uri-params>
+            <![CDATA[#[ { 'AccountSid': vars['account-sid'] } filterObject $ != null ]]]>
+        </http:uri-params>
+                <http:query-params>
+            <![CDATA[#[ ( { 'To': vars['to'] } ++ { 'From': vars['from'] } ++ { 'DateSent': vars['date-sent'] } ) filterObject $ != null ]]]>
+        </http:query-params>
+    </http:request>
+    <mule:set-payload value="#[payload]" mimeType="application/json" />
+        </body>
+                    <output type="get-message-list-response-type" />
+        
+        <errors>
+                            <error type="PARSING"/>
+                            <error type="TIMEOUT"/>
+                            <error type="SECURITY"/>
+                            <error type="CONNECTIVITY"/>
+                            <error type="BAD_REQUEST"/>
+                            <error type="UNAUTHORIZED"/>
+                            <error type="FORBIDDEN"/>
+                            <error type="METHOD_NOT_ALLOWED"/>
+                            <error type="NOT_FOUND"/>
+                            <error type="NOT_ACCEPTABLE"/>
+                            <error type="UNSUPPORTED_MEDIA_TYPE"/>
+                            <error type="TOO_MANY_REQUESTS"/>
+                            <error type="INTERNAL_SERVER_ERROR"/>
+                            <error type="SERVICE_UNAVAILABLE"/>
+                            <error type="RETRY_EXHAUSTED"/>
+                    </errors>
+    </operation>
+    <operation name="send-message" displayName="Send Message" >
+        <parameters>
+                            <parameter name="send-message-request-data" type="send-message-request-type" use="REQUIRED" role="PRIMARY" />
+                                        <parameter name="account-sid"
+                                        type="string"
+                                        use="REQUIRED"                    doc:description="A 34 character string that uniquely identifies the user account."/>
+                                    <parameter name="request-streaming-mode" displayName="Request streaming mode" type="request-streaming-mode-enum" use="OPTIONAL" tab="Advanced" />
+        </parameters>
+        <body>
+                <http:request config-ref="twilio-connector-httpreq-config"
+              path="/Accounts/{AccountSid}/Messages.json"
+              method="POST"
+              requestStreamingMode='#[vars["request-streaming-mode"]]'
+>
+                <mule:error-mapping sourceType="HTTP:PARSING" targetType="TWILIO-CONNECTOR:PARSING" />
+            <mule:error-mapping sourceType="HTTP:TIMEOUT" targetType="TWILIO-CONNECTOR:TIMEOUT" />
+            <mule:error-mapping sourceType="HTTP:SECURITY" targetType="TWILIO-CONNECTOR:SECURITY" />
+            <mule:error-mapping sourceType="HTTP:CONNECTIVITY" targetType="TWILIO-CONNECTOR:CONNECTIVITY" />
+            <mule:error-mapping sourceType="HTTP:BAD_REQUEST" targetType="TWILIO-CONNECTOR:BAD_REQUEST" />
+            <mule:error-mapping sourceType="HTTP:UNAUTHORIZED" targetType="TWILIO-CONNECTOR:UNAUTHORIZED" />
+            <mule:error-mapping sourceType="HTTP:FORBIDDEN" targetType="TWILIO-CONNECTOR:FORBIDDEN" />
+            <mule:error-mapping sourceType="HTTP:METHOD_NOT_ALLOWED" targetType="TWILIO-CONNECTOR:METHOD_NOT_ALLOWED" />
+            <mule:error-mapping sourceType="HTTP:NOT_FOUND" targetType="TWILIO-CONNECTOR:NOT_FOUND" />
+            <mule:error-mapping sourceType="HTTP:NOT_ACCEPTABLE" targetType="TWILIO-CONNECTOR:NOT_ACCEPTABLE" />
+            <mule:error-mapping sourceType="HTTP:UNSUPPORTED_MEDIA_TYPE" targetType="TWILIO-CONNECTOR:UNSUPPORTED_MEDIA_TYPE" />
+            <mule:error-mapping sourceType="HTTP:TOO_MANY_REQUESTS" targetType="TWILIO-CONNECTOR:TOO_MANY_REQUESTS" />
+            <mule:error-mapping sourceType="HTTP:INTERNAL_SERVER_ERROR" targetType="TWILIO-CONNECTOR:INTERNAL_SERVER_ERROR" />
+            <mule:error-mapping sourceType="HTTP:SERVICE_UNAVAILABLE" targetType="TWILIO-CONNECTOR:SERVICE_UNAVAILABLE" />
+            <mule:error-mapping sourceType="HTTP:RETRY_EXHAUSTED" targetType="TWILIO-CONNECTOR:RETRY_EXHAUSTED" />
+                <http:body>
+            <![CDATA[#[output application/x-www-form-urlencoded
+fun formUrlEncoded(obj: Object) = obj mapObject {
+($$) : $ match {
+case x is Object -> write(x, "application/json")
+case x is Array -> write(x, "application/json")
+else -> $
+}}
+---
+formUrlEncoded(vars['send-message-request-data'])]
+]]>
+        </http:body>
+    
+            <http:headers>
+            <![CDATA[#[ { 'Accept': 'application/json' } filterObject $ != null ]]]>
+        </http:headers>
+                <http:uri-params>
+            <![CDATA[#[ { 'AccountSid': vars['account-sid'] } filterObject $ != null ]]]>
+        </http:uri-params>
+        </http:request>
+    <mule:set-payload value="#[payload]" mimeType="application/json" />
+        </body>
+                    <output type="send-message-response-type" />
+        
+        <errors>
+                            <error type="PARSING"/>
+                            <error type="TIMEOUT"/>
+                            <error type="SECURITY"/>
+                            <error type="CONNECTIVITY"/>
+                            <error type="BAD_REQUEST"/>
+                            <error type="UNAUTHORIZED"/>
+                            <error type="FORBIDDEN"/>
+                            <error type="METHOD_NOT_ALLOWED"/>
+                            <error type="NOT_FOUND"/>
+                            <error type="NOT_ACCEPTABLE"/>
+                            <error type="UNSUPPORTED_MEDIA_TYPE"/>
+                            <error type="TOO_MANY_REQUESTS"/>
+                            <error type="INTERNAL_SERVER_ERROR"/>
+                            <error type="SERVICE_UNAVAILABLE"/>
+                            <error type="RETRY_EXHAUSTED"/>
+                    </errors>
+    </operation>
+    <operation name="get-message" displayName="Get Message" >
+        <parameters>
+                                        <parameter name="account-sid"
+                                        type="string"
+                                        use="REQUIRED"                    doc:description="A 34 character string that uniquely identifies the user account."/>
+                            <parameter name="message-sid"
+                                        type="string"
+                                        use="REQUIRED"                    doc:description="Unique ID for any message successfully created by Twilio’s API. It is a 34 character string that starts with “SM…” for SMS and “MM…” for MMS. To find the SID for a specific message via the API, make a GET request to the Messages List Resource. This will return a list of SMS messages associated with your account along with details about each message. It would be the “Sid” property in a message resource."/>
+                                    <parameter name="request-streaming-mode" displayName="Request streaming mode" type="request-streaming-mode-enum" use="OPTIONAL" tab="Advanced" />
+        </parameters>
+        <body>
+                <http:request config-ref="twilio-connector-httpreq-config"
+              path="/Accounts/{AccountSid}/Messages/{MessageSid}.json"
+              method="GET"
+              requestStreamingMode='#[vars["request-streaming-mode"]]'
+>
+                <mule:error-mapping sourceType="HTTP:PARSING" targetType="TWILIO-CONNECTOR:PARSING" />
+            <mule:error-mapping sourceType="HTTP:TIMEOUT" targetType="TWILIO-CONNECTOR:TIMEOUT" />
+            <mule:error-mapping sourceType="HTTP:SECURITY" targetType="TWILIO-CONNECTOR:SECURITY" />
+            <mule:error-mapping sourceType="HTTP:CONNECTIVITY" targetType="TWILIO-CONNECTOR:CONNECTIVITY" />
+            <mule:error-mapping sourceType="HTTP:BAD_REQUEST" targetType="TWILIO-CONNECTOR:BAD_REQUEST" />
+            <mule:error-mapping sourceType="HTTP:UNAUTHORIZED" targetType="TWILIO-CONNECTOR:UNAUTHORIZED" />
+            <mule:error-mapping sourceType="HTTP:FORBIDDEN" targetType="TWILIO-CONNECTOR:FORBIDDEN" />
+            <mule:error-mapping sourceType="HTTP:METHOD_NOT_ALLOWED" targetType="TWILIO-CONNECTOR:METHOD_NOT_ALLOWED" />
+            <mule:error-mapping sourceType="HTTP:NOT_FOUND" targetType="TWILIO-CONNECTOR:NOT_FOUND" />
+            <mule:error-mapping sourceType="HTTP:NOT_ACCEPTABLE" targetType="TWILIO-CONNECTOR:NOT_ACCEPTABLE" />
+            <mule:error-mapping sourceType="HTTP:UNSUPPORTED_MEDIA_TYPE" targetType="TWILIO-CONNECTOR:UNSUPPORTED_MEDIA_TYPE" />
+            <mule:error-mapping sourceType="HTTP:TOO_MANY_REQUESTS" targetType="TWILIO-CONNECTOR:TOO_MANY_REQUESTS" />
+            <mule:error-mapping sourceType="HTTP:INTERNAL_SERVER_ERROR" targetType="TWILIO-CONNECTOR:INTERNAL_SERVER_ERROR" />
+            <mule:error-mapping sourceType="HTTP:SERVICE_UNAVAILABLE" targetType="TWILIO-CONNECTOR:SERVICE_UNAVAILABLE" />
+            <mule:error-mapping sourceType="HTTP:RETRY_EXHAUSTED" targetType="TWILIO-CONNECTOR:RETRY_EXHAUSTED" />
+        
+            <http:headers>
+            <![CDATA[#[ { 'Accept': 'application/json' } filterObject $ != null ]]]>
+        </http:headers>
+                <http:uri-params>
+            <![CDATA[#[ ( { 'AccountSid': vars['account-sid'] } ++ { 'MessageSid': vars['message-sid'] } ) filterObject $ != null ]]]>
+        </http:uri-params>
+        </http:request>
+    <mule:set-payload value="#[payload]" mimeType="application/json" />
+        </body>
+                    <output type="get-message-response-type" />
+        
+        <errors>
+                            <error type="PARSING"/>
+                            <error type="TIMEOUT"/>
+                            <error type="SECURITY"/>
+                            <error type="CONNECTIVITY"/>
+                            <error type="BAD_REQUEST"/>
+                            <error type="UNAUTHORIZED"/>
+                            <error type="FORBIDDEN"/>
+                            <error type="METHOD_NOT_ALLOWED"/>
+                            <error type="NOT_FOUND"/>
+                            <error type="NOT_ACCEPTABLE"/>
+                            <error type="UNSUPPORTED_MEDIA_TYPE"/>
+                            <error type="TOO_MANY_REQUESTS"/>
+                            <error type="INTERNAL_SERVER_ERROR"/>
+                            <error type="SERVICE_UNAVAILABLE"/>
+                            <error type="RETRY_EXHAUSTED"/>
+                    </errors>
+    </operation>
+    <operation name="redact-message" displayName="Redact Message" >
+        <parameters>
+                            <parameter name="redact-message-request-data" type="redact-message-request-type" use="REQUIRED" role="PRIMARY" />
+                                        <parameter name="account-sid"
+                                        type="string"
+                                        use="REQUIRED"                    doc:description="A 34 character string that uniquely identifies the user account."/>
+                            <parameter name="message-sid"
+                                        type="string"
+                                        use="REQUIRED"                    doc:description="Unique ID for any message successfully created by Twilio’s API. It is a 34 character string that starts with “SM…” for SMS and “MM…” for MMS. To find the SID for a specific message via the API, make a GET request to the Messages List Resource. This will return a list of SMS messages associated with your account along with details about each message. It would be the “Sid” property in a message resource."/>
+                                    <parameter name="request-streaming-mode" displayName="Request streaming mode" type="request-streaming-mode-enum" use="OPTIONAL" tab="Advanced" />
+        </parameters>
+        <body>
+                <http:request config-ref="twilio-connector-httpreq-config"
+              path="/Accounts/{AccountSid}/Messages/{MessageSid}.json"
+              method="POST"
+              requestStreamingMode='#[vars["request-streaming-mode"]]'
+>
+                <mule:error-mapping sourceType="HTTP:PARSING" targetType="TWILIO-CONNECTOR:PARSING" />
+            <mule:error-mapping sourceType="HTTP:TIMEOUT" targetType="TWILIO-CONNECTOR:TIMEOUT" />
+            <mule:error-mapping sourceType="HTTP:SECURITY" targetType="TWILIO-CONNECTOR:SECURITY" />
+            <mule:error-mapping sourceType="HTTP:CONNECTIVITY" targetType="TWILIO-CONNECTOR:CONNECTIVITY" />
+            <mule:error-mapping sourceType="HTTP:BAD_REQUEST" targetType="TWILIO-CONNECTOR:BAD_REQUEST" />
+            <mule:error-mapping sourceType="HTTP:UNAUTHORIZED" targetType="TWILIO-CONNECTOR:UNAUTHORIZED" />
+            <mule:error-mapping sourceType="HTTP:FORBIDDEN" targetType="TWILIO-CONNECTOR:FORBIDDEN" />
+            <mule:error-mapping sourceType="HTTP:METHOD_NOT_ALLOWED" targetType="TWILIO-CONNECTOR:METHOD_NOT_ALLOWED" />
+            <mule:error-mapping sourceType="HTTP:NOT_FOUND" targetType="TWILIO-CONNECTOR:NOT_FOUND" />
+            <mule:error-mapping sourceType="HTTP:NOT_ACCEPTABLE" targetType="TWILIO-CONNECTOR:NOT_ACCEPTABLE" />
+            <mule:error-mapping sourceType="HTTP:UNSUPPORTED_MEDIA_TYPE" targetType="TWILIO-CONNECTOR:UNSUPPORTED_MEDIA_TYPE" />
+            <mule:error-mapping sourceType="HTTP:TOO_MANY_REQUESTS" targetType="TWILIO-CONNECTOR:TOO_MANY_REQUESTS" />
+            <mule:error-mapping sourceType="HTTP:INTERNAL_SERVER_ERROR" targetType="TWILIO-CONNECTOR:INTERNAL_SERVER_ERROR" />
+            <mule:error-mapping sourceType="HTTP:SERVICE_UNAVAILABLE" targetType="TWILIO-CONNECTOR:SERVICE_UNAVAILABLE" />
+            <mule:error-mapping sourceType="HTTP:RETRY_EXHAUSTED" targetType="TWILIO-CONNECTOR:RETRY_EXHAUSTED" />
+                <http:body>
+            <![CDATA[#[output application/x-www-form-urlencoded
+fun formUrlEncoded(obj: Object) = obj mapObject {
+($$) : $ match {
+case x is Object -> write(x, "application/json")
+case x is Array -> write(x, "application/json")
+else -> $
+}}
+---
+formUrlEncoded(vars['redact-message-request-data'])]
+]]>
+        </http:body>
+    
+            <http:headers>
+            <![CDATA[#[ { 'Accept': 'application/json' } filterObject $ != null ]]]>
+        </http:headers>
+                <http:uri-params>
+            <![CDATA[#[ ( { 'AccountSid': vars['account-sid'] } ++ { 'MessageSid': vars['message-sid'] } ) filterObject $ != null ]]]>
+        </http:uri-params>
+        </http:request>
+    <mule:set-payload value="#[payload]" mimeType="application/json" />
+        </body>
+                    <output type="redact-message-response-type" />
+        
+        <errors>
+                            <error type="PARSING"/>
+                            <error type="TIMEOUT"/>
+                            <error type="SECURITY"/>
+                            <error type="CONNECTIVITY"/>
+                            <error type="BAD_REQUEST"/>
+                            <error type="UNAUTHORIZED"/>
+                            <error type="FORBIDDEN"/>
+                            <error type="METHOD_NOT_ALLOWED"/>
+                            <error type="NOT_FOUND"/>
+                            <error type="NOT_ACCEPTABLE"/>
+                            <error type="UNSUPPORTED_MEDIA_TYPE"/>
+                            <error type="TOO_MANY_REQUESTS"/>
+                            <error type="INTERNAL_SERVER_ERROR"/>
+                            <error type="SERVICE_UNAVAILABLE"/>
+                            <error type="RETRY_EXHAUSTED"/>
+                    </errors>
+    </operation>
+    <operation name="delete-message" displayName="Delete Message" >
+        <parameters>
+                                        <parameter name="account-sid"
+                                        type="string"
+                                        use="REQUIRED"                    doc:description="A 34 character string that uniquely identifies the user account."/>
+                            <parameter name="message-sid"
+                                        type="string"
+                                        use="REQUIRED"                    doc:description="Unique ID for any message successfully created by Twilio’s API. It is a 34 character string that starts with “SM…” for SMS and “MM…” for MMS. To find the SID for a specific message via the API, make a GET request to the Messages List Resource. This will return a list of SMS messages associated with your account along with details about each message. It would be the “Sid” property in a message resource."/>
+                                    <parameter name="request-streaming-mode" displayName="Request streaming mode" type="request-streaming-mode-enum" use="OPTIONAL" tab="Advanced" />
+        </parameters>
+        <body>
+                <http:request config-ref="twilio-connector-httpreq-config"
+              path="/Accounts/{AccountSid}/Messages/{MessageSid}.json"
+              method="DELETE"
+              requestStreamingMode='#[vars["request-streaming-mode"]]'
+>
+                <mule:error-mapping sourceType="HTTP:PARSING" targetType="TWILIO-CONNECTOR:PARSING" />
+            <mule:error-mapping sourceType="HTTP:TIMEOUT" targetType="TWILIO-CONNECTOR:TIMEOUT" />
+            <mule:error-mapping sourceType="HTTP:SECURITY" targetType="TWILIO-CONNECTOR:SECURITY" />
+            <mule:error-mapping sourceType="HTTP:CONNECTIVITY" targetType="TWILIO-CONNECTOR:CONNECTIVITY" />
+            <mule:error-mapping sourceType="HTTP:BAD_REQUEST" targetType="TWILIO-CONNECTOR:BAD_REQUEST" />
+            <mule:error-mapping sourceType="HTTP:UNAUTHORIZED" targetType="TWILIO-CONNECTOR:UNAUTHORIZED" />
+            <mule:error-mapping sourceType="HTTP:FORBIDDEN" targetType="TWILIO-CONNECTOR:FORBIDDEN" />
+            <mule:error-mapping sourceType="HTTP:METHOD_NOT_ALLOWED" targetType="TWILIO-CONNECTOR:METHOD_NOT_ALLOWED" />
+            <mule:error-mapping sourceType="HTTP:NOT_FOUND" targetType="TWILIO-CONNECTOR:NOT_FOUND" />
+            <mule:error-mapping sourceType="HTTP:NOT_ACCEPTABLE" targetType="TWILIO-CONNECTOR:NOT_ACCEPTABLE" />
+            <mule:error-mapping sourceType="HTTP:UNSUPPORTED_MEDIA_TYPE" targetType="TWILIO-CONNECTOR:UNSUPPORTED_MEDIA_TYPE" />
+            <mule:error-mapping sourceType="HTTP:TOO_MANY_REQUESTS" targetType="TWILIO-CONNECTOR:TOO_MANY_REQUESTS" />
+            <mule:error-mapping sourceType="HTTP:INTERNAL_SERVER_ERROR" targetType="TWILIO-CONNECTOR:INTERNAL_SERVER_ERROR" />
+            <mule:error-mapping sourceType="HTTP:SERVICE_UNAVAILABLE" targetType="TWILIO-CONNECTOR:SERVICE_UNAVAILABLE" />
+            <mule:error-mapping sourceType="HTTP:RETRY_EXHAUSTED" targetType="TWILIO-CONNECTOR:RETRY_EXHAUSTED" />
+        
+            <http:headers>
+            <![CDATA[#[ { 'Accept': 'application/xml' } filterObject $ != null ]]]>
+        </http:headers>
+                <http:uri-params>
+            <![CDATA[#[ ( { 'AccountSid': vars['account-sid'] } ++ { 'MessageSid': vars['message-sid'] } ) filterObject $ != null ]]]>
+        </http:uri-params>
+        </http:request>
+    <mule:set-payload value="#[payload]" mimeType="application/xml" />
+        </body>
+                    <output type="string" />
+        
+        <errors>
+                            <error type="PARSING"/>
+                            <error type="TIMEOUT"/>
+                            <error type="SECURITY"/>
+                            <error type="CONNECTIVITY"/>
+                            <error type="BAD_REQUEST"/>
+                            <error type="UNAUTHORIZED"/>
+                            <error type="FORBIDDEN"/>
+                            <error type="METHOD_NOT_ALLOWED"/>
+                            <error type="NOT_FOUND"/>
+                            <error type="NOT_ACCEPTABLE"/>
+                            <error type="UNSUPPORTED_MEDIA_TYPE"/>
+                            <error type="TOO_MANY_REQUESTS"/>
+                            <error type="INTERNAL_SERVER_ERROR"/>
+                            <error type="SERVICE_UNAVAILABLE"/>
+                            <error type="RETRY_EXHAUSTED"/>
+                    </errors>
+    </operation>
+    <operation name="get-media-list" displayName="Get Media List" >
+        <parameters>
+                                        <parameter name="date-created"
+                                        type="string"
+                                        use="OPTIONAL"                    doc:description="Only show media created on the given date. Should be formatted as YYYY-MM-DD. You can also specify inequality, such as DateCreated&lt;=YYYY-MM-DD for media generated at or before midnight on a date, and DateCreated&gt;=YYYY-MM-DD for media generated at or after midnight on a date."/>
+                            <parameter name="account-sid"
+                                        type="string"
+                                        use="REQUIRED"                    doc:description="A 34 character string that uniquely identifies the user account."/>
+                            <parameter name="message-sid"
+                                        type="string"
+                                        use="REQUIRED"                    doc:description="Unique ID for any message successfully created by Twilio’s API. It is a 34 character string that starts with “SM…” for SMS and “MM…” for MMS. To find the SID for a specific message via the API, make a GET request to the Messages List Resource. This will return a list of SMS messages associated with your account along with details about each message. It would be the “Sid” property in a message resource."/>
+                                    <parameter name="request-streaming-mode" displayName="Request streaming mode" type="request-streaming-mode-enum" use="OPTIONAL" tab="Advanced" />
+        </parameters>
+        <body>
+                <http:request config-ref="twilio-connector-httpreq-config"
+              path="/Accounts/{AccountSid}/Messages/{MessageSid}/Media.json"
+              method="GET"
+              requestStreamingMode='#[vars["request-streaming-mode"]]'
+>
+                <mule:error-mapping sourceType="HTTP:PARSING" targetType="TWILIO-CONNECTOR:PARSING" />
+            <mule:error-mapping sourceType="HTTP:TIMEOUT" targetType="TWILIO-CONNECTOR:TIMEOUT" />
+            <mule:error-mapping sourceType="HTTP:SECURITY" targetType="TWILIO-CONNECTOR:SECURITY" />
+            <mule:error-mapping sourceType="HTTP:CONNECTIVITY" targetType="TWILIO-CONNECTOR:CONNECTIVITY" />
+            <mule:error-mapping sourceType="HTTP:BAD_REQUEST" targetType="TWILIO-CONNECTOR:BAD_REQUEST" />
+            <mule:error-mapping sourceType="HTTP:UNAUTHORIZED" targetType="TWILIO-CONNECTOR:UNAUTHORIZED" />
+            <mule:error-mapping sourceType="HTTP:FORBIDDEN" targetType="TWILIO-CONNECTOR:FORBIDDEN" />
+            <mule:error-mapping sourceType="HTTP:METHOD_NOT_ALLOWED" targetType="TWILIO-CONNECTOR:METHOD_NOT_ALLOWED" />
+            <mule:error-mapping sourceType="HTTP:NOT_FOUND" targetType="TWILIO-CONNECTOR:NOT_FOUND" />
+            <mule:error-mapping sourceType="HTTP:NOT_ACCEPTABLE" targetType="TWILIO-CONNECTOR:NOT_ACCEPTABLE" />
+            <mule:error-mapping sourceType="HTTP:UNSUPPORTED_MEDIA_TYPE" targetType="TWILIO-CONNECTOR:UNSUPPORTED_MEDIA_TYPE" />
+            <mule:error-mapping sourceType="HTTP:TOO_MANY_REQUESTS" targetType="TWILIO-CONNECTOR:TOO_MANY_REQUESTS" />
+            <mule:error-mapping sourceType="HTTP:INTERNAL_SERVER_ERROR" targetType="TWILIO-CONNECTOR:INTERNAL_SERVER_ERROR" />
+            <mule:error-mapping sourceType="HTTP:SERVICE_UNAVAILABLE" targetType="TWILIO-CONNECTOR:SERVICE_UNAVAILABLE" />
+            <mule:error-mapping sourceType="HTTP:RETRY_EXHAUSTED" targetType="TWILIO-CONNECTOR:RETRY_EXHAUSTED" />
+        
+            <http:headers>
+            <![CDATA[#[ { 'Accept': 'application/json' } filterObject $ != null ]]]>
+        </http:headers>
+                <http:uri-params>
+            <![CDATA[#[ ( { 'AccountSid': vars['account-sid'] } ++ { 'MessageSid': vars['message-sid'] } ) filterObject $ != null ]]]>
+        </http:uri-params>
+                <http:query-params>
+            <![CDATA[#[ { 'DateCreated': vars['date-created'] } filterObject $ != null ]]]>
+        </http:query-params>
+    </http:request>
+    <mule:set-payload value="#[payload]" mimeType="application/json" />
+        </body>
+                    <output type="get-media-list-response-type" />
+        
+        <errors>
+                            <error type="PARSING"/>
+                            <error type="TIMEOUT"/>
+                            <error type="SECURITY"/>
+                            <error type="CONNECTIVITY"/>
+                            <error type="BAD_REQUEST"/>
+                            <error type="UNAUTHORIZED"/>
+                            <error type="FORBIDDEN"/>
+                            <error type="METHOD_NOT_ALLOWED"/>
+                            <error type="NOT_FOUND"/>
+                            <error type="NOT_ACCEPTABLE"/>
+                            <error type="UNSUPPORTED_MEDIA_TYPE"/>
+                            <error type="TOO_MANY_REQUESTS"/>
+                            <error type="INTERNAL_SERVER_ERROR"/>
+                            <error type="SERVICE_UNAVAILABLE"/>
+                            <error type="RETRY_EXHAUSTED"/>
+                    </errors>
+    </operation>
+    <operation name="get-media" displayName="Get Media" >
+        <parameters>
+                                        <parameter name="date-created"
+                                        type="string"
+                                        use="OPTIONAL"                    doc:description="Only show media created on the given date. Should be formatted as YYYY-MM-DD. You can also specify inequality, such as DateCreated&lt;=YYYY-MM-DD for media generated at or before midnight on a date, and DateCreated&gt;=YYYY-MM-DD for media generated at or after midnight on a date."/>
+                            <parameter name="account-sid"
+                                        type="string"
+                                        use="REQUIRED"                    doc:description="A 34 character string that uniquely identifies the user account."/>
+                            <parameter name="message-sid"
+                                        type="string"
+                                        use="REQUIRED"                    doc:description="Unique ID for any message successfully created by Twilio’s API. It is a 34 character string that starts with “SM…” for SMS and “MM…” for MMS. To find the SID for a specific message via the API, make a GET request to the Messages List Resource. This will return a list of SMS messages associated with your account along with details about each message. It would be the “Sid” property in a message resource."/>
+                            <parameter name="media-sid"
+                                        type="string"
+                                        use="REQUIRED"                    doc:description="Unique ID for any media successfully created by Twilio’s API. It is a 34 character string that starts with “SM…” for SMS and “MM…” for MMS. To find the SID for a specific message via the API, make a GET request to the Messages List Resource. This will return a list of SMS messages associated with your account along with details about each message. It would be the “Sid” property in a message resource."/>
+                                    <parameter name="request-streaming-mode" displayName="Request streaming mode" type="request-streaming-mode-enum" use="OPTIONAL" tab="Advanced" />
+        </parameters>
+        <body>
+                <http:request config-ref="twilio-connector-httpreq-config"
+              path="/Accounts/{AccountSid}/Messages/{MessageSid}/Media/{MediaSid}.json"
+              method="GET"
+              requestStreamingMode='#[vars["request-streaming-mode"]]'
+>
+                <mule:error-mapping sourceType="HTTP:PARSING" targetType="TWILIO-CONNECTOR:PARSING" />
+            <mule:error-mapping sourceType="HTTP:TIMEOUT" targetType="TWILIO-CONNECTOR:TIMEOUT" />
+            <mule:error-mapping sourceType="HTTP:SECURITY" targetType="TWILIO-CONNECTOR:SECURITY" />
+            <mule:error-mapping sourceType="HTTP:CONNECTIVITY" targetType="TWILIO-CONNECTOR:CONNECTIVITY" />
+            <mule:error-mapping sourceType="HTTP:BAD_REQUEST" targetType="TWILIO-CONNECTOR:BAD_REQUEST" />
+            <mule:error-mapping sourceType="HTTP:UNAUTHORIZED" targetType="TWILIO-CONNECTOR:UNAUTHORIZED" />
+            <mule:error-mapping sourceType="HTTP:FORBIDDEN" targetType="TWILIO-CONNECTOR:FORBIDDEN" />
+            <mule:error-mapping sourceType="HTTP:METHOD_NOT_ALLOWED" targetType="TWILIO-CONNECTOR:METHOD_NOT_ALLOWED" />
+            <mule:error-mapping sourceType="HTTP:NOT_FOUND" targetType="TWILIO-CONNECTOR:NOT_FOUND" />
+            <mule:error-mapping sourceType="HTTP:NOT_ACCEPTABLE" targetType="TWILIO-CONNECTOR:NOT_ACCEPTABLE" />
+            <mule:error-mapping sourceType="HTTP:UNSUPPORTED_MEDIA_TYPE" targetType="TWILIO-CONNECTOR:UNSUPPORTED_MEDIA_TYPE" />
+            <mule:error-mapping sourceType="HTTP:TOO_MANY_REQUESTS" targetType="TWILIO-CONNECTOR:TOO_MANY_REQUESTS" />
+            <mule:error-mapping sourceType="HTTP:INTERNAL_SERVER_ERROR" targetType="TWILIO-CONNECTOR:INTERNAL_SERVER_ERROR" />
+            <mule:error-mapping sourceType="HTTP:SERVICE_UNAVAILABLE" targetType="TWILIO-CONNECTOR:SERVICE_UNAVAILABLE" />
+            <mule:error-mapping sourceType="HTTP:RETRY_EXHAUSTED" targetType="TWILIO-CONNECTOR:RETRY_EXHAUSTED" />
+        
+            <http:headers>
+            <![CDATA[#[ { 'Accept': 'application/json' } filterObject $ != null ]]]>
+        </http:headers>
+                <http:uri-params>
+            <![CDATA[#[ ( { 'AccountSid': vars['account-sid'] } ++ { 'MessageSid': vars['message-sid'] } ++ { 'MediaSid': vars['media-sid'] } ) filterObject $ != null ]]]>
+        </http:uri-params>
+                <http:query-params>
+            <![CDATA[#[ { 'DateCreated': vars['date-created'] } filterObject $ != null ]]]>
+        </http:query-params>
+    </http:request>
+    <mule:set-payload value="#[payload]" mimeType="application/json" />
+        </body>
+                    <output type="get-media-response-type" />
+        
+        <errors>
+                            <error type="PARSING"/>
+                            <error type="TIMEOUT"/>
+                            <error type="SECURITY"/>
+                            <error type="CONNECTIVITY"/>
+                            <error type="BAD_REQUEST"/>
+                            <error type="UNAUTHORIZED"/>
+                            <error type="FORBIDDEN"/>
+                            <error type="METHOD_NOT_ALLOWED"/>
+                            <error type="NOT_FOUND"/>
+                            <error type="NOT_ACCEPTABLE"/>
+                            <error type="UNSUPPORTED_MEDIA_TYPE"/>
+                            <error type="TOO_MANY_REQUESTS"/>
+                            <error type="INTERNAL_SERVER_ERROR"/>
+                            <error type="SERVICE_UNAVAILABLE"/>
+                            <error type="RETRY_EXHAUSTED"/>
+                    </errors>
+    </operation>
+    <operation name="delete-media" displayName="Delete Media" >
+        <parameters>
+                                        <parameter name="date-created"
+                                        type="string"
+                                        use="OPTIONAL"                    doc:description="Only show media created on the given date. Should be formatted as YYYY-MM-DD. You can also specify inequality, such as DateCreated&lt;=YYYY-MM-DD for media generated at or before midnight on a date, and DateCreated&gt;=YYYY-MM-DD for media generated at or after midnight on a date."/>
+                            <parameter name="account-sid"
+                                        type="string"
+                                        use="REQUIRED"                    doc:description="A 34 character string that uniquely identifies the user account."/>
+                            <parameter name="message-sid"
+                                        type="string"
+                                        use="REQUIRED"                    doc:description="Unique ID for any message successfully created by Twilio’s API. It is a 34 character string that starts with “SM…” for SMS and “MM…” for MMS. To find the SID for a specific message via the API, make a GET request to the Messages List Resource. This will return a list of SMS messages associated with your account along with details about each message. It would be the “Sid” property in a message resource."/>
+                            <parameter name="media-sid"
+                                        type="string"
+                                        use="REQUIRED"                    doc:description="Unique ID for any media successfully created by Twilio’s API. It is a 34 character string that starts with “SM…” for SMS and “MM…” for MMS. To find the SID for a specific message via the API, make a GET request to the Messages List Resource. This will return a list of SMS messages associated with your account along with details about each message. It would be the “Sid” property in a message resource."/>
+                                    <parameter name="request-streaming-mode" displayName="Request streaming mode" type="request-streaming-mode-enum" use="OPTIONAL" tab="Advanced" />
+        </parameters>
+        <body>
+                <http:request config-ref="twilio-connector-httpreq-config"
+              path="/Accounts/{AccountSid}/Messages/{MessageSid}/Media/{MediaSid}.json"
+              method="DELETE"
+              requestStreamingMode='#[vars["request-streaming-mode"]]'
+>
+                <mule:error-mapping sourceType="HTTP:PARSING" targetType="TWILIO-CONNECTOR:PARSING" />
+            <mule:error-mapping sourceType="HTTP:TIMEOUT" targetType="TWILIO-CONNECTOR:TIMEOUT" />
+            <mule:error-mapping sourceType="HTTP:SECURITY" targetType="TWILIO-CONNECTOR:SECURITY" />
+            <mule:error-mapping sourceType="HTTP:CONNECTIVITY" targetType="TWILIO-CONNECTOR:CONNECTIVITY" />
+            <mule:error-mapping sourceType="HTTP:BAD_REQUEST" targetType="TWILIO-CONNECTOR:BAD_REQUEST" />
+            <mule:error-mapping sourceType="HTTP:UNAUTHORIZED" targetType="TWILIO-CONNECTOR:UNAUTHORIZED" />
+            <mule:error-mapping sourceType="HTTP:FORBIDDEN" targetType="TWILIO-CONNECTOR:FORBIDDEN" />
+            <mule:error-mapping sourceType="HTTP:METHOD_NOT_ALLOWED" targetType="TWILIO-CONNECTOR:METHOD_NOT_ALLOWED" />
+            <mule:error-mapping sourceType="HTTP:NOT_FOUND" targetType="TWILIO-CONNECTOR:NOT_FOUND" />
+            <mule:error-mapping sourceType="HTTP:NOT_ACCEPTABLE" targetType="TWILIO-CONNECTOR:NOT_ACCEPTABLE" />
+            <mule:error-mapping sourceType="HTTP:UNSUPPORTED_MEDIA_TYPE" targetType="TWILIO-CONNECTOR:UNSUPPORTED_MEDIA_TYPE" />
+            <mule:error-mapping sourceType="HTTP:TOO_MANY_REQUESTS" targetType="TWILIO-CONNECTOR:TOO_MANY_REQUESTS" />
+            <mule:error-mapping sourceType="HTTP:INTERNAL_SERVER_ERROR" targetType="TWILIO-CONNECTOR:INTERNAL_SERVER_ERROR" />
+            <mule:error-mapping sourceType="HTTP:SERVICE_UNAVAILABLE" targetType="TWILIO-CONNECTOR:SERVICE_UNAVAILABLE" />
+            <mule:error-mapping sourceType="HTTP:RETRY_EXHAUSTED" targetType="TWILIO-CONNECTOR:RETRY_EXHAUSTED" />
+        
+            <http:headers>
+            <![CDATA[#[ { 'Accept': 'application/xml' } filterObject $ != null ]]]>
+        </http:headers>
+                <http:uri-params>
+            <![CDATA[#[ ( { 'AccountSid': vars['account-sid'] } ++ { 'MessageSid': vars['message-sid'] } ++ { 'MediaSid': vars['media-sid'] } ) filterObject $ != null ]]]>
+        </http:uri-params>
+                <http:query-params>
+            <![CDATA[#[ { 'DateCreated': vars['date-created'] } filterObject $ != null ]]]>
+        </http:query-params>
+    </http:request>
+    <mule:set-payload value="#[payload]" mimeType="application/xml" />
+        </body>
+                    <output type="string" />
+        
+        <errors>
+                            <error type="PARSING"/>
+                            <error type="TIMEOUT"/>
+                            <error type="SECURITY"/>
+                            <error type="CONNECTIVITY"/>
+                            <error type="BAD_REQUEST"/>
+                            <error type="UNAUTHORIZED"/>
+                            <error type="FORBIDDEN"/>
+                            <error type="METHOD_NOT_ALLOWED"/>
+                            <error type="NOT_FOUND"/>
+                            <error type="NOT_ACCEPTABLE"/>
+                            <error type="UNSUPPORTED_MEDIA_TYPE"/>
+                            <error type="TOO_MANY_REQUESTS"/>
+                            <error type="INTERNAL_SERVER_ERROR"/>
+                            <error type="SERVICE_UNAVAILABLE"/>
+                            <error type="RETRY_EXHAUSTED"/>
+                    </errors>
+    </operation>
+
+</module>

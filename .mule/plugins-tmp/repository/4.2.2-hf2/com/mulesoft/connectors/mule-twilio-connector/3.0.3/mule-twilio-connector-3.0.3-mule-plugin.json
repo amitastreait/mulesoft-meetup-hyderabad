@@ -1,0 +1,3716 @@
+{
+  "minMuleVersion": "4.1.0",
+  "extensionModel": {
+    "types": [],
+    "messageSources": [],
+    "functions": [],
+    "configurations": [{
+      "externalLibraryModels": [],
+      "operations": [
+        {
+          "displayModel": {"displayName": "Delete Media"},
+          "kind": "operation",
+          "executionType": "CPU_LITE",
+          "description": "",
+          "modelProperties": {},
+          "parameterGroupModels": [
+            {
+              "name": "General",
+              "description": "",
+              "modelProperties": {},
+              "parameters": [
+                {
+                  "displayModel": {},
+                  "role": "BEHAVIOUR",
+                  "description": "Only show media created on the given date. Should be formatted as YYYY-MM-DD. You can also specify inequality, such as DateCreated<=YYYY-MM-DD for media generated at or before midnight on a date, and DateCreated>=YYYY-MM-DD for media generated at or after midnight on a date.",
+                  "modelProperties": {},
+                  "type": {
+                    "format": "java",
+                    "type": "String"
+                  },
+                  "required": false,
+                  "expressionSupport": "SUPPORTED",
+                  "hasDynamicType": false,
+                  "isConfigOverride": false,
+                  "dslConfiguration": {
+                    "allowTopLevelDefinition": false,
+                    "allowsInlineDefinition": true,
+                    "allowsReferences": true
+                  },
+                  "name": "date-created",
+                  "layoutModel": {
+                    "password": false,
+                    "tabName": "General",
+                    "query": false,
+                    "text": false
+                  },
+                  "allowedStereotypeModels": [],
+                  "isComponentId": false
+                },
+                {
+                  "displayModel": {},
+                  "role": "BEHAVIOUR",
+                  "description": "A 34 character string that uniquely identifies the user account.",
+                  "modelProperties": {},
+                  "type": {
+                    "format": "java",
+                    "type": "String"
+                  },
+                  "required": true,
+                  "expressionSupport": "SUPPORTED",
+                  "hasDynamicType": false,
+                  "isConfigOverride": false,
+                  "dslConfiguration": {
+                    "allowTopLevelDefinition": false,
+                    "allowsInlineDefinition": true,
+                    "allowsReferences": true
+                  },
+                  "name": "account-sid",
+                  "layoutModel": {
+                    "password": false,
+                    "tabName": "General",
+                    "query": false,
+                    "text": false
+                  },
+                  "allowedStereotypeModels": [],
+                  "isComponentId": false
+                },
+                {
+                  "displayModel": {},
+                  "role": "BEHAVIOUR",
+                  "description": "Unique ID for any message successfully created by Twilio\u2019s API. It is a 34 character string that starts with \u201cSM\u2026\u201d for SMS and \u201cMM\u2026\u201d for MMS. To find the SID for a specific message via the API, make a GET request to the Messages List Resource. This will return a list of SMS messages associated with your account along with details about each message. It would be the \u201cSid\u201d property in a message resource.",
+                  "modelProperties": {},
+                  "type": {
+                    "format": "java",
+                    "type": "String"
+                  },
+                  "required": true,
+                  "expressionSupport": "SUPPORTED",
+                  "hasDynamicType": false,
+                  "isConfigOverride": false,
+                  "dslConfiguration": {
+                    "allowTopLevelDefinition": false,
+                    "allowsInlineDefinition": true,
+                    "allowsReferences": true
+                  },
+                  "name": "message-sid",
+                  "layoutModel": {
+                    "password": false,
+                    "tabName": "General",
+                    "query": false,
+                    "text": false
+                  },
+                  "allowedStereotypeModels": [],
+                  "isComponentId": false
+                },
+                {
+                  "displayModel": {},
+                  "role": "BEHAVIOUR",
+                  "description": "Unique ID for any media successfully created by Twilio\u2019s API. It is a 34 character string that starts with \u201cSM\u2026\u201d for SMS and \u201cMM\u2026\u201d for MMS. To find the SID for a specific message via the API, make a GET request to the Messages List Resource. This will return a list of SMS messages associated with your account along with details about each message. It would be the \u201cSid\u201d property in a message resource.",
+                  "modelProperties": {},
+                  "type": {
+                    "format": "java",
+                    "type": "String"
+                  },
+                  "required": true,
+                  "expressionSupport": "SUPPORTED",
+                  "hasDynamicType": false,
+                  "isConfigOverride": false,
+                  "dslConfiguration": {
+                    "allowTopLevelDefinition": false,
+                    "allowsInlineDefinition": true,
+                    "allowsReferences": true
+                  },
+                  "name": "media-sid",
+                  "layoutModel": {
+                    "password": false,
+                    "tabName": "General",
+                    "query": false,
+                    "text": false
+                  },
+                  "allowedStereotypeModels": [],
+                  "isComponentId": false
+                },
+                {
+                  "displayModel": {"displayName": "Request streaming mode"},
+                  "role": "BEHAVIOUR",
+                  "description": "",
+                  "modelProperties": {},
+                  "type": {
+                    "format": "json",
+                    "annotations": {"enum": {
+                      "values": [
+                        "AUTO",
+                        "NEVER",
+                        "ALWAYS"
+                      ],
+                      "type": "[Ljava.lang.String;"
+                    }},
+                    "type": "String"
+                  },
+                  "required": false,
+                  "expressionSupport": "SUPPORTED",
+                  "hasDynamicType": false,
+                  "isConfigOverride": false,
+                  "dslConfiguration": {
+                    "allowTopLevelDefinition": false,
+                    "allowsInlineDefinition": true,
+                    "allowsReferences": true
+                  },
+                  "name": "request-streaming-mode",
+                  "layoutModel": {
+                    "password": false,
+                    "tabName": "Advanced",
+                    "query": false,
+                    "text": false
+                  },
+                  "allowedStereotypeModels": [],
+                  "isComponentId": false
+                },
+                {
+                  "role": "BEHAVIOUR",
+                  "hasDynamicType": false,
+                  "isConfigOverride": false,
+                  "dslConfiguration": {
+                    "allowTopLevelDefinition": false,
+                    "allowsInlineDefinition": true,
+                    "allowsReferences": true
+                  },
+                  "name": "config-ref",
+                  "description": "The name of the configuration to be used to execute this component",
+                  "modelProperties": {},
+                  "allowedStereotypeModels": [{
+                    "parent": {
+                      "namespace": "MULE",
+                      "type": "MODULE_CONFIG"
+                    },
+                    "namespace": "TWILIO-CONNECTOR",
+                    "type": "CONFIG"
+                  }],
+                  "type": {
+                    "format": "java",
+                    "annotations": {"typeId": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider"},
+                    "type": "Object",
+                    "fields": []
+                  },
+                  "required": true,
+                  "isComponentId": false,
+                  "expressionSupport": "NOT_SUPPORTED"
+                }
+              ],
+              "exclusiveParametersModels": [],
+              "showInDsl": false
+            },
+            {
+              "name": "Output",
+              "description": "",
+              "modelProperties": {},
+              "parameters": [
+                {
+                  "displayModel": {"displayName": "Target Variable"},
+                  "role": "BEHAVIOUR",
+                  "description": "The name of a variable on which the operation's output will be placed",
+                  "modelProperties": {},
+                  "type": {
+                    "format": "java",
+                    "type": "String"
+                  },
+                  "required": false,
+                  "expressionSupport": "NOT_SUPPORTED",
+                  "hasDynamicType": false,
+                  "isConfigOverride": false,
+                  "dslConfiguration": {
+                    "allowTopLevelDefinition": false,
+                    "allowsInlineDefinition": true,
+                    "allowsReferences": true
+                  },
+                  "name": "target",
+                  "layoutModel": {
+                    "password": false,
+                    "tabName": "Advanced",
+                    "query": false,
+                    "text": false
+                  },
+                  "allowedStereotypeModels": [],
+                  "isComponentId": false
+                },
+                {
+                  "displayModel": {"displayName": "Target Value"},
+                  "role": "BEHAVIOUR",
+                  "defaultValue": "#[payload]",
+                  "description": "An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable",
+                  "modelProperties": {},
+                  "type": {
+                    "format": "java",
+                    "type": "String"
+                  },
+                  "required": false,
+                  "expressionSupport": "REQUIRED",
+                  "hasDynamicType": false,
+                  "isConfigOverride": false,
+                  "dslConfiguration": {
+                    "allowTopLevelDefinition": false,
+                    "allowsInlineDefinition": true,
+                    "allowsReferences": true
+                  },
+                  "name": "targetValue",
+                  "layoutModel": {
+                    "password": false,
+                    "tabName": "Advanced",
+                    "query": false,
+                    "text": false
+                  },
+                  "allowedStereotypeModels": [],
+                  "isComponentId": false
+                }
+              ],
+              "exclusiveParametersModels": [],
+              "showInDsl": false
+            }
+          ],
+          "output": {
+            "hasDynamicType": false,
+            "description": "",
+            "modelProperties": {},
+            "type": {
+              "format": "java",
+              "type": "String"
+            }
+          },
+          "outputAttributes": {
+            "hasDynamicType": false,
+            "description": "",
+            "modelProperties": {},
+            "type": {
+              "format": "java",
+              "type": "Void"
+            }
+          },
+          "supportsStreaming": false,
+          "requiresConnection": false,
+          "blocking": true,
+          "name": "delete-media",
+          "stereotype": {
+            "parent": {
+              "parent": {
+                "namespace": "MULE",
+                "type": "PROCESSOR"
+              },
+              "namespace": "TWILIO-CONNECTOR",
+              "type": "PROCESSOR"
+            },
+            "namespace": "TWILIO-CONNECTOR",
+            "type": "DELETE-MEDIA"
+          },
+          "nestedComponents": [],
+          "transactional": false,
+          "notifications": [],
+          "errors": [
+            "TWILIO-CONNECTOR:BAD_REQUEST",
+            "TWILIO-CONNECTOR:SECURITY",
+            "TWILIO-CONNECTOR:UNAUTHORIZED",
+            "TWILIO-CONNECTOR:NOT_ACCEPTABLE",
+            "TWILIO-CONNECTOR:INTERNAL_SERVER_ERROR",
+            "TWILIO-CONNECTOR:TOO_MANY_REQUESTS",
+            "TWILIO-CONNECTOR:PARSING",
+            "TWILIO-CONNECTOR:FORBIDDEN",
+            "TWILIO-CONNECTOR:SERVICE_UNAVAILABLE",
+            "TWILIO-CONNECTOR:RETRY_EXHAUSTED",
+            "TWILIO-CONNECTOR:METHOD_NOT_ALLOWED",
+            "TWILIO-CONNECTOR:NOT_FOUND",
+            "TWILIO-CONNECTOR:UNSUPPORTED_MEDIA_TYPE",
+            "TWILIO-CONNECTOR:TIMEOUT",
+            "TWILIO-CONNECTOR:CONNECTIVITY"
+          ]
+        },
+        {
+          "displayModel": {"displayName": "Delete Message"},
+          "kind": "operation",
+          "executionType": "CPU_LITE",
+          "description": "",
+          "modelProperties": {},
+          "parameterGroupModels": [
+            {
+              "name": "General",
+              "description": "",
+              "modelProperties": {},
+              "parameters": [
+                {
+                  "displayModel": {},
+                  "role": "BEHAVIOUR",
+                  "description": "A 34 character string that uniquely identifies the user account.",
+                  "modelProperties": {},
+                  "type": {
+                    "format": "java",
+                    "type": "String"
+                  },
+                  "required": true,
+                  "expressionSupport": "SUPPORTED",
+                  "hasDynamicType": false,
+                  "isConfigOverride": false,
+                  "dslConfiguration": {
+                    "allowTopLevelDefinition": false,
+                    "allowsInlineDefinition": true,
+                    "allowsReferences": true
+                  },
+                  "name": "account-sid",
+                  "layoutModel": {
+                    "password": false,
+                    "tabName": "General",
+                    "query": false,
+                    "text": false
+                  },
+                  "allowedStereotypeModels": [],
+                  "isComponentId": false
+                },
+                {
+                  "displayModel": {},
+                  "role": "BEHAVIOUR",
+                  "description": "Unique ID for any message successfully created by Twilio\u2019s API. It is a 34 character string that starts with \u201cSM\u2026\u201d for SMS and \u201cMM\u2026\u201d for MMS. To find the SID for a specific message via the API, make a GET request to the Messages List Resource. This will return a list of SMS messages associated with your account along with details about each message. It would be the \u201cSid\u201d property in a message resource.",
+                  "modelProperties": {},
+                  "type": {
+                    "format": "java",
+                    "type": "String"
+                  },
+                  "required": true,
+                  "expressionSupport": "SUPPORTED",
+                  "hasDynamicType": false,
+                  "isConfigOverride": false,
+                  "dslConfiguration": {
+                    "allowTopLevelDefinition": false,
+                    "allowsInlineDefinition": true,
+                    "allowsReferences": true
+                  },
+                  "name": "message-sid",
+                  "layoutModel": {
+                    "password": false,
+                    "tabName": "General",
+                    "query": false,
+                    "text": false
+                  },
+                  "allowedStereotypeModels": [],
+                  "isComponentId": false
+                },
+                {
+                  "displayModel": {"displayName": "Request streaming mode"},
+                  "role": "BEHAVIOUR",
+                  "description": "",
+                  "modelProperties": {},
+                  "type": {
+                    "format": "json",
+                    "annotations": {"enum": {
+                      "values": [
+                        "AUTO",
+                        "NEVER",
+                        "ALWAYS"
+                      ],
+                      "type": "[Ljava.lang.String;"
+                    }},
+                    "type": "String"
+                  },
+                  "required": false,
+                  "expressionSupport": "SUPPORTED",
+                  "hasDynamicType": false,
+                  "isConfigOverride": false,
+                  "dslConfiguration": {
+                    "allowTopLevelDefinition": false,
+                    "allowsInlineDefinition": true,
+                    "allowsReferences": true
+                  },
+                  "name": "request-streaming-mode",
+                  "layoutModel": {
+                    "password": false,
+                    "tabName": "Advanced",
+                    "query": false,
+                    "text": false
+                  },
+                  "allowedStereotypeModels": [],
+                  "isComponentId": false
+                },
+                {
+                  "role": "BEHAVIOUR",
+                  "hasDynamicType": false,
+                  "isConfigOverride": false,
+                  "dslConfiguration": {
+                    "allowTopLevelDefinition": false,
+                    "allowsInlineDefinition": true,
+                    "allowsReferences": true
+                  },
+                  "name": "config-ref",
+                  "description": "The name of the configuration to be used to execute this component",
+                  "modelProperties": {},
+                  "allowedStereotypeModels": [{
+                    "parent": {
+                      "namespace": "MULE",
+                      "type": "MODULE_CONFIG"
+                    },
+                    "namespace": "TWILIO-CONNECTOR",
+                    "type": "CONFIG"
+                  }],
+                  "type": {
+                    "format": "java",
+                    "annotations": {"typeId": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider"},
+                    "type": "Object",
+                    "fields": []
+                  },
+                  "required": true,
+                  "isComponentId": false,
+                  "expressionSupport": "NOT_SUPPORTED"
+                }
+              ],
+              "exclusiveParametersModels": [],
+              "showInDsl": false
+            },
+            {
+              "name": "Output",
+              "description": "",
+              "modelProperties": {},
+              "parameters": [
+                {
+                  "displayModel": {"displayName": "Target Variable"},
+                  "role": "BEHAVIOUR",
+                  "description": "The name of a variable on which the operation's output will be placed",
+                  "modelProperties": {},
+                  "type": {
+                    "format": "java",
+                    "type": "String"
+                  },
+                  "required": false,
+                  "expressionSupport": "NOT_SUPPORTED",
+                  "hasDynamicType": false,
+                  "isConfigOverride": false,
+                  "dslConfiguration": {
+                    "allowTopLevelDefinition": false,
+                    "allowsInlineDefinition": true,
+                    "allowsReferences": true
+                  },
+                  "name": "target",
+                  "layoutModel": {
+                    "password": false,
+                    "tabName": "Advanced",
+                    "query": false,
+                    "text": false
+                  },
+                  "allowedStereotypeModels": [],
+                  "isComponentId": false
+                },
+                {
+                  "displayModel": {"displayName": "Target Value"},
+                  "role": "BEHAVIOUR",
+                  "defaultValue": "#[payload]",
+                  "description": "An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable",
+                  "modelProperties": {},
+                  "type": {
+                    "format": "java",
+                    "type": "String"
+                  },
+                  "required": false,
+                  "expressionSupport": "REQUIRED",
+                  "hasDynamicType": false,
+                  "isConfigOverride": false,
+                  "dslConfiguration": {
+                    "allowTopLevelDefinition": false,
+                    "allowsInlineDefinition": true,
+                    "allowsReferences": true
+                  },
+                  "name": "targetValue",
+                  "layoutModel": {
+                    "password": false,
+                    "tabName": "Advanced",
+                    "query": false,
+                    "text": false
+                  },
+                  "allowedStereotypeModels": [],
+                  "isComponentId": false
+                }
+              ],
+              "exclusiveParametersModels": [],
+              "showInDsl": false
+            }
+          ],
+          "output": {
+            "hasDynamicType": false,
+            "description": "",
+            "modelProperties": {},
+            "type": {
+              "format": "java",
+              "type": "String"
+            }
+          },
+          "outputAttributes": {
+            "hasDynamicType": false,
+            "description": "",
+            "modelProperties": {},
+            "type": {
+              "format": "java",
+              "type": "Void"
+            }
+          },
+          "supportsStreaming": false,
+          "requiresConnection": false,
+          "blocking": true,
+          "name": "delete-message",
+          "stereotype": {
+            "parent": {
+              "parent": {
+                "namespace": "MULE",
+                "type": "PROCESSOR"
+              },
+              "namespace": "TWILIO-CONNECTOR",
+              "type": "PROCESSOR"
+            },
+            "namespace": "TWILIO-CONNECTOR",
+            "type": "DELETE-MESSAGE"
+          },
+          "nestedComponents": [],
+          "transactional": false,
+          "notifications": [],
+          "errors": [
+            "TWILIO-CONNECTOR:BAD_REQUEST",
+            "TWILIO-CONNECTOR:SECURITY",
+            "TWILIO-CONNECTOR:UNAUTHORIZED",
+            "TWILIO-CONNECTOR:NOT_ACCEPTABLE",
+            "TWILIO-CONNECTOR:INTERNAL_SERVER_ERROR",
+            "TWILIO-CONNECTOR:TOO_MANY_REQUESTS",
+            "TWILIO-CONNECTOR:PARSING",
+            "TWILIO-CONNECTOR:FORBIDDEN",
+            "TWILIO-CONNECTOR:SERVICE_UNAVAILABLE",
+            "TWILIO-CONNECTOR:RETRY_EXHAUSTED",
+            "TWILIO-CONNECTOR:METHOD_NOT_ALLOWED",
+            "TWILIO-CONNECTOR:NOT_FOUND",
+            "TWILIO-CONNECTOR:UNSUPPORTED_MEDIA_TYPE",
+            "TWILIO-CONNECTOR:TIMEOUT",
+            "TWILIO-CONNECTOR:CONNECTIVITY"
+          ]
+        },
+        {
+          "displayModel": {"displayName": "Get Media"},
+          "kind": "operation",
+          "executionType": "CPU_LITE",
+          "description": "",
+          "modelProperties": {},
+          "parameterGroupModels": [
+            {
+              "name": "General",
+              "description": "",
+              "modelProperties": {},
+              "parameters": [
+                {
+                  "displayModel": {},
+                  "role": "BEHAVIOUR",
+                  "description": "Only show media created on the given date. Should be formatted as YYYY-MM-DD. You can also specify inequality, such as DateCreated<=YYYY-MM-DD for media generated at or before midnight on a date, and DateCreated>=YYYY-MM-DD for media generated at or after midnight on a date.",
+                  "modelProperties": {},
+                  "type": {
+                    "format": "java",
+                    "type": "String"
+                  },
+                  "required": false,
+                  "expressionSupport": "SUPPORTED",
+                  "hasDynamicType": false,
+                  "isConfigOverride": false,
+                  "dslConfiguration": {
+                    "allowTopLevelDefinition": false,
+                    "allowsInlineDefinition": true,
+                    "allowsReferences": true
+                  },
+                  "name": "date-created",
+                  "layoutModel": {
+                    "password": false,
+                    "tabName": "General",
+                    "query": false,
+                    "text": false
+                  },
+                  "allowedStereotypeModels": [],
+                  "isComponentId": false
+                },
+                {
+                  "displayModel": {},
+                  "role": "BEHAVIOUR",
+                  "description": "A 34 character string that uniquely identifies the user account.",
+                  "modelProperties": {},
+                  "type": {
+                    "format": "java",
+                    "type": "String"
+                  },
+                  "required": true,
+                  "expressionSupport": "SUPPORTED",
+                  "hasDynamicType": false,
+                  "isConfigOverride": false,
+                  "dslConfiguration": {
+                    "allowTopLevelDefinition": false,
+                    "allowsInlineDefinition": true,
+                    "allowsReferences": true
+                  },
+                  "name": "account-sid",
+                  "layoutModel": {
+                    "password": false,
+                    "tabName": "General",
+                    "query": false,
+                    "text": false
+                  },
+                  "allowedStereotypeModels": [],
+                  "isComponentId": false
+                },
+                {
+                  "displayModel": {},
+                  "role": "BEHAVIOUR",
+                  "description": "Unique ID for any message successfully created by Twilio\u2019s API. It is a 34 character string that starts with \u201cSM\u2026\u201d for SMS and \u201cMM\u2026\u201d for MMS. To find the SID for a specific message via the API, make a GET request to the Messages List Resource. This will return a list of SMS messages associated with your account along with details about each message. It would be the \u201cSid\u201d property in a message resource.",
+                  "modelProperties": {},
+                  "type": {
+                    "format": "java",
+                    "type": "String"
+                  },
+                  "required": true,
+                  "expressionSupport": "SUPPORTED",
+                  "hasDynamicType": false,
+                  "isConfigOverride": false,
+                  "dslConfiguration": {
+                    "allowTopLevelDefinition": false,
+                    "allowsInlineDefinition": true,
+                    "allowsReferences": true
+                  },
+                  "name": "message-sid",
+                  "layoutModel": {
+                    "password": false,
+                    "tabName": "General",
+                    "query": false,
+                    "text": false
+                  },
+                  "allowedStereotypeModels": [],
+                  "isComponentId": false
+                },
+                {
+                  "displayModel": {},
+                  "role": "BEHAVIOUR",
+                  "description": "Unique ID for any media successfully created by Twilio\u2019s API. It is a 34 character string that starts with \u201cSM\u2026\u201d for SMS and \u201cMM\u2026\u201d for MMS. To find the SID for a specific message via the API, make a GET request to the Messages List Resource. This will return a list of SMS messages associated with your account along with details about each message. It would be the \u201cSid\u201d property in a message resource.",
+                  "modelProperties": {},
+                  "type": {
+                    "format": "java",
+                    "type": "String"
+                  },
+                  "required": true,
+                  "expressionSupport": "SUPPORTED",
+                  "hasDynamicType": false,
+                  "isConfigOverride": false,
+                  "dslConfiguration": {
+                    "allowTopLevelDefinition": false,
+                    "allowsInlineDefinition": true,
+                    "allowsReferences": true
+                  },
+                  "name": "media-sid",
+                  "layoutModel": {
+                    "password": false,
+                    "tabName": "General",
+                    "query": false,
+                    "text": false
+                  },
+                  "allowedStereotypeModels": [],
+                  "isComponentId": false
+                },
+                {
+                  "displayModel": {"displayName": "Request streaming mode"},
+                  "role": "BEHAVIOUR",
+                  "description": "",
+                  "modelProperties": {},
+                  "type": {
+                    "format": "json",
+                    "annotations": {"enum": {
+                      "values": [
+                        "AUTO",
+                        "NEVER",
+                        "ALWAYS"
+                      ],
+                      "type": "[Ljava.lang.String;"
+                    }},
+                    "type": "String"
+                  },
+                  "required": false,
+                  "expressionSupport": "SUPPORTED",
+                  "hasDynamicType": false,
+                  "isConfigOverride": false,
+                  "dslConfiguration": {
+                    "allowTopLevelDefinition": false,
+                    "allowsInlineDefinition": true,
+                    "allowsReferences": true
+                  },
+                  "name": "request-streaming-mode",
+                  "layoutModel": {
+                    "password": false,
+                    "tabName": "Advanced",
+                    "query": false,
+                    "text": false
+                  },
+                  "allowedStereotypeModels": [],
+                  "isComponentId": false
+                },
+                {
+                  "role": "BEHAVIOUR",
+                  "hasDynamicType": false,
+                  "isConfigOverride": false,
+                  "dslConfiguration": {
+                    "allowTopLevelDefinition": false,
+                    "allowsInlineDefinition": true,
+                    "allowsReferences": true
+                  },
+                  "name": "config-ref",
+                  "description": "The name of the configuration to be used to execute this component",
+                  "modelProperties": {},
+                  "allowedStereotypeModels": [{
+                    "parent": {
+                      "namespace": "MULE",
+                      "type": "MODULE_CONFIG"
+                    },
+                    "namespace": "TWILIO-CONNECTOR",
+                    "type": "CONFIG"
+                  }],
+                  "type": {
+                    "format": "java",
+                    "annotations": {"typeId": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider"},
+                    "type": "Object",
+                    "fields": []
+                  },
+                  "required": true,
+                  "isComponentId": false,
+                  "expressionSupport": "NOT_SUPPORTED"
+                }
+              ],
+              "exclusiveParametersModels": [],
+              "showInDsl": false
+            },
+            {
+              "name": "Output",
+              "description": "",
+              "modelProperties": {},
+              "parameters": [
+                {
+                  "displayModel": {"displayName": "Target Variable"},
+                  "role": "BEHAVIOUR",
+                  "description": "The name of a variable on which the operation's output will be placed",
+                  "modelProperties": {},
+                  "type": {
+                    "format": "java",
+                    "type": "String"
+                  },
+                  "required": false,
+                  "expressionSupport": "NOT_SUPPORTED",
+                  "hasDynamicType": false,
+                  "isConfigOverride": false,
+                  "dslConfiguration": {
+                    "allowTopLevelDefinition": false,
+                    "allowsInlineDefinition": true,
+                    "allowsReferences": true
+                  },
+                  "name": "target",
+                  "layoutModel": {
+                    "password": false,
+                    "tabName": "Advanced",
+                    "query": false,
+                    "text": false
+                  },
+                  "allowedStereotypeModels": [],
+                  "isComponentId": false
+                },
+                {
+                  "displayModel": {"displayName": "Target Value"},
+                  "role": "BEHAVIOUR",
+                  "defaultValue": "#[payload]",
+                  "description": "An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable",
+                  "modelProperties": {},
+                  "type": {
+                    "format": "java",
+                    "type": "String"
+                  },
+                  "required": false,
+                  "expressionSupport": "REQUIRED",
+                  "hasDynamicType": false,
+                  "isConfigOverride": false,
+                  "dslConfiguration": {
+                    "allowTopLevelDefinition": false,
+                    "allowsInlineDefinition": true,
+                    "allowsReferences": true
+                  },
+                  "name": "targetValue",
+                  "layoutModel": {
+                    "password": false,
+                    "tabName": "Advanced",
+                    "query": false,
+                    "text": false
+                  },
+                  "allowedStereotypeModels": [],
+                  "isComponentId": false
+                }
+              ],
+              "exclusiveParametersModels": [],
+              "showInDsl": false
+            }
+          ],
+          "output": {
+            "hasDynamicType": false,
+            "description": "",
+            "modelProperties": {},
+            "type": {
+              "format": "json",
+              "type": "Object",
+              "fields": [
+                {
+                  "model": {"type": "String"},
+                  "key": {
+                    "name": "date_updated",
+                    "required": "true"
+                  }
+                },
+                {
+                  "model": {"type": "String"},
+                  "key": {
+                    "name": "content_type",
+                    "required": "true"
+                  }
+                },
+                {
+                  "model": {"type": "String"},
+                  "key": {
+                    "name": "parent_sid",
+                    "required": "true"
+                  }
+                },
+                {
+                  "model": {"type": "String"},
+                  "key": {
+                    "name": "date_created",
+                    "required": "true"
+                  }
+                },
+                {
+                  "model": {"type": "String"},
+                  "key": {
+                    "name": "account_sid",
+                    "required": "true"
+                  }
+                },
+                {
+                  "model": {"type": "String"},
+                  "key": {
+                    "name": "uri",
+                    "required": "true"
+                  }
+                },
+                {
+                  "model": {"type": "String"},
+                  "key": {
+                    "name": "sid",
+                    "required": "true"
+                  }
+                }
+              ],
+              "open": {"type": "Any"}
+            }
+          },
+          "outputAttributes": {
+            "hasDynamicType": false,
+            "description": "",
+            "modelProperties": {},
+            "type": {
+              "format": "java",
+              "type": "Void"
+            }
+          },
+          "supportsStreaming": false,
+          "requiresConnection": false,
+          "blocking": true,
+          "name": "get-media",
+          "stereotype": {
+            "parent": {
+              "parent": {
+                "namespace": "MULE",
+                "type": "PROCESSOR"
+              },
+              "namespace": "TWILIO-CONNECTOR",
+              "type": "PROCESSOR"
+            },
+            "namespace": "TWILIO-CONNECTOR",
+            "type": "GET-MEDIA"
+          },
+          "nestedComponents": [],
+          "transactional": false,
+          "notifications": [],
+          "errors": [
+            "TWILIO-CONNECTOR:BAD_REQUEST",
+            "TWILIO-CONNECTOR:SECURITY",
+            "TWILIO-CONNECTOR:UNAUTHORIZED",
+            "TWILIO-CONNECTOR:NOT_ACCEPTABLE",
+            "TWILIO-CONNECTOR:INTERNAL_SERVER_ERROR",
+            "TWILIO-CONNECTOR:TOO_MANY_REQUESTS",
+            "TWILIO-CONNECTOR:PARSING",
+            "TWILIO-CONNECTOR:FORBIDDEN",
+            "TWILIO-CONNECTOR:SERVICE_UNAVAILABLE",
+            "TWILIO-CONNECTOR:RETRY_EXHAUSTED",
+            "TWILIO-CONNECTOR:METHOD_NOT_ALLOWED",
+            "TWILIO-CONNECTOR:NOT_FOUND",
+            "TWILIO-CONNECTOR:UNSUPPORTED_MEDIA_TYPE",
+            "TWILIO-CONNECTOR:TIMEOUT",
+            "TWILIO-CONNECTOR:CONNECTIVITY"
+          ]
+        },
+        {
+          "displayModel": {"displayName": "Get Media List"},
+          "kind": "operation",
+          "executionType": "CPU_LITE",
+          "description": "",
+          "modelProperties": {},
+          "parameterGroupModels": [
+            {
+              "name": "General",
+              "description": "",
+              "modelProperties": {},
+              "parameters": [
+                {
+                  "displayModel": {},
+                  "role": "BEHAVIOUR",
+                  "description": "Only show media created on the given date. Should be formatted as YYYY-MM-DD. You can also specify inequality, such as DateCreated<=YYYY-MM-DD for media generated at or before midnight on a date, and DateCreated>=YYYY-MM-DD for media generated at or after midnight on a date.",
+                  "modelProperties": {},
+                  "type": {
+                    "format": "java",
+                    "type": "String"
+                  },
+                  "required": false,
+                  "expressionSupport": "SUPPORTED",
+                  "hasDynamicType": false,
+                  "isConfigOverride": false,
+                  "dslConfiguration": {
+                    "allowTopLevelDefinition": false,
+                    "allowsInlineDefinition": true,
+                    "allowsReferences": true
+                  },
+                  "name": "date-created",
+                  "layoutModel": {
+                    "password": false,
+                    "tabName": "General",
+                    "query": false,
+                    "text": false
+                  },
+                  "allowedStereotypeModels": [],
+                  "isComponentId": false
+                },
+                {
+                  "displayModel": {},
+                  "role": "BEHAVIOUR",
+                  "description": "A 34 character string that uniquely identifies the user account.",
+                  "modelProperties": {},
+                  "type": {
+                    "format": "java",
+                    "type": "String"
+                  },
+                  "required": true,
+                  "expressionSupport": "SUPPORTED",
+                  "hasDynamicType": false,
+                  "isConfigOverride": false,
+                  "dslConfiguration": {
+                    "allowTopLevelDefinition": false,
+                    "allowsInlineDefinition": true,
+                    "allowsReferences": true
+                  },
+                  "name": "account-sid",
+                  "layoutModel": {
+                    "password": false,
+                    "tabName": "General",
+                    "query": false,
+                    "text": false
+                  },
+                  "allowedStereotypeModels": [],
+                  "isComponentId": false
+                },
+                {
+                  "displayModel": {},
+                  "role": "BEHAVIOUR",
+                  "description": "Unique ID for any message successfully created by Twilio\u2019s API. It is a 34 character string that starts with \u201cSM\u2026\u201d for SMS and \u201cMM\u2026\u201d for MMS. To find the SID for a specific message via the API, make a GET request to the Messages List Resource. This will return a list of SMS messages associated with your account along with details about each message. It would be the \u201cSid\u201d property in a message resource.",
+                  "modelProperties": {},
+                  "type": {
+                    "format": "java",
+                    "type": "String"
+                  },
+                  "required": true,
+                  "expressionSupport": "SUPPORTED",
+                  "hasDynamicType": false,
+                  "isConfigOverride": false,
+                  "dslConfiguration": {
+                    "allowTopLevelDefinition": false,
+                    "allowsInlineDefinition": true,
+                    "allowsReferences": true
+                  },
+                  "name": "message-sid",
+                  "layoutModel": {
+                    "password": false,
+                    "tabName": "General",
+                    "query": false,
+                    "text": false
+                  },
+                  "allowedStereotypeModels": [],
+                  "isComponentId": false
+                },
+                {
+                  "displayModel": {"displayName": "Request streaming mode"},
+                  "role": "BEHAVIOUR",
+                  "description": "",
+                  "modelProperties": {},
+                  "type": {
+                    "format": "json",
+                    "annotations": {"enum": {
+                      "values": [
+                        "AUTO",
+                        "NEVER",
+                        "ALWAYS"
+                      ],
+                      "type": "[Ljava.lang.String;"
+                    }},
+                    "type": "String"
+                  },
+                  "required": false,
+                  "expressionSupport": "SUPPORTED",
+                  "hasDynamicType": false,
+                  "isConfigOverride": false,
+                  "dslConfiguration": {
+                    "allowTopLevelDefinition": false,
+                    "allowsInlineDefinition": true,
+                    "allowsReferences": true
+                  },
+                  "name": "request-streaming-mode",
+                  "layoutModel": {
+                    "password": false,
+                    "tabName": "Advanced",
+                    "query": false,
+                    "text": false
+                  },
+                  "allowedStereotypeModels": [],
+                  "isComponentId": false
+                },
+                {
+                  "role": "BEHAVIOUR",
+                  "hasDynamicType": false,
+                  "isConfigOverride": false,
+                  "dslConfiguration": {
+                    "allowTopLevelDefinition": false,
+                    "allowsInlineDefinition": true,
+                    "allowsReferences": true
+                  },
+                  "name": "config-ref",
+                  "description": "The name of the configuration to be used to execute this component",
+                  "modelProperties": {},
+                  "allowedStereotypeModels": [{
+                    "parent": {
+                      "namespace": "MULE",
+                      "type": "MODULE_CONFIG"
+                    },
+                    "namespace": "TWILIO-CONNECTOR",
+                    "type": "CONFIG"
+                  }],
+                  "type": {
+                    "format": "java",
+                    "annotations": {"typeId": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider"},
+                    "type": "Object",
+                    "fields": []
+                  },
+                  "required": true,
+                  "isComponentId": false,
+                  "expressionSupport": "NOT_SUPPORTED"
+                }
+              ],
+              "exclusiveParametersModels": [],
+              "showInDsl": false
+            },
+            {
+              "name": "Output",
+              "description": "",
+              "modelProperties": {},
+              "parameters": [
+                {
+                  "displayModel": {"displayName": "Target Variable"},
+                  "role": "BEHAVIOUR",
+                  "description": "The name of a variable on which the operation's output will be placed",
+                  "modelProperties": {},
+                  "type": {
+                    "format": "java",
+                    "type": "String"
+                  },
+                  "required": false,
+                  "expressionSupport": "NOT_SUPPORTED",
+                  "hasDynamicType": false,
+                  "isConfigOverride": false,
+                  "dslConfiguration": {
+                    "allowTopLevelDefinition": false,
+                    "allowsInlineDefinition": true,
+                    "allowsReferences": true
+                  },
+                  "name": "target",
+                  "layoutModel": {
+                    "password": false,
+                    "tabName": "Advanced",
+                    "query": false,
+                    "text": false
+                  },
+                  "allowedStereotypeModels": [],
+                  "isComponentId": false
+                },
+                {
+                  "displayModel": {"displayName": "Target Value"},
+                  "role": "BEHAVIOUR",
+                  "defaultValue": "#[payload]",
+                  "description": "An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable",
+                  "modelProperties": {},
+                  "type": {
+                    "format": "java",
+                    "type": "String"
+                  },
+                  "required": false,
+                  "expressionSupport": "REQUIRED",
+                  "hasDynamicType": false,
+                  "isConfigOverride": false,
+                  "dslConfiguration": {
+                    "allowTopLevelDefinition": false,
+                    "allowsInlineDefinition": true,
+                    "allowsReferences": true
+                  },
+                  "name": "targetValue",
+                  "layoutModel": {
+                    "password": false,
+                    "tabName": "Advanced",
+                    "query": false,
+                    "text": false
+                  },
+                  "allowedStereotypeModels": [],
+                  "isComponentId": false
+                }
+              ],
+              "exclusiveParametersModels": [],
+              "showInDsl": false
+            }
+          ],
+          "output": {
+            "hasDynamicType": false,
+            "description": "",
+            "modelProperties": {},
+            "type": {
+              "format": "json",
+              "type": "Object",
+              "fields": [
+                {
+                  "model": {"type": "String"},
+                  "key": {
+                    "name": "first_page_uri",
+                    "required": "true"
+                  }
+                },
+                {
+                  "model": {
+                    "item": {
+                      "type": "Object",
+                      "fields": [
+                        {
+                          "model": {"type": "String"},
+                          "key": {
+                            "name": "date_updated",
+                            "required": "true"
+                          }
+                        },
+                        {
+                          "model": {"type": "String"},
+                          "key": {
+                            "name": "content_type",
+                            "required": "true"
+                          }
+                        },
+                        {
+                          "model": {"type": "String"},
+                          "key": {
+                            "name": "parent_sid",
+                            "required": "true"
+                          }
+                        },
+                        {
+                          "model": {"type": "String"},
+                          "key": {
+                            "name": "date_created",
+                            "required": "true"
+                          }
+                        },
+                        {
+                          "model": {"type": "String"},
+                          "key": {
+                            "name": "account_sid",
+                            "required": "true"
+                          }
+                        },
+                        {
+                          "model": {"type": "String"},
+                          "key": {
+                            "name": "uri",
+                            "required": "true"
+                          }
+                        },
+                        {
+                          "model": {"type": "String"},
+                          "key": {
+                            "name": "sid",
+                            "required": "true"
+                          }
+                        }
+                      ],
+                      "open": {"type": "Any"}
+                    },
+                    "type": "Array"
+                  },
+                  "key": {
+                    "name": "media_list",
+                    "required": "true"
+                  }
+                },
+                {
+                  "model": {
+                    "of": [
+                      {"type": "String"},
+                      {"type": "Null"}
+                    ],
+                    "type": "Union"
+                  },
+                  "key": {
+                    "name": "previous_page_uri",
+                    "required": "true"
+                  }
+                },
+                {
+                  "model": {
+                    "of": [
+                      {"type": "String"},
+                      {"type": "Null"}
+                    ],
+                    "type": "Union"
+                  },
+                  "key": {
+                    "name": "next_page_uri",
+                    "required": "true"
+                  }
+                },
+                {
+                  "model": {
+                    "annotations": {"int": {}},
+                    "type": "Number"
+                  },
+                  "key": {
+                    "name": "page",
+                    "required": "true"
+                  }
+                },
+                {
+                  "model": {"type": "String"},
+                  "key": {
+                    "name": "uri",
+                    "required": "true"
+                  }
+                },
+                {
+                  "model": {
+                    "annotations": {"int": {}},
+                    "type": "Number"
+                  },
+                  "key": {
+                    "name": "page_size",
+                    "required": "true"
+                  }
+                }
+              ],
+              "open": {"type": "Any"}
+            }
+          },
+          "outputAttributes": {
+            "hasDynamicType": false,
+            "description": "",
+            "modelProperties": {},
+            "type": {
+              "format": "java",
+              "type": "Void"
+            }
+          },
+          "supportsStreaming": false,
+          "requiresConnection": false,
+          "blocking": true,
+          "name": "get-media-list",
+          "stereotype": {
+            "parent": {
+              "parent": {
+                "namespace": "MULE",
+                "type": "PROCESSOR"
+              },
+              "namespace": "TWILIO-CONNECTOR",
+              "type": "PROCESSOR"
+            },
+            "namespace": "TWILIO-CONNECTOR",
+            "type": "GET-MEDIA-LIST"
+          },
+          "nestedComponents": [],
+          "transactional": false,
+          "notifications": [],
+          "errors": [
+            "TWILIO-CONNECTOR:BAD_REQUEST",
+            "TWILIO-CONNECTOR:SECURITY",
+            "TWILIO-CONNECTOR:UNAUTHORIZED",
+            "TWILIO-CONNECTOR:NOT_ACCEPTABLE",
+            "TWILIO-CONNECTOR:INTERNAL_SERVER_ERROR",
+            "TWILIO-CONNECTOR:TOO_MANY_REQUESTS",
+            "TWILIO-CONNECTOR:PARSING",
+            "TWILIO-CONNECTOR:FORBIDDEN",
+            "TWILIO-CONNECTOR:SERVICE_UNAVAILABLE",
+            "TWILIO-CONNECTOR:RETRY_EXHAUSTED",
+            "TWILIO-CONNECTOR:METHOD_NOT_ALLOWED",
+            "TWILIO-CONNECTOR:NOT_FOUND",
+            "TWILIO-CONNECTOR:UNSUPPORTED_MEDIA_TYPE",
+            "TWILIO-CONNECTOR:TIMEOUT",
+            "TWILIO-CONNECTOR:CONNECTIVITY"
+          ]
+        },
+        {
+          "displayModel": {"displayName": "Get Message"},
+          "kind": "operation",
+          "executionType": "CPU_LITE",
+          "description": "",
+          "modelProperties": {},
+          "parameterGroupModels": [
+            {
+              "name": "General",
+              "description": "",
+              "modelProperties": {},
+              "parameters": [
+                {
+                  "displayModel": {},
+                  "role": "BEHAVIOUR",
+                  "description": "A 34 character string that uniquely identifies the user account.",
+                  "modelProperties": {},
+                  "type": {
+                    "format": "java",
+                    "type": "String"
+                  },
+                  "required": true,
+                  "expressionSupport": "SUPPORTED",
+                  "hasDynamicType": false,
+                  "isConfigOverride": false,
+                  "dslConfiguration": {
+                    "allowTopLevelDefinition": false,
+                    "allowsInlineDefinition": true,
+                    "allowsReferences": true
+                  },
+                  "name": "account-sid",
+                  "layoutModel": {
+                    "password": false,
+                    "tabName": "General",
+                    "query": false,
+                    "text": false
+                  },
+                  "allowedStereotypeModels": [],
+                  "isComponentId": false
+                },
+                {
+                  "displayModel": {},
+                  "role": "BEHAVIOUR",
+                  "description": "Unique ID for any message successfully created by Twilio\u2019s API. It is a 34 character string that starts with \u201cSM\u2026\u201d for SMS and \u201cMM\u2026\u201d for MMS. To find the SID for a specific message via the API, make a GET request to the Messages List Resource. This will return a list of SMS messages associated with your account along with details about each message. It would be the \u201cSid\u201d property in a message resource.",
+                  "modelProperties": {},
+                  "type": {
+                    "format": "java",
+                    "type": "String"
+                  },
+                  "required": true,
+                  "expressionSupport": "SUPPORTED",
+                  "hasDynamicType": false,
+                  "isConfigOverride": false,
+                  "dslConfiguration": {
+                    "allowTopLevelDefinition": false,
+                    "allowsInlineDefinition": true,
+                    "allowsReferences": true
+                  },
+                  "name": "message-sid",
+                  "layoutModel": {
+                    "password": false,
+                    "tabName": "General",
+                    "query": false,
+                    "text": false
+                  },
+                  "allowedStereotypeModels": [],
+                  "isComponentId": false
+                },
+                {
+                  "displayModel": {"displayName": "Request streaming mode"},
+                  "role": "BEHAVIOUR",
+                  "description": "",
+                  "modelProperties": {},
+                  "type": {
+                    "format": "json",
+                    "annotations": {"enum": {
+                      "values": [
+                        "AUTO",
+                        "NEVER",
+                        "ALWAYS"
+                      ],
+                      "type": "[Ljava.lang.String;"
+                    }},
+                    "type": "String"
+                  },
+                  "required": false,
+                  "expressionSupport": "SUPPORTED",
+                  "hasDynamicType": false,
+                  "isConfigOverride": false,
+                  "dslConfiguration": {
+                    "allowTopLevelDefinition": false,
+                    "allowsInlineDefinition": true,
+                    "allowsReferences": true
+                  },
+                  "name": "request-streaming-mode",
+                  "layoutModel": {
+                    "password": false,
+                    "tabName": "Advanced",
+                    "query": false,
+                    "text": false
+                  },
+                  "allowedStereotypeModels": [],
+                  "isComponentId": false
+                },
+                {
+                  "role": "BEHAVIOUR",
+                  "hasDynamicType": false,
+                  "isConfigOverride": false,
+                  "dslConfiguration": {
+                    "allowTopLevelDefinition": false,
+                    "allowsInlineDefinition": true,
+                    "allowsReferences": true
+                  },
+                  "name": "config-ref",
+                  "description": "The name of the configuration to be used to execute this component",
+                  "modelProperties": {},
+                  "allowedStereotypeModels": [{
+                    "parent": {
+                      "namespace": "MULE",
+                      "type": "MODULE_CONFIG"
+                    },
+                    "namespace": "TWILIO-CONNECTOR",
+                    "type": "CONFIG"
+                  }],
+                  "type": {
+                    "format": "java",
+                    "annotations": {"typeId": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider"},
+                    "type": "Object",
+                    "fields": []
+                  },
+                  "required": true,
+                  "isComponentId": false,
+                  "expressionSupport": "NOT_SUPPORTED"
+                }
+              ],
+              "exclusiveParametersModels": [],
+              "showInDsl": false
+            },
+            {
+              "name": "Output",
+              "description": "",
+              "modelProperties": {},
+              "parameters": [
+                {
+                  "displayModel": {"displayName": "Target Variable"},
+                  "role": "BEHAVIOUR",
+                  "description": "The name of a variable on which the operation's output will be placed",
+                  "modelProperties": {},
+                  "type": {
+                    "format": "java",
+                    "type": "String"
+                  },
+                  "required": false,
+                  "expressionSupport": "NOT_SUPPORTED",
+                  "hasDynamicType": false,
+                  "isConfigOverride": false,
+                  "dslConfiguration": {
+                    "allowTopLevelDefinition": false,
+                    "allowsInlineDefinition": true,
+                    "allowsReferences": true
+                  },
+                  "name": "target",
+                  "layoutModel": {
+                    "password": false,
+                    "tabName": "Advanced",
+                    "query": false,
+                    "text": false
+                  },
+                  "allowedStereotypeModels": [],
+                  "isComponentId": false
+                },
+                {
+                  "displayModel": {"displayName": "Target Value"},
+                  "role": "BEHAVIOUR",
+                  "defaultValue": "#[payload]",
+                  "description": "An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable",
+                  "modelProperties": {},
+                  "type": {
+                    "format": "java",
+                    "type": "String"
+                  },
+                  "required": false,
+                  "expressionSupport": "REQUIRED",
+                  "hasDynamicType": false,
+                  "isConfigOverride": false,
+                  "dslConfiguration": {
+                    "allowTopLevelDefinition": false,
+                    "allowsInlineDefinition": true,
+                    "allowsReferences": true
+                  },
+                  "name": "targetValue",
+                  "layoutModel": {
+                    "password": false,
+                    "tabName": "Advanced",
+                    "query": false,
+                    "text": false
+                  },
+                  "allowedStereotypeModels": [],
+                  "isComponentId": false
+                }
+              ],
+              "exclusiveParametersModels": [],
+              "showInDsl": false
+            }
+          ],
+          "output": {
+            "hasDynamicType": false,
+            "description": "",
+            "modelProperties": {},
+            "type": {
+              "format": "json",
+              "type": "Object",
+              "fields": [
+                {
+                  "model": {
+                    "of": [
+                      {"type": "String"},
+                      {"type": "Null"}
+                    ],
+                    "type": "Union"
+                  },
+                  "key": {
+                    "name": "error_message",
+                    "required": "true"
+                  }
+                },
+                {
+                  "model": {"type": "String"},
+                  "key": {
+                    "name": "date_sent",
+                    "required": "true"
+                  }
+                },
+                {
+                  "model": {"type": "String"},
+                  "key": {
+                    "name": "date_updated",
+                    "required": "true"
+                  }
+                },
+                {
+                  "model": {"type": "String"},
+                  "key": {
+                    "name": "date_created",
+                    "required": "true"
+                  }
+                },
+                {
+                  "model": {"type": "String"},
+                  "key": {
+                    "name": "api_version",
+                    "required": "true"
+                  }
+                },
+                {
+                  "model": {"type": "String"},
+                  "key": {
+                    "name": "body",
+                    "required": "true"
+                  }
+                },
+                {
+                  "model": {"type": "String"},
+                  "key": {
+                    "name": "num_segments",
+                    "required": "true"
+                  }
+                },
+                {
+                  "model": {"type": "String"},
+                  "key": {
+                    "name": "uri",
+                    "required": "true"
+                  }
+                },
+                {
+                  "model": {"type": "String"},
+                  "key": {
+                    "name": "num_media",
+                    "required": "true"
+                  }
+                },
+                {
+                  "model": {"type": "String"},
+                  "key": {
+                    "name": "sid",
+                    "required": "true"
+                  }
+                },
+                {
+                  "model": {"type": "String"},
+                  "key": {
+                    "name": "price",
+                    "required": "true"
+                  }
+                },
+                {
+                  "model": {"type": "String"},
+                  "key": {
+                    "name": "account_sid",
+                    "required": "true"
+                  }
+                },
+                {
+                  "model": {
+                    "of": [
+                      {
+                        "annotations": {"int": {}},
+                        "type": "Number"
+                      },
+                      {"type": "Null"}
+                    ],
+                    "type": "Union"
+                  },
+                  "key": {
+                    "name": "error_code",
+                    "required": "true"
+                  }
+                },
+                {
+                  "model": {"type": "String"},
+                  "key": {
+                    "name": "from",
+                    "required": "true"
+                  }
+                },
+                {
+                  "model": {"type": "String"},
+                  "key": {
+                    "name": "to",
+                    "required": "true"
+                  }
+                },
+                {
+                  "model": {"type": "String"},
+                  "key": {
+                    "name": "direction",
+                    "required": "true"
+                  }
+                },
+                {
+                  "model": {"type": "String"},
+                  "key": {
+                    "name": "status",
+                    "required": "true"
+                  }
+                }
+              ],
+              "open": {"type": "Any"}
+            }
+          },
+          "outputAttributes": {
+            "hasDynamicType": false,
+            "description": "",
+            "modelProperties": {},
+            "type": {
+              "format": "java",
+              "type": "Void"
+            }
+          },
+          "supportsStreaming": false,
+          "requiresConnection": false,
+          "blocking": true,
+          "name": "get-message",
+          "stereotype": {
+            "parent": {
+              "parent": {
+                "namespace": "MULE",
+                "type": "PROCESSOR"
+              },
+              "namespace": "TWILIO-CONNECTOR",
+              "type": "PROCESSOR"
+            },
+            "namespace": "TWILIO-CONNECTOR",
+            "type": "GET-MESSAGE"
+          },
+          "nestedComponents": [],
+          "transactional": false,
+          "notifications": [],
+          "errors": [
+            "TWILIO-CONNECTOR:BAD_REQUEST",
+            "TWILIO-CONNECTOR:SECURITY",
+            "TWILIO-CONNECTOR:UNAUTHORIZED",
+            "TWILIO-CONNECTOR:NOT_ACCEPTABLE",
+            "TWILIO-CONNECTOR:INTERNAL_SERVER_ERROR",
+            "TWILIO-CONNECTOR:TOO_MANY_REQUESTS",
+            "TWILIO-CONNECTOR:PARSING",
+            "TWILIO-CONNECTOR:FORBIDDEN",
+            "TWILIO-CONNECTOR:SERVICE_UNAVAILABLE",
+            "TWILIO-CONNECTOR:RETRY_EXHAUSTED",
+            "TWILIO-CONNECTOR:METHOD_NOT_ALLOWED",
+            "TWILIO-CONNECTOR:NOT_FOUND",
+            "TWILIO-CONNECTOR:UNSUPPORTED_MEDIA_TYPE",
+            "TWILIO-CONNECTOR:TIMEOUT",
+            "TWILIO-CONNECTOR:CONNECTIVITY"
+          ]
+        },
+        {
+          "displayModel": {"displayName": "Get Message List"},
+          "kind": "operation",
+          "executionType": "CPU_LITE",
+          "description": "",
+          "modelProperties": {},
+          "parameterGroupModels": [
+            {
+              "name": "General",
+              "description": "",
+              "modelProperties": {},
+              "parameters": [
+                {
+                  "displayModel": {},
+                  "role": "BEHAVIOUR",
+                  "description": "Only show messages to this phone number.",
+                  "modelProperties": {},
+                  "type": {
+                    "format": "java",
+                    "type": "String"
+                  },
+                  "required": false,
+                  "expressionSupport": "SUPPORTED",
+                  "hasDynamicType": false,
+                  "isConfigOverride": false,
+                  "dslConfiguration": {
+                    "allowTopLevelDefinition": false,
+                    "allowsInlineDefinition": true,
+                    "allowsReferences": true
+                  },
+                  "name": "to",
+                  "layoutModel": {
+                    "password": false,
+                    "tabName": "General",
+                    "query": false,
+                    "text": false
+                  },
+                  "allowedStereotypeModels": [],
+                  "isComponentId": false
+                },
+                {
+                  "displayModel": {},
+                  "role": "BEHAVIOUR",
+                  "description": "Only show messages from this phone number or alphanumeric sender ID.",
+                  "modelProperties": {},
+                  "type": {
+                    "format": "java",
+                    "type": "String"
+                  },
+                  "required": false,
+                  "expressionSupport": "SUPPORTED",
+                  "hasDynamicType": false,
+                  "isConfigOverride": false,
+                  "dslConfiguration": {
+                    "allowTopLevelDefinition": false,
+                    "allowsInlineDefinition": true,
+                    "allowsReferences": true
+                  },
+                  "name": "from",
+                  "layoutModel": {
+                    "password": false,
+                    "tabName": "General",
+                    "query": false,
+                    "text": false
+                  },
+                  "allowedStereotypeModels": [],
+                  "isComponentId": false
+                },
+                {
+                  "displayModel": {},
+                  "role": "BEHAVIOUR",
+                  "description": "Only show messages sent on this date (in GMT format), given as YYYY-MM-DD. Example: DateSent=2009-07-06. You can also specify inequality, such as DateSent<=YYYY-MM-DD for messages that were sent on or before midnight on a date, and DateSent>=YYYY-MM-DD for messages sent on or after midnight on a date.",
+                  "modelProperties": {},
+                  "type": {
+                    "format": "java",
+                    "type": "String"
+                  },
+                  "required": false,
+                  "expressionSupport": "SUPPORTED",
+                  "hasDynamicType": false,
+                  "isConfigOverride": false,
+                  "dslConfiguration": {
+                    "allowTopLevelDefinition": false,
+                    "allowsInlineDefinition": true,
+                    "allowsReferences": true
+                  },
+                  "name": "date-sent",
+                  "layoutModel": {
+                    "password": false,
+                    "tabName": "General",
+                    "query": false,
+                    "text": false
+                  },
+                  "allowedStereotypeModels": [],
+                  "isComponentId": false
+                },
+                {
+                  "displayModel": {},
+                  "role": "BEHAVIOUR",
+                  "description": "A 34 character string that uniquely identifies the user account.",
+                  "modelProperties": {},
+                  "type": {
+                    "format": "java",
+                    "type": "String"
+                  },
+                  "required": true,
+                  "expressionSupport": "SUPPORTED",
+                  "hasDynamicType": false,
+                  "isConfigOverride": false,
+                  "dslConfiguration": {
+                    "allowTopLevelDefinition": false,
+                    "allowsInlineDefinition": true,
+                    "allowsReferences": true
+                  },
+                  "name": "account-sid",
+                  "layoutModel": {
+                    "password": false,
+                    "tabName": "General",
+                    "query": false,
+                    "text": false
+                  },
+                  "allowedStereotypeModels": [],
+                  "isComponentId": false
+                },
+                {
+                  "displayModel": {"displayName": "Request streaming mode"},
+                  "role": "BEHAVIOUR",
+                  "description": "",
+                  "modelProperties": {},
+                  "type": {
+                    "format": "json",
+                    "annotations": {"enum": {
+                      "values": [
+                        "AUTO",
+                        "NEVER",
+                        "ALWAYS"
+                      ],
+                      "type": "[Ljava.lang.String;"
+                    }},
+                    "type": "String"
+                  },
+                  "required": false,
+                  "expressionSupport": "SUPPORTED",
+                  "hasDynamicType": false,
+                  "isConfigOverride": false,
+                  "dslConfiguration": {
+                    "allowTopLevelDefinition": false,
+                    "allowsInlineDefinition": true,
+                    "allowsReferences": true
+                  },
+                  "name": "request-streaming-mode",
+                  "layoutModel": {
+                    "password": false,
+                    "tabName": "Advanced",
+                    "query": false,
+                    "text": false
+                  },
+                  "allowedStereotypeModels": [],
+                  "isComponentId": false
+                },
+                {
+                  "role": "BEHAVIOUR",
+                  "hasDynamicType": false,
+                  "isConfigOverride": false,
+                  "dslConfiguration": {
+                    "allowTopLevelDefinition": false,
+                    "allowsInlineDefinition": true,
+                    "allowsReferences": true
+                  },
+                  "name": "config-ref",
+                  "description": "The name of the configuration to be used to execute this component",
+                  "modelProperties": {},
+                  "allowedStereotypeModels": [{
+                    "parent": {
+                      "namespace": "MULE",
+                      "type": "MODULE_CONFIG"
+                    },
+                    "namespace": "TWILIO-CONNECTOR",
+                    "type": "CONFIG"
+                  }],
+                  "type": {
+                    "format": "java",
+                    "annotations": {"typeId": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider"},
+                    "type": "Object",
+                    "fields": []
+                  },
+                  "required": true,
+                  "isComponentId": false,
+                  "expressionSupport": "NOT_SUPPORTED"
+                }
+              ],
+              "exclusiveParametersModels": [],
+              "showInDsl": false
+            },
+            {
+              "name": "Output",
+              "description": "",
+              "modelProperties": {},
+              "parameters": [
+                {
+                  "displayModel": {"displayName": "Target Variable"},
+                  "role": "BEHAVIOUR",
+                  "description": "The name of a variable on which the operation's output will be placed",
+                  "modelProperties": {},
+                  "type": {
+                    "format": "java",
+                    "type": "String"
+                  },
+                  "required": false,
+                  "expressionSupport": "NOT_SUPPORTED",
+                  "hasDynamicType": false,
+                  "isConfigOverride": false,
+                  "dslConfiguration": {
+                    "allowTopLevelDefinition": false,
+                    "allowsInlineDefinition": true,
+                    "allowsReferences": true
+                  },
+                  "name": "target",
+                  "layoutModel": {
+                    "password": false,
+                    "tabName": "Advanced",
+                    "query": false,
+                    "text": false
+                  },
+                  "allowedStereotypeModels": [],
+                  "isComponentId": false
+                },
+                {
+                  "displayModel": {"displayName": "Target Value"},
+                  "role": "BEHAVIOUR",
+                  "defaultValue": "#[payload]",
+                  "description": "An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable",
+                  "modelProperties": {},
+                  "type": {
+                    "format": "java",
+                    "type": "String"
+                  },
+                  "required": false,
+                  "expressionSupport": "REQUIRED",
+                  "hasDynamicType": false,
+                  "isConfigOverride": false,
+                  "dslConfiguration": {
+                    "allowTopLevelDefinition": false,
+                    "allowsInlineDefinition": true,
+                    "allowsReferences": true
+                  },
+                  "name": "targetValue",
+                  "layoutModel": {
+                    "password": false,
+                    "tabName": "Advanced",
+                    "query": false,
+                    "text": false
+                  },
+                  "allowedStereotypeModels": [],
+                  "isComponentId": false
+                }
+              ],
+              "exclusiveParametersModels": [],
+              "showInDsl": false
+            }
+          ],
+          "output": {
+            "hasDynamicType": false,
+            "description": "",
+            "modelProperties": {},
+            "type": {
+              "format": "json",
+              "type": "Object",
+              "fields": [
+                {
+                  "model": {"type": "String"},
+                  "key": {
+                    "name": "first_page_uri",
+                    "required": "true"
+                  }
+                },
+                {
+                  "model": {
+                    "annotations": {"int": {}},
+                    "type": "Number"
+                  },
+                  "key": {
+                    "name": "start",
+                    "required": "true"
+                  }
+                },
+                {
+                  "model": {
+                    "item": {
+                      "type": "Object",
+                      "fields": [
+                        {
+                          "model": {
+                            "of": [
+                              {"type": "String"},
+                              {"type": "Null"}
+                            ],
+                            "type": "Union"
+                          },
+                          "key": {
+                            "name": "error_message",
+                            "required": "true"
+                          }
+                        },
+                        {
+                          "model": {
+                            "type": "Object",
+                            "fields": [{
+                              "model": {"type": "String"},
+                              "key": {
+                                "name": "media",
+                                "required": "true"
+                              }
+                            }],
+                            "open": {"type": "Any"}
+                          },
+                          "key": {
+                            "name": "subresource_uris",
+                            "required": "true"
+                          }
+                        },
+                        {
+                          "model": {"type": "String"},
+                          "key": {
+                            "name": "date_updated",
+                            "required": "true"
+                          }
+                        },
+                        {
+                          "model": {
+                            "of": [
+                              {"type": "String"},
+                              {"type": "Null"}
+                            ],
+                            "type": "Union"
+                          },
+                          "key": {
+                            "name": "date_sent",
+                            "required": "true"
+                          }
+                        },
+                        {
+                          "model": {"type": "String"},
+                          "key": {
+                            "name": "date_created",
+                            "required": "true"
+                          }
+                        },
+                        {
+                          "model": {"type": "String"},
+                          "key": {
+                            "name": "body",
+                            "required": "true"
+                          }
+                        },
+                        {
+                          "model": {"type": "String"},
+                          "key": {
+                            "name": "api_version",
+                            "required": "true"
+                          }
+                        },
+                        {
+                          "model": {"type": "String"},
+                          "key": {
+                            "name": "num_segments",
+                            "required": "true"
+                          }
+                        },
+                        {
+                          "model": {"type": "String"},
+                          "key": {
+                            "name": "uri",
+                            "required": "true"
+                          }
+                        },
+                        {
+                          "model": {"type": "String"},
+                          "key": {
+                            "name": "sid",
+                            "required": "true"
+                          }
+                        },
+                        {
+                          "model": {"type": "String"},
+                          "key": {
+                            "name": "num_media",
+                            "required": "true"
+                          }
+                        },
+                        {
+                          "model": {"type": "String"},
+                          "key": {
+                            "name": "price_unit",
+                            "required": "true"
+                          }
+                        },
+                        {
+                          "model": {
+                            "of": [
+                              {"type": "String"},
+                              {"type": "Null"}
+                            ],
+                            "type": "Union"
+                          },
+                          "key": {
+                            "name": "messaging_service_sid",
+                            "required": "true"
+                          }
+                        },
+                        {
+                          "model": {
+                            "of": [
+                              {"type": "String"},
+                              {"type": "Null"}
+                            ],
+                            "type": "Union"
+                          },
+                          "key": {
+                            "name": "price",
+                            "required": "true"
+                          }
+                        },
+                        {
+                          "model": {"type": "String"},
+                          "key": {
+                            "name": "account_sid",
+                            "required": "true"
+                          }
+                        },
+                        {
+                          "model": {"type": "String"},
+                          "key": {
+                            "name": "from",
+                            "required": "true"
+                          }
+                        },
+                        {
+                          "model": {
+                            "of": [
+                              {
+                                "annotations": {"int": {}},
+                                "type": "Number"
+                              },
+                              {"type": "Null"}
+                            ],
+                            "type": "Union"
+                          },
+                          "key": {
+                            "name": "error_code",
+                            "required": "true"
+                          }
+                        },
+                        {
+                          "model": {"type": "String"},
+                          "key": {
+                            "name": "to",
+                            "required": "true"
+                          }
+                        },
+                        {
+                          "model": {"type": "String"},
+                          "key": {
+                            "name": "status",
+                            "required": "true"
+                          }
+                        },
+                        {
+                          "model": {"type": "String"},
+                          "key": {
+                            "name": "direction",
+                            "required": "true"
+                          }
+                        }
+                      ],
+                      "open": {"type": "Any"}
+                    },
+                    "type": "Array"
+                  },
+                  "key": {
+                    "name": "messages",
+                    "required": "true"
+                  }
+                },
+                {
+                  "model": {
+                    "annotations": {"int": {}},
+                    "type": "Number"
+                  },
+                  "key": {
+                    "name": "end",
+                    "required": "true"
+                  }
+                },
+                {
+                  "model": {
+                    "of": [
+                      {"type": "String"},
+                      {"type": "Null"}
+                    ],
+                    "type": "Union"
+                  },
+                  "key": {
+                    "name": "previous_page_uri",
+                    "required": "true"
+                  }
+                },
+                {
+                  "model": {
+                    "of": [
+                      {"type": "String"},
+                      {"type": "Null"}
+                    ],
+                    "type": "Union"
+                  },
+                  "key": {
+                    "name": "next_page_uri",
+                    "required": "true"
+                  }
+                },
+                {
+                  "model": {
+                    "annotations": {"int": {}},
+                    "type": "Number"
+                  },
+                  "key": {
+                    "name": "page",
+                    "required": "true"
+                  }
+                },
+                {
+                  "model": {"type": "String"},
+                  "key": {
+                    "name": "uri",
+                    "required": "true"
+                  }
+                },
+                {
+                  "model": {
+                    "annotations": {"int": {}},
+                    "type": "Number"
+                  },
+                  "key": {
+                    "name": "page_size",
+                    "required": "true"
+                  }
+                }
+              ],
+              "open": {"type": "Any"}
+            }
+          },
+          "outputAttributes": {
+            "hasDynamicType": false,
+            "description": "",
+            "modelProperties": {},
+            "type": {
+              "format": "java",
+              "type": "Void"
+            }
+          },
+          "supportsStreaming": false,
+          "requiresConnection": false,
+          "blocking": true,
+          "name": "get-message-list",
+          "stereotype": {
+            "parent": {
+              "parent": {
+                "namespace": "MULE",
+                "type": "PROCESSOR"
+              },
+              "namespace": "TWILIO-CONNECTOR",
+              "type": "PROCESSOR"
+            },
+            "namespace": "TWILIO-CONNECTOR",
+            "type": "GET-MESSAGE-LIST"
+          },
+          "nestedComponents": [],
+          "transactional": false,
+          "notifications": [],
+          "errors": [
+            "TWILIO-CONNECTOR:BAD_REQUEST",
+            "TWILIO-CONNECTOR:SECURITY",
+            "TWILIO-CONNECTOR:UNAUTHORIZED",
+            "TWILIO-CONNECTOR:NOT_ACCEPTABLE",
+            "TWILIO-CONNECTOR:INTERNAL_SERVER_ERROR",
+            "TWILIO-CONNECTOR:TOO_MANY_REQUESTS",
+            "TWILIO-CONNECTOR:PARSING",
+            "TWILIO-CONNECTOR:FORBIDDEN",
+            "TWILIO-CONNECTOR:SERVICE_UNAVAILABLE",
+            "TWILIO-CONNECTOR:RETRY_EXHAUSTED",
+            "TWILIO-CONNECTOR:METHOD_NOT_ALLOWED",
+            "TWILIO-CONNECTOR:NOT_FOUND",
+            "TWILIO-CONNECTOR:UNSUPPORTED_MEDIA_TYPE",
+            "TWILIO-CONNECTOR:TIMEOUT",
+            "TWILIO-CONNECTOR:CONNECTIVITY"
+          ]
+        },
+        {
+          "displayModel": {"displayName": "Redact Message"},
+          "kind": "operation",
+          "executionType": "CPU_LITE",
+          "description": "",
+          "modelProperties": {},
+          "parameterGroupModels": [
+            {
+              "name": "General",
+              "description": "",
+              "modelProperties": {},
+              "parameters": [
+                {
+                  "displayModel": {},
+                  "role": "PRIMARY_CONTENT",
+                  "defaultValue": "#[payload]",
+                  "description": "",
+                  "modelProperties": {},
+                  "type": {
+                    "format": "json",
+                    "type": "Object",
+                    "fields": [{
+                      "model": {"type": "String"},
+                      "key": {
+                        "name": "Body",
+                        "required": "true"
+                      }
+                    }],
+                    "open": {"type": "Any"}
+                  },
+                  "required": false,
+                  "expressionSupport": "SUPPORTED",
+                  "hasDynamicType": false,
+                  "isConfigOverride": false,
+                  "dslConfiguration": {
+                    "allowTopLevelDefinition": false,
+                    "allowsInlineDefinition": true,
+                    "allowsReferences": false
+                  },
+                  "name": "redact-message-request-data",
+                  "layoutModel": {
+                    "password": false,
+                    "tabName": "General",
+                    "query": false,
+                    "text": false
+                  },
+                  "allowedStereotypeModels": [],
+                  "isComponentId": false
+                },
+                {
+                  "displayModel": {},
+                  "role": "BEHAVIOUR",
+                  "description": "A 34 character string that uniquely identifies the user account.",
+                  "modelProperties": {},
+                  "type": {
+                    "format": "java",
+                    "type": "String"
+                  },
+                  "required": true,
+                  "expressionSupport": "SUPPORTED",
+                  "hasDynamicType": false,
+                  "isConfigOverride": false,
+                  "dslConfiguration": {
+                    "allowTopLevelDefinition": false,
+                    "allowsInlineDefinition": true,
+                    "allowsReferences": true
+                  },
+                  "name": "account-sid",
+                  "layoutModel": {
+                    "password": false,
+                    "tabName": "General",
+                    "query": false,
+                    "text": false
+                  },
+                  "allowedStereotypeModels": [],
+                  "isComponentId": false
+                },
+                {
+                  "displayModel": {},
+                  "role": "BEHAVIOUR",
+                  "description": "Unique ID for any message successfully created by Twilio\u2019s API. It is a 34 character string that starts with \u201cSM\u2026\u201d for SMS and \u201cMM\u2026\u201d for MMS. To find the SID for a specific message via the API, make a GET request to the Messages List Resource. This will return a list of SMS messages associated with your account along with details about each message. It would be the \u201cSid\u201d property in a message resource.",
+                  "modelProperties": {},
+                  "type": {
+                    "format": "java",
+                    "type": "String"
+                  },
+                  "required": true,
+                  "expressionSupport": "SUPPORTED",
+                  "hasDynamicType": false,
+                  "isConfigOverride": false,
+                  "dslConfiguration": {
+                    "allowTopLevelDefinition": false,
+                    "allowsInlineDefinition": true,
+                    "allowsReferences": true
+                  },
+                  "name": "message-sid",
+                  "layoutModel": {
+                    "password": false,
+                    "tabName": "General",
+                    "query": false,
+                    "text": false
+                  },
+                  "allowedStereotypeModels": [],
+                  "isComponentId": false
+                },
+                {
+                  "displayModel": {"displayName": "Request streaming mode"},
+                  "role": "BEHAVIOUR",
+                  "description": "",
+                  "modelProperties": {},
+                  "type": {
+                    "format": "json",
+                    "annotations": {"enum": {
+                      "values": [
+                        "AUTO",
+                        "NEVER",
+                        "ALWAYS"
+                      ],
+                      "type": "[Ljava.lang.String;"
+                    }},
+                    "type": "String"
+                  },
+                  "required": false,
+                  "expressionSupport": "SUPPORTED",
+                  "hasDynamicType": false,
+                  "isConfigOverride": false,
+                  "dslConfiguration": {
+                    "allowTopLevelDefinition": false,
+                    "allowsInlineDefinition": true,
+                    "allowsReferences": true
+                  },
+                  "name": "request-streaming-mode",
+                  "layoutModel": {
+                    "password": false,
+                    "tabName": "Advanced",
+                    "query": false,
+                    "text": false
+                  },
+                  "allowedStereotypeModels": [],
+                  "isComponentId": false
+                },
+                {
+                  "role": "BEHAVIOUR",
+                  "hasDynamicType": false,
+                  "isConfigOverride": false,
+                  "dslConfiguration": {
+                    "allowTopLevelDefinition": false,
+                    "allowsInlineDefinition": true,
+                    "allowsReferences": true
+                  },
+                  "name": "config-ref",
+                  "description": "The name of the configuration to be used to execute this component",
+                  "modelProperties": {},
+                  "allowedStereotypeModels": [{
+                    "parent": {
+                      "namespace": "MULE",
+                      "type": "MODULE_CONFIG"
+                    },
+                    "namespace": "TWILIO-CONNECTOR",
+                    "type": "CONFIG"
+                  }],
+                  "type": {
+                    "format": "java",
+                    "annotations": {"typeId": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider"},
+                    "type": "Object",
+                    "fields": []
+                  },
+                  "required": true,
+                  "isComponentId": false,
+                  "expressionSupport": "NOT_SUPPORTED"
+                }
+              ],
+              "exclusiveParametersModels": [],
+              "showInDsl": false
+            },
+            {
+              "name": "Output",
+              "description": "",
+              "modelProperties": {},
+              "parameters": [
+                {
+                  "displayModel": {"displayName": "Target Variable"},
+                  "role": "BEHAVIOUR",
+                  "description": "The name of a variable on which the operation's output will be placed",
+                  "modelProperties": {},
+                  "type": {
+                    "format": "java",
+                    "type": "String"
+                  },
+                  "required": false,
+                  "expressionSupport": "NOT_SUPPORTED",
+                  "hasDynamicType": false,
+                  "isConfigOverride": false,
+                  "dslConfiguration": {
+                    "allowTopLevelDefinition": false,
+                    "allowsInlineDefinition": true,
+                    "allowsReferences": true
+                  },
+                  "name": "target",
+                  "layoutModel": {
+                    "password": false,
+                    "tabName": "Advanced",
+                    "query": false,
+                    "text": false
+                  },
+                  "allowedStereotypeModels": [],
+                  "isComponentId": false
+                },
+                {
+                  "displayModel": {"displayName": "Target Value"},
+                  "role": "BEHAVIOUR",
+                  "defaultValue": "#[payload]",
+                  "description": "An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable",
+                  "modelProperties": {},
+                  "type": {
+                    "format": "java",
+                    "type": "String"
+                  },
+                  "required": false,
+                  "expressionSupport": "REQUIRED",
+                  "hasDynamicType": false,
+                  "isConfigOverride": false,
+                  "dslConfiguration": {
+                    "allowTopLevelDefinition": false,
+                    "allowsInlineDefinition": true,
+                    "allowsReferences": true
+                  },
+                  "name": "targetValue",
+                  "layoutModel": {
+                    "password": false,
+                    "tabName": "Advanced",
+                    "query": false,
+                    "text": false
+                  },
+                  "allowedStereotypeModels": [],
+                  "isComponentId": false
+                }
+              ],
+              "exclusiveParametersModels": [],
+              "showInDsl": false
+            }
+          ],
+          "output": {
+            "hasDynamicType": false,
+            "description": "",
+            "modelProperties": {},
+            "type": {
+              "format": "json",
+              "type": "Object",
+              "fields": [
+                {
+                  "model": {
+                    "of": [
+                      {"type": "String"},
+                      {"type": "Null"}
+                    ],
+                    "type": "Union"
+                  },
+                  "key": {
+                    "name": "error_message",
+                    "required": "true"
+                  }
+                },
+                {
+                  "model": {
+                    "type": "Object",
+                    "fields": [{
+                      "model": {"type": "String"},
+                      "key": {
+                        "name": "media",
+                        "required": "true"
+                      }
+                    }],
+                    "open": {"type": "Any"}
+                  },
+                  "key": {"name": "subresource_uris"}
+                },
+                {
+                  "model": {"type": "String"},
+                  "key": {
+                    "name": "date_updated",
+                    "required": "true"
+                  }
+                },
+                {
+                  "model": {"type": "String"},
+                  "key": {
+                    "name": "date_sent",
+                    "required": "true"
+                  }
+                },
+                {
+                  "model": {"type": "String"},
+                  "key": {
+                    "name": "date_created",
+                    "required": "true"
+                  }
+                },
+                {
+                  "model": {"type": "String"},
+                  "key": {
+                    "name": "body",
+                    "required": "true"
+                  }
+                },
+                {
+                  "model": {"type": "String"},
+                  "key": {
+                    "name": "api_version",
+                    "required": "true"
+                  }
+                },
+                {
+                  "model": {"type": "String"},
+                  "key": {
+                    "name": "num_segments",
+                    "required": "true"
+                  }
+                },
+                {
+                  "model": {"type": "String"},
+                  "key": {
+                    "name": "uri",
+                    "required": "true"
+                  }
+                },
+                {
+                  "model": {"type": "String"},
+                  "key": {
+                    "name": "sid",
+                    "required": "true"
+                  }
+                },
+                {
+                  "model": {"type": "String"},
+                  "key": {
+                    "name": "num_media",
+                    "required": "true"
+                  }
+                },
+                {
+                  "model": {"type": "String"},
+                  "key": {
+                    "name": "price_unit",
+                    "required": "true"
+                  }
+                },
+                {
+                  "model": {
+                    "of": [
+                      {"type": "String"},
+                      {"type": "Null"}
+                    ],
+                    "type": "Union"
+                  },
+                  "key": {
+                    "name": "messaging_service_sid",
+                    "required": "true"
+                  }
+                },
+                {
+                  "model": {"type": "String"},
+                  "key": {
+                    "name": "price",
+                    "required": "true"
+                  }
+                },
+                {
+                  "model": {"type": "String"},
+                  "key": {
+                    "name": "account_sid",
+                    "required": "true"
+                  }
+                },
+                {
+                  "model": {"type": "String"},
+                  "key": {
+                    "name": "from",
+                    "required": "true"
+                  }
+                },
+                {
+                  "model": {
+                    "of": [
+                      {
+                        "annotations": {"int": {}},
+                        "type": "Number"
+                      },
+                      {"type": "Null"}
+                    ],
+                    "type": "Union"
+                  },
+                  "key": {
+                    "name": "error_code",
+                    "required": "true"
+                  }
+                },
+                {
+                  "model": {"type": "String"},
+                  "key": {
+                    "name": "to",
+                    "required": "true"
+                  }
+                },
+                {
+                  "model": {"type": "String"},
+                  "key": {
+                    "name": "status",
+                    "required": "true"
+                  }
+                },
+                {
+                  "model": {"type": "String"},
+                  "key": {
+                    "name": "direction",
+                    "required": "true"
+                  }
+                }
+              ],
+              "open": {"type": "Any"}
+            }
+          },
+          "outputAttributes": {
+            "hasDynamicType": false,
+            "description": "",
+            "modelProperties": {},
+            "type": {
+              "format": "java",
+              "type": "Void"
+            }
+          },
+          "supportsStreaming": false,
+          "requiresConnection": false,
+          "blocking": true,
+          "name": "redact-message",
+          "stereotype": {
+            "parent": {
+              "parent": {
+                "namespace": "MULE",
+                "type": "PROCESSOR"
+              },
+              "namespace": "TWILIO-CONNECTOR",
+              "type": "PROCESSOR"
+            },
+            "namespace": "TWILIO-CONNECTOR",
+            "type": "REDACT-MESSAGE"
+          },
+          "nestedComponents": [],
+          "transactional": false,
+          "notifications": [],
+          "errors": [
+            "TWILIO-CONNECTOR:BAD_REQUEST",
+            "TWILIO-CONNECTOR:SECURITY",
+            "TWILIO-CONNECTOR:UNAUTHORIZED",
+            "TWILIO-CONNECTOR:NOT_ACCEPTABLE",
+            "TWILIO-CONNECTOR:INTERNAL_SERVER_ERROR",
+            "TWILIO-CONNECTOR:TOO_MANY_REQUESTS",
+            "TWILIO-CONNECTOR:PARSING",
+            "TWILIO-CONNECTOR:FORBIDDEN",
+            "TWILIO-CONNECTOR:SERVICE_UNAVAILABLE",
+            "TWILIO-CONNECTOR:RETRY_EXHAUSTED",
+            "TWILIO-CONNECTOR:METHOD_NOT_ALLOWED",
+            "TWILIO-CONNECTOR:NOT_FOUND",
+            "TWILIO-CONNECTOR:UNSUPPORTED_MEDIA_TYPE",
+            "TWILIO-CONNECTOR:TIMEOUT",
+            "TWILIO-CONNECTOR:CONNECTIVITY"
+          ]
+        },
+        {
+          "displayModel": {"displayName": "Send Message"},
+          "kind": "operation",
+          "executionType": "CPU_LITE",
+          "description": "",
+          "modelProperties": {},
+          "parameterGroupModels": [
+            {
+              "name": "General",
+              "description": "",
+              "modelProperties": {},
+              "parameters": [
+                {
+                  "displayModel": {},
+                  "role": "PRIMARY_CONTENT",
+                  "defaultValue": "#[payload]",
+                  "description": "",
+                  "modelProperties": {},
+                  "type": {
+                    "format": "json",
+                    "type": "Object",
+                    "fields": [
+                      {
+                        "model": {"type": "String"},
+                        "key": {"name": "ApplicationSid"}
+                      },
+                      {
+                        "model": {"type": "String"},
+                        "key": {"name": "MessagingServiceSid"}
+                      },
+                      {
+                        "model": {"type": "String"},
+                        "key": {"name": "MediaUrl"}
+                      },
+                      {
+                        "model": {"type": "Boolean"},
+                        "key": {"name": "ProvideFeedback"}
+                      },
+                      {
+                        "model": {"type": "String"},
+                        "key": {"name": "StatusCallback"}
+                      },
+                      {
+                        "model": {"type": "String"},
+                        "key": {
+                          "name": "To",
+                          "required": "true"
+                        }
+                      },
+                      {
+                        "model": {"type": "String"},
+                        "key": {"name": "From"}
+                      },
+                      {
+                        "model": {"type": "String"},
+                        "key": {"name": "MaxPrice"}
+                      },
+                      {
+                        "model": {"type": "String"},
+                        "key": {"name": "Body"}
+                      }
+                    ],
+                    "open": {"type": "Any"}
+                  },
+                  "required": false,
+                  "expressionSupport": "SUPPORTED",
+                  "hasDynamicType": false,
+                  "isConfigOverride": false,
+                  "dslConfiguration": {
+                    "allowTopLevelDefinition": false,
+                    "allowsInlineDefinition": true,
+                    "allowsReferences": false
+                  },
+                  "name": "send-message-request-data",
+                  "layoutModel": {
+                    "password": false,
+                    "tabName": "General",
+                    "query": false,
+                    "text": false
+                  },
+                  "allowedStereotypeModels": [],
+                  "isComponentId": false
+                },
+                {
+                  "displayModel": {},
+                  "role": "BEHAVIOUR",
+                  "description": "A 34 character string that uniquely identifies the user account.",
+                  "modelProperties": {},
+                  "type": {
+                    "format": "java",
+                    "type": "String"
+                  },
+                  "required": true,
+                  "expressionSupport": "SUPPORTED",
+                  "hasDynamicType": false,
+                  "isConfigOverride": false,
+                  "dslConfiguration": {
+                    "allowTopLevelDefinition": false,
+                    "allowsInlineDefinition": true,
+                    "allowsReferences": true
+                  },
+                  "name": "account-sid",
+                  "layoutModel": {
+                    "password": false,
+                    "tabName": "General",
+                    "query": false,
+                    "text": false
+                  },
+                  "allowedStereotypeModels": [],
+                  "isComponentId": false
+                },
+                {
+                  "displayModel": {"displayName": "Request streaming mode"},
+                  "role": "BEHAVIOUR",
+                  "description": "",
+                  "modelProperties": {},
+                  "type": {
+                    "format": "json",
+                    "annotations": {"enum": {
+                      "values": [
+                        "AUTO",
+                        "NEVER",
+                        "ALWAYS"
+                      ],
+                      "type": "[Ljava.lang.String;"
+                    }},
+                    "type": "String"
+                  },
+                  "required": false,
+                  "expressionSupport": "SUPPORTED",
+                  "hasDynamicType": false,
+                  "isConfigOverride": false,
+                  "dslConfiguration": {
+                    "allowTopLevelDefinition": false,
+                    "allowsInlineDefinition": true,
+                    "allowsReferences": true
+                  },
+                  "name": "request-streaming-mode",
+                  "layoutModel": {
+                    "password": false,
+                    "tabName": "Advanced",
+                    "query": false,
+                    "text": false
+                  },
+                  "allowedStereotypeModels": [],
+                  "isComponentId": false
+                },
+                {
+                  "role": "BEHAVIOUR",
+                  "hasDynamicType": false,
+                  "isConfigOverride": false,
+                  "dslConfiguration": {
+                    "allowTopLevelDefinition": false,
+                    "allowsInlineDefinition": true,
+                    "allowsReferences": true
+                  },
+                  "name": "config-ref",
+                  "description": "The name of the configuration to be used to execute this component",
+                  "modelProperties": {},
+                  "allowedStereotypeModels": [{
+                    "parent": {
+                      "namespace": "MULE",
+                      "type": "MODULE_CONFIG"
+                    },
+                    "namespace": "TWILIO-CONNECTOR",
+                    "type": "CONFIG"
+                  }],
+                  "type": {
+                    "format": "java",
+                    "annotations": {"typeId": "org.mule.runtime.extension.api.runtime.config.ConfigurationProvider"},
+                    "type": "Object",
+                    "fields": []
+                  },
+                  "required": true,
+                  "isComponentId": false,
+                  "expressionSupport": "NOT_SUPPORTED"
+                }
+              ],
+              "exclusiveParametersModels": [],
+              "showInDsl": false
+            },
+            {
+              "name": "Output",
+              "description": "",
+              "modelProperties": {},
+              "parameters": [
+                {
+                  "displayModel": {"displayName": "Target Variable"},
+                  "role": "BEHAVIOUR",
+                  "description": "The name of a variable on which the operation's output will be placed",
+                  "modelProperties": {},
+                  "type": {
+                    "format": "java",
+                    "type": "String"
+                  },
+                  "required": false,
+                  "expressionSupport": "NOT_SUPPORTED",
+                  "hasDynamicType": false,
+                  "isConfigOverride": false,
+                  "dslConfiguration": {
+                    "allowTopLevelDefinition": false,
+                    "allowsInlineDefinition": true,
+                    "allowsReferences": true
+                  },
+                  "name": "target",
+                  "layoutModel": {
+                    "password": false,
+                    "tabName": "Advanced",
+                    "query": false,
+                    "text": false
+                  },
+                  "allowedStereotypeModels": [],
+                  "isComponentId": false
+                },
+                {
+                  "displayModel": {"displayName": "Target Value"},
+                  "role": "BEHAVIOUR",
+                  "defaultValue": "#[payload]",
+                  "description": "An expression that will be evaluated against the operation's output and the outcome of that expression will be stored in the target variable",
+                  "modelProperties": {},
+                  "type": {
+                    "format": "java",
+                    "type": "String"
+                  },
+                  "required": false,
+                  "expressionSupport": "REQUIRED",
+                  "hasDynamicType": false,
+                  "isConfigOverride": false,
+                  "dslConfiguration": {
+                    "allowTopLevelDefinition": false,
+                    "allowsInlineDefinition": true,
+                    "allowsReferences": true
+                  },
+                  "name": "targetValue",
+                  "layoutModel": {
+                    "password": false,
+                    "tabName": "Advanced",
+                    "query": false,
+                    "text": false
+                  },
+                  "allowedStereotypeModels": [],
+                  "isComponentId": false
+                }
+              ],
+              "exclusiveParametersModels": [],
+              "showInDsl": false
+            }
+          ],
+          "output": {
+            "hasDynamicType": false,
+            "description": "",
+            "modelProperties": {},
+            "type": {
+              "format": "json",
+              "type": "Object",
+              "fields": [
+                {
+                  "model": {"type": "Null"},
+                  "key": {
+                    "name": "error_message",
+                    "required": "true"
+                  }
+                },
+                {
+                  "model": {
+                    "type": "Object",
+                    "fields": [{
+                      "model": {"type": "String"},
+                      "key": {
+                        "name": "media",
+                        "required": "true"
+                      }
+                    }],
+                    "open": {"type": "Any"}
+                  },
+                  "key": {"name": "subresource_uris"}
+                },
+                {
+                  "model": {"type": "String"},
+                  "key": {
+                    "name": "date_updated",
+                    "required": "true"
+                  }
+                },
+                {
+                  "model": {"type": "Null"},
+                  "key": {
+                    "name": "date_sent",
+                    "required": "true"
+                  }
+                },
+                {
+                  "model": {"type": "String"},
+                  "key": {
+                    "name": "date_created",
+                    "required": "true"
+                  }
+                },
+                {
+                  "model": {"type": "String"},
+                  "key": {
+                    "name": "body",
+                    "required": "true"
+                  }
+                },
+                {
+                  "model": {"type": "String"},
+                  "key": {
+                    "name": "api_version",
+                    "required": "true"
+                  }
+                },
+                {
+                  "model": {"type": "String"},
+                  "key": {
+                    "name": "num_segments",
+                    "required": "true"
+                  }
+                },
+                {
+                  "model": {"type": "String"},
+                  "key": {
+                    "name": "uri",
+                    "required": "true"
+                  }
+                },
+                {
+                  "model": {"type": "String"},
+                  "key": {
+                    "name": "sid",
+                    "required": "true"
+                  }
+                },
+                {
+                  "model": {"type": "String"},
+                  "key": {
+                    "name": "num_media",
+                    "required": "true"
+                  }
+                },
+                {
+                  "model": {"type": "String"},
+                  "key": {
+                    "name": "price_unit",
+                    "required": "true"
+                  }
+                },
+                {
+                  "model": {"type": "Null"},
+                  "key": {
+                    "name": "price",
+                    "required": "true"
+                  }
+                },
+                {
+                  "model": {"type": "String"},
+                  "key": {
+                    "name": "account_sid",
+                    "required": "true"
+                  }
+                },
+                {
+                  "model": {"type": "String"},
+                  "key": {
+                    "name": "from",
+                    "required": "true"
+                  }
+                },
+                {
+                  "model": {"type": "Null"},
+                  "key": {
+                    "name": "error_code",
+                    "required": "true"
+                  }
+                },
+                {
+                  "model": {"type": "String"},
+                  "key": {
+                    "name": "to",
+                    "required": "true"
+                  }
+                },
+                {
+                  "model": {"type": "String"},
+                  "key": {
+                    "name": "status",
+                    "required": "true"
+                  }
+                },
+                {
+                  "model": {"type": "String"},
+                  "key": {
+                    "name": "direction",
+                    "required": "true"
+                  }
+                }
+              ],
+              "open": {"type": "Any"}
+            }
+          },
+          "outputAttributes": {
+            "hasDynamicType": false,
+            "description": "",
+            "modelProperties": {},
+            "type": {
+              "format": "java",
+              "type": "Void"
+            }
+          },
+          "supportsStreaming": false,
+          "requiresConnection": false,
+          "blocking": true,
+          "name": "send-message",
+          "stereotype": {
+            "parent": {
+              "parent": {
+                "namespace": "MULE",
+                "type": "PROCESSOR"
+              },
+              "namespace": "TWILIO-CONNECTOR",
+              "type": "PROCESSOR"
+            },
+            "namespace": "TWILIO-CONNECTOR",
+            "type": "SEND-MESSAGE"
+          },
+          "nestedComponents": [],
+          "transactional": false,
+          "notifications": [],
+          "errors": [
+            "TWILIO-CONNECTOR:BAD_REQUEST",
+            "TWILIO-CONNECTOR:SECURITY",
+            "TWILIO-CONNECTOR:UNAUTHORIZED",
+            "TWILIO-CONNECTOR:NOT_ACCEPTABLE",
+            "TWILIO-CONNECTOR:INTERNAL_SERVER_ERROR",
+            "TWILIO-CONNECTOR:TOO_MANY_REQUESTS",
+            "TWILIO-CONNECTOR:PARSING",
+            "TWILIO-CONNECTOR:FORBIDDEN",
+            "TWILIO-CONNECTOR:SERVICE_UNAVAILABLE",
+            "TWILIO-CONNECTOR:RETRY_EXHAUSTED",
+            "TWILIO-CONNECTOR:METHOD_NOT_ALLOWED",
+            "TWILIO-CONNECTOR:NOT_FOUND",
+            "TWILIO-CONNECTOR:UNSUPPORTED_MEDIA_TYPE",
+            "TWILIO-CONNECTOR:TIMEOUT",
+            "TWILIO-CONNECTOR:CONNECTIVITY"
+          ]
+        }
+      ],
+      "messageSources": [],
+      "name": "config",
+      "description": "",
+      "modelProperties": {},
+      "stereotype": {
+        "parent": {
+          "namespace": "MULE",
+          "type": "MODULE_CONFIG"
+        },
+        "namespace": "TWILIO-CONNECTOR",
+        "type": "CONFIG"
+      },
+      "parameterGroupModels": [{
+        "name": "General",
+        "description": "",
+        "modelProperties": {},
+        "parameters": [
+          {
+            "displayModel": {
+              "summary": "Host for consuming API",
+              "displayName": "host"
+            },
+            "role": "BEHAVIOUR",
+            "defaultValue": "api.twilio.com",
+            "description": "",
+            "modelProperties": {},
+            "type": {
+              "format": "java",
+              "type": "String"
+            },
+            "required": false,
+            "expressionSupport": "SUPPORTED",
+            "hasDynamicType": false,
+            "isConfigOverride": false,
+            "dslConfiguration": {
+              "allowTopLevelDefinition": false,
+              "allowsInlineDefinition": true,
+              "allowsReferences": true
+            },
+            "name": "property_host",
+            "layoutModel": {
+              "password": false,
+              "tabName": "General",
+              "query": false,
+              "text": false
+            },
+            "allowedStereotypeModels": [],
+            "isComponentId": false
+          },
+          {
+            "displayModel": {
+              "summary": "Port for consuming API",
+              "displayName": "port"
+            },
+            "role": "BEHAVIOUR",
+            "defaultValue": "443",
+            "description": "",
+            "modelProperties": {},
+            "type": {
+              "format": "java",
+              "type": "String"
+            },
+            "required": false,
+            "expressionSupport": "SUPPORTED",
+            "hasDynamicType": false,
+            "isConfigOverride": false,
+            "dslConfiguration": {
+              "allowTopLevelDefinition": false,
+              "allowsInlineDefinition": true,
+              "allowsReferences": true
+            },
+            "name": "property_port",
+            "layoutModel": {
+              "password": false,
+              "tabName": "General",
+              "query": false,
+              "text": false
+            },
+            "allowedStereotypeModels": [],
+            "isComponentId": false
+          },
+          {
+            "displayModel": {
+              "summary": "Basepath for consuming API",
+              "displayName": "basePath"
+            },
+            "role": "BEHAVIOUR",
+            "defaultValue": "/2010-04-01",
+            "description": "",
+            "modelProperties": {},
+            "type": {
+              "format": "java",
+              "type": "String"
+            },
+            "required": false,
+            "expressionSupport": "SUPPORTED",
+            "hasDynamicType": false,
+            "isConfigOverride": false,
+            "dslConfiguration": {
+              "allowTopLevelDefinition": false,
+              "allowsInlineDefinition": true,
+              "allowsReferences": true
+            },
+            "name": "property_basePath",
+            "layoutModel": {
+              "password": false,
+              "tabName": "General",
+              "query": false,
+              "text": false
+            },
+            "allowedStereotypeModels": [],
+            "isComponentId": false
+          },
+          {
+            "displayModel": {
+              "summary": "Protocol for consuming API",
+              "displayName": "protocol"
+            },
+            "role": "BEHAVIOUR",
+            "defaultValue": "HTTPS",
+            "description": "",
+            "modelProperties": {},
+            "type": {
+              "format": "java",
+              "type": "String"
+            },
+            "required": false,
+            "expressionSupport": "SUPPORTED",
+            "hasDynamicType": false,
+            "isConfigOverride": false,
+            "dslConfiguration": {
+              "allowTopLevelDefinition": false,
+              "allowsInlineDefinition": true,
+              "allowsReferences": true
+            },
+            "name": "property_protocol",
+            "layoutModel": {
+              "password": false,
+              "tabName": "General",
+              "query": false,
+              "text": false
+            },
+            "allowedStereotypeModels": [],
+            "isComponentId": false
+          },
+          {
+            "displayModel": {
+              "summary": "Proxy config reference",
+              "displayName": "Proxy Config Reference"
+            },
+            "role": "BEHAVIOUR",
+            "description": "",
+            "modelProperties": {},
+            "type": {
+              "format": "java",
+              "type": "String"
+            },
+            "required": false,
+            "expressionSupport": "SUPPORTED",
+            "hasDynamicType": false,
+            "isConfigOverride": false,
+            "dslConfiguration": {
+              "allowTopLevelDefinition": false,
+              "allowsInlineDefinition": true,
+              "allowsReferences": true
+            },
+            "name": "property_proxyConfig",
+            "layoutModel": {
+              "password": false,
+              "tabName": "Proxy",
+              "query": false,
+              "text": false
+            },
+            "allowedStereotypeModels": [],
+            "isComponentId": false
+          },
+          {
+            "displayModel": {
+              "summary": "Maximum time in milliseconds that the request element will block the execution of the flow waiting for the HTTP response.",
+              "displayName": "Response timeout"
+            },
+            "role": "BEHAVIOUR",
+            "defaultValue": "10000",
+            "description": "",
+            "modelProperties": {},
+            "type": {
+              "format": "java",
+              "type": "String"
+            },
+            "required": false,
+            "expressionSupport": "SUPPORTED",
+            "hasDynamicType": false,
+            "isConfigOverride": false,
+            "dslConfiguration": {
+              "allowTopLevelDefinition": false,
+              "allowsInlineDefinition": true,
+              "allowsReferences": true
+            },
+            "name": "property_responseTimeout",
+            "layoutModel": {
+              "password": false,
+              "tabName": "General",
+              "query": false,
+              "text": false
+            },
+            "allowedStereotypeModels": [],
+            "isComponentId": false
+          },
+          {
+            "displayModel": {
+              "summary": "Username",
+              "displayName": "username"
+            },
+            "role": "BEHAVIOUR",
+            "description": "",
+            "modelProperties": {},
+            "type": {
+              "format": "java",
+              "type": "String"
+            },
+            "required": true,
+            "expressionSupport": "SUPPORTED",
+            "hasDynamicType": false,
+            "isConfigOverride": false,
+            "dslConfiguration": {
+              "allowTopLevelDefinition": false,
+              "allowsInlineDefinition": true,
+              "allowsReferences": true
+            },
+            "name": "property_username",
+            "layoutModel": {
+              "password": false,
+              "tabName": "General",
+              "query": false,
+              "text": false
+            },
+            "allowedStereotypeModels": [],
+            "isComponentId": false
+          },
+          {
+            "displayModel": {
+              "summary": "Password",
+              "displayName": "password"
+            },
+            "role": "BEHAVIOUR",
+            "description": "",
+            "modelProperties": {},
+            "type": {
+              "format": "java",
+              "type": "String"
+            },
+            "required": true,
+            "expressionSupport": "SUPPORTED",
+            "hasDynamicType": false,
+            "isConfigOverride": false,
+            "dslConfiguration": {
+              "allowTopLevelDefinition": false,
+              "allowsInlineDefinition": true,
+              "allowsReferences": true
+            },
+            "name": "property_password",
+            "layoutModel": {
+              "password": true,
+              "tabName": "General",
+              "query": false,
+              "text": false
+            },
+            "allowedStereotypeModels": [],
+            "isComponentId": false
+          },
+          {
+            "role": "BEHAVIOUR",
+            "hasDynamicType": false,
+            "isConfigOverride": false,
+            "dslConfiguration": {
+              "allowTopLevelDefinition": false,
+              "allowsInlineDefinition": true,
+              "allowsReferences": true
+            },
+            "name": "name",
+            "description": "The identifier of this element used to reference it in other components",
+            "modelProperties": {},
+            "allowedStereotypeModels": [],
+            "type": {
+              "format": "java",
+              "type": "String"
+            },
+            "required": true,
+            "isComponentId": true,
+            "expressionSupport": "NOT_SUPPORTED"
+          },
+          {
+            "role": "BEHAVIOUR",
+            "description": "Configures the minimum amount of time that a dynamic configuration instance can remain idle before the runtime considers it eligible for expiration. This does not mean that the platform will expire the instance at the exact moment that it becomes eligible. The runtime will actually purge the instances when it sees it fit.",
+            "modelProperties": {
+              "org.mule.runtime.extension.api.property.InfrastructureParameterModelProperty": {"sequence": 4},
+              "org.mule.runtime.extension.api.property.QNameModelProperty": {"value": {
+                "localPart": "expiration-policy",
+                "prefix": "mule",
+                "namespaceURI": "http://www.mulesoft.org/schema/mule/core"
+              }}
+            },
+            "type": {
+              "format": "java",
+              "annotations": {
+                "typeDsl": {
+                  "allowTopLevelDefinition": false,
+                  "allowInlineDefinition": true
+                },
+                "description": {"value": "Configures the minimum amount of time that a dynamic configuration instance can remain idle before the runtime considers it eligible for expiration. This does not mean that the platform will expire the instance at the exact moment that it becomes eligible. The runtime will actually purge the instances when it sees it fit."},
+                "typeId": "org.mule.runtime.extension.api.runtime.ExpirationPolicy"
+              },
+              "type": "Object",
+              "fields": [
+                {
+                  "annotations": {
+                    "description": {"value": "A scalar time value for the maximum amount of time a dynamic configuration instance should be allowed to be idle before it's considered eligible for expiration"},
+                    "expressionSupport": {"value": "NOT_SUPPORTED"}
+                  },
+                  "model": {
+                    "annotations": {
+                      "default": "5",
+                      "classInformation": {
+                        "implementedInterfaces": ["java.lang.Comparable"],
+                        "parent": "java.lang.Number",
+                        "classname": "java.lang.Long",
+                        "hasDefaultConstructor": false,
+                        "isInstantiable": false,
+                        "isFinal": true,
+                        "genericTypes": [],
+                        "isInterface": false,
+                        "isAbstract": false,
+                        "isMap": false
+                      },
+                      "int": {}
+                    },
+                    "type": "Number"
+                  },
+                  "key": {"name": "maxIdleTime"}
+                },
+                {
+                  "annotations": {
+                    "description": {"value": "A time unit that qualifies the maxIdleTime attribute"},
+                    "expressionSupport": {"value": "NOT_SUPPORTED"}
+                  },
+                  "model": {
+                    "annotations": {
+                      "default": "MINUTES",
+                      "enum": {
+                        "values": [
+                          "NANOSECONDS",
+                          "MICROSECONDS",
+                          "MILLISECONDS",
+                          "SECONDS",
+                          "MINUTES",
+                          "HOURS",
+                          "DAYS"
+                        ],
+                        "type": "[Ljava.lang.String;"
+                      }
+                    },
+                    "type": "String"
+                  },
+                  "key": {"name": "timeUnit"}
+                }
+              ]
+            },
+            "required": false,
+            "expressionSupport": "NOT_SUPPORTED",
+            "hasDynamicType": false,
+            "isConfigOverride": false,
+            "dslConfiguration": {
+              "allowTopLevelDefinition": false,
+              "allowsInlineDefinition": true,
+              "allowsReferences": false
+            },
+            "name": "expirationPolicy",
+            "layoutModel": {
+              "password": false,
+              "tabName": "Advanced",
+              "query": false,
+              "text": false
+            },
+            "allowedStereotypeModels": [],
+            "isComponentId": false
+          }
+        ],
+        "exclusiveParametersModels": [],
+        "showInDsl": false
+      }],
+      "connectionProviders": [{
+        "externalLibraryModels": [],
+        "connectionManagementType": "NONE",
+        "supportsConnectivityTesting": true,
+        "name": "connection",
+        "description": "",
+        "modelProperties": {},
+        "stereotype": {
+          "parent": {
+            "namespace": "MULE",
+            "type": "CONNECTION"
+          },
+          "namespace": "TWILIO-CONNECTOR",
+          "type": "CONNECTION"
+        },
+        "parameterGroupModels": []
+      }]
+    }],
+    "externalLibraries": [],
+    "description": "",
+    "resources": [],
+    "subTypes": [],
+    "modelProperties": {"org.mule.runtime.extension.api.property.XmlExtensionModelProperty": {"namespacesDependencies": [
+      "http://www.mulesoft.org/schema/mule/documentation",
+      "http://www.mulesoft.org/schema/mule/http",
+      "http://www.w3.org/2001/XMLSchema-instance",
+      "http://www.mulesoft.org/schema/mule/core"
+    ]}},
+    "constructs": [],
+    "connectionProviders": [],
+    "version": "4.0.0",
+    "privilegedArtifacts": [],
+    "importedTypes": [],
+    "xmlDsl": {
+      "schemaVersion": "4.0.0",
+      "prefix": "twilio-connector",
+      "schemaLocation": "http://www.mulesoft.org/schema/mule/twilio-connector/current/mule-twilio-connector.xsd",
+      "namespace": "http://www.mulesoft.org/schema/mule/twilio-connector",
+      "xsdFileName": "mule-twilio-connector.xsd"
+    },
+    "operations": [],
+    "vendor": "MuleSoft",
+    "name": "Twilio Connector",
+    "privilegedPackages": [],
+    "category": "COMMUNITY",
+    "notifications": [],
+    "errors": []
+  }
+}

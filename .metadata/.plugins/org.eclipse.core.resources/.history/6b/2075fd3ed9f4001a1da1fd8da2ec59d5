@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:salesforce="http://www.mulesoft.org/schema/mule/salesforce"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/salesforce http://www.mulesoft.org/schema/mule/salesforce/current/mule-salesforce.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="88419f9d-2295-4990-a971-f1c1a5b9ede6" >
+		<http:listener-connection host="0.0.0.0" port="9999" />
+	</http:listener-config>
+	<salesforce:sfdc-config name="Salesforce_Config" doc:name="Salesforce Config" doc:id="b800e032-6f15-4f53-9b80-bba69ff29bda" >
+		<salesforce:basic-connection username="amit.singh@b2b.com" password="Eesting@123456" securityToken="wH59H7cCPJn4zZghEVN7cVfT" url="https://login.salesforce.com/services/Soap/u/48.0" />
+	</salesforce:sfdc-config>
+	<flow name="GETACCOUNTS" doc:id="9d911a0d-44fa-4de5-b605-ad92c05a2045" >
+		<http:listener doc:name="GET :/accounts" doc:id="6c978db1-54b3-4694-8d54-8ad6c738dff1" config-ref="HTTP_Listener_config" path="/accounts" allowedMethods="GET"/>
+		<salesforce:query doc:name="Query[Accounts]" doc:id="2cd7d23d-498c-4a4f-834a-7833010a1955" config-ref="Salesforce_Config">
+			<salesforce:salesforce-query >SELECT Id, Name From Account Limit =':limit'</salesforce:salesforce-query>
+			<salesforce:parameters ><![CDATA[#[output application/java
+---
+{
+	"limit" : "attributes.queryParams.limit"
+}]]]></salesforce:parameters>
+		</salesforce:query>
+		<ee:transform doc:name="Transform Message" doc:id="70f83e24-b332-4034-b0fb-bd11210e885c" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+	<flow name="POSTAccounts" doc:id="3dcc2d88-0398-4887-9b9d-9ed45474d2ac" >
+		<http:listener doc:name="POST :/accounts" doc:id="13d65692-d23f-44aa-bbdc-a42d834462d2" config-ref="HTTP_Listener_config" path="/accounts" allowedMethods="POST"/>
+		<ee:transform doc:name="Transform Message" doc:id="708593cb-be4a-427c-be14-4b3e4d51a80d" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/java
+---
+payload map ( payload01 , indexOfPayload01 ) -> {
+	Name: payload01.Name,
+	Description: payload01.Description,
+	Phone : '9087545423'
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<salesforce:create type="Account" doc:name="Create[Account]" doc:id="62209f02-a505-4fd8-9737-ca5c5d703caa" config-ref="Salesforce_Config"/>
+	</flow>
+</mule>

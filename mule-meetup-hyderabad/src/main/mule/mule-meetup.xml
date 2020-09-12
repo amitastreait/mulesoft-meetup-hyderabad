@@ -13,12 +13,11 @@ http://www.mulesoft.org/schema/mule/email http://www.mulesoft.org/schema/mule/em
 	<sub-flow name="updateOrderInOMS" doc:id="627b94a7-c6cd-48a4-a090-a2ce8145f552" >
 		<logger level="INFO" doc:name="Logger[Status]" doc:id="d1da32a5-00c6-4a72-b5d3-0288e2ea57b1" message="#[payload.data.payload.Status__c]" category="Logger[Status]"/>
 		<set-variable value="#[payload.data.payload.Status__c as String]" doc:name="Set[Status]" doc:id="ea675e4f-a0ca-4a31-a48f-85506b57c8a4" variableName="orderStatus"/>
-		<logger level="INFO" doc:name="Logger[OrderId]" doc:id="679967ee-e80b-417b-a6f0-8067d2a19ca5" message="#[vars.orderId]" category="Logger[OrderId]"/>
 		<db:update doc:name="Update[OrderStatus]" doc:id="0fdad3e9-8cad-4581-84f9-1e0a182da636" config-ref="DatabaseConfig">
-			<db:sql>UPDATE 'classicmodels'.'orders'
-SET 'orders'.'status' =: status WHERE 'orders'.'orderId' =: orderId</db:sql>
+			<db:sql>UPDATE orders SET status =:stat WHERE orderId =: orderId;
+</db:sql>
 			<db:input-parameters><![CDATA[#[{
-  status  : payload.data.payload.Status__c,
+  stat  : vars.orderStatus default "UnKnown",
   orderId : vars.orderId,
 }]]]></db:input-parameters>
 		</db:update>
@@ -143,12 +142,13 @@ vars.twillioResponse]]></ee:set-payload>
 		</ee:transform>
 	</sub-flow>
 	<flow name="createOrderFlow" doc:id="51f0a203-dc52-44a3-a220-4aed171d2fc0" initialState="started">
-		<salesforce:subscribe-channel streamingChannel="/data/Mule_Orders__ChangeEvent" doc:name="/event/OrderChangeEvent" doc:id="43632241-c13b-4650-9fc4-1297a50a8431" config-ref="SalesforceB2B"/>
+		<salesforce:subscribe-channel-listener streamingChannel="/data/Mule_Orders__ChangeEvent" doc:name="Subscribe channel listener" doc:id="a7468449-aa9c-433e-8ed3-32855a0f8f08" config-ref="Salesforce_Config"/>
 		<logger level="INFO" doc:name="Logger" doc:id="cd22b5fb-5311-4622-bd84-0b3ca44328bc" message="#[%dw 2.0
 output application/json
 ---
 payload.data.payload]" />
-		<set-variable value='#[payload.data.payload.ChangeEventHeader.changeType as String default "CREATE"]' doc:name="Set ChangeType" doc:id="d9184a04-f4ff-4f81-bee3-43150046776d" variableName="changeType"/>
+		<set-variable value='#[payload.data.payload.ChangeEventHeader.changeType as String default 
+"CREATE"]' doc:name="Set ChangeType" doc:id="d9184a04-f4ff-4f81-bee3-43150046776d" variableName="changeType"/>
 		<choice doc:name="Choice" doc:id="805e6958-678f-49d3-9e4c-f2fdbab7651d" >
 			<when expression='#[vars.changeType == "CREATE"]'>
 				<set-variable value="#[payload.data.payload.Name as String]" doc:name="Set Order No" doc:id="eafa61f2-c3f8-4177-8879-2fe9f7004057" variableName="orderNum" />

@@ -1,0 +1,32 @@
+{
+  "extensionModelLoaderDescriptor": {
+    "id": "java",
+    "attributes": {
+      "type": "org.mule.extension.s3.internal.extension.S3Connector",
+      "version": "5.6.0"
+    }
+  },
+  "license": {
+    "allowsEvaluation": true
+  },
+  "name": "Amazon S3",
+  "requiredProduct": "MULE_EE",
+  "classLoaderModelLoaderDescriptor": {
+    "id": "mule",
+    "attributes": {
+      "privilegedExportedPackages": [],
+      "privilegedArtifactIds": [],
+      "exportedPackages": [
+        "org.mule.extension.s3.api.model",
+        "org.mule.extension.s3.api.attributes",
+        "org.mule.extension.s3.api.group"
+      ],
+      "exportedResources": []
+    }
+  },
+  "bundleDescriptorLoader": {
+    "id": "mule",
+    "attributes": {}
+  },
+  "minMuleVersion": "4.1.1"
+}

@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<types:mule xmlns:types="http://www.mulesoft.org/schema/mule/types">
+  <types:catalog>
+    <types:type name="accounts" format="json">
+      <types:shape format="weave" example="examples/Accounts.json"><![CDATA[%dw 2.0
+
+type accounts = Array<{|  Name: String,   Description: String,   "Account Number": String|}> {"example": "[{\\\"Name\\\":\\\"Xytrex Co.\\\",\\\"Description\\\":\\\"Industrial Cleaning Supply Company\\\",\\\"Account Number\\\":\\\"ABC15797531\\\"},{\\\"Name\\\":\\\"Watson and Powell, Inc.\\\",\\\"Description\\\":\\\"Law firm. New York Headquarters\\\",\\\"Account Number\\\":\\\"ABC24689753\\\"},{\\\"Name\\\":\\\"Mulesoft.com\\\",\\\"Description\\\":\\\"API First Approach\\\",\\\"Account Number\\\":\\\"ABC24689343\\\"},{\\\"Name\\\":\\\"Salesforce.com\\\",\\\"Description\\\":\\\"A Cloud based platform\\\",\\\"Account Number\\\":\\\"SALESFORCE2020\\\"}]"}
+
+]]></types:shape>
+    </types:type>
+  </types:catalog>
+  <types:enrichment select="#13d65692-d23f-44aa-bbdc-a42d834462d2">
+    <types:processor-declaration>
+      <types:output-event>
+        <types:message>
+          <types:payload type="accounts"/>
+        </types:message>
+      </types:output-event>
+    </types:processor-declaration>
+  </types:enrichment>
+</types:mule>

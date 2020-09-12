@@ -1,0 +1,6 @@
+authenticated.users=[{"id"\:"e8feec01-389e-4544-9f51-9f89ad3d753c","token"\:"847cf3d3-98ec-4c5e-bcf9-527835fbb662","userId"\:"amitsingh111","refreshToken"\:"","baseUrl"\:"https\://anypoint.mulesoft.com/"},{"id"\:"af925a20-f92f-473e-acb5-a0e73c1709f8","token"\:"8f4f870b-3282-42cc-8d8e-47402191630f","userId"\:"sfdcamit","refreshToken"\:"","baseUrl"\:"https\://anypoint.mulesoft.com/"}]
+current.token=8f4f870b-3282-42cc-8d8e-47402191630f
+current.user=sfdcamit
+eclipse.preferences.version=1
+expiration.time=30
+org.mule.tooling.amc.apps={"userProjectMap"\:{"amitsingh111"\:{"import-accounts"\:"{\\"applicationName\\"\:\\"sfdcpanther-it-importaccounts\\",\\"muleRuntime\\"\:\\"4.2.2\\",\\"properties\\"\:{}}"}}}

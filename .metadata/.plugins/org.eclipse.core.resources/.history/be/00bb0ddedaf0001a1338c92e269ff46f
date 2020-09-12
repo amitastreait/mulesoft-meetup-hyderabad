@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:db="http://www.mulesoft.org/schema/mule/db" xmlns:twilio-connector="http://www.mulesoft.org/schema/mule/twilio-connector"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns:salesforce="http://www.mulesoft.org/schema/mule/salesforce" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/salesforce http://www.mulesoft.org/schema/mule/salesforce/current/mule-salesforce.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/twilio-connector http://www.mulesoft.org/schema/mule/twilio-connector/current/mule-twilio-connector.xsd
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd">
+	<configuration-properties doc:name="Configuration properties" doc:id="403b2523-17bb-49fa-98a9-93a602a6e550" file="config.yaml" />
+	<configuration doc:name="Configuration" doc:id="4cf00ed9-2c69-4b9a-b451-bb9868ba990a" defaultErrorHandler-ref="globalError_Handler" />
+	<http:listener-config name="HTTPListener" doc:name="HTTP Listener config" doc:id="d76dbcf5-3e15-438d-ab13-2929e48b482a" >
+		<http:listener-connection host="0.0.0.0" port="${http.port}" />
+	</http:listener-config>
+	<twilio-connector:config name="TwilioConnectorConfig" doc:name="Twilio Connector Config" doc:id="fcb49cdf-2ebd-4388-8fea-a711fb6a0818" property_username="${twillio.username}" property_password="${twillio.password}" property_host="${twillio.host}" property_port="${twillio.port}" property_basePath="${twillio.path}" property_protocol="${twillio.scheme}" property_responseTimeout="${twillio.timeout}" />
+	<db:config name="DatabaseConfig" doc:name="Database Config" doc:id="9dba921f-0b4a-4de3-bb16-11f41b7c4447" >
+		<db:my-sql-connection host="localhost" port="3306" user="root" password="root" database="classicmodels" />
+	</db:config>
+	<salesforce:sfdc-config name="Salesforce_Config" doc:name="Salesforce Config" doc:id="a7ad7d53-3c94-44e9-995b-21c14cc56f85" >
+		<salesforce:basic-connection username="${sfdc.username}" password="Eesting@123456" securityToken="${sfdc.stoken}" url="${sfdc.loginUrl}" />
+	</salesforce:sfdc-config>
+	<error-handler name="globalError_Handler" doc:id="bd59549b-1778-43da-82ea-4df014f98586" >
+		<on-error-continue enableNotifications="true" logException="true" doc:name="On Error Continue" doc:id="2426bd24-6a8b-40e1-bbb5-5d9b8efed6f6" type="ANY">
+			<ee:transform doc:name="Transform Message" doc:id="5c677baf-83fa-4eed-a92b-2dd8c90959ba" >
+				<ee:message >
+					<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"message" : error.detailedDescription,
+	"errorType" : error.errorType,
+	"node" : "On Error Continue"
+}]]></ee:set-payload>
+				</ee:message>
+			</ee:transform>
+		</on-error-continue>
+		<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="0aca620b-4e88-4501-ac50-7ec977e14ae9" type="ANY">
+			<ee:transform doc:name="Transform Message" doc:id="547ac79d-1f6b-4471-bc38-1e25819f2a06" >
+				<ee:message >
+					<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"message" : error.detailedDescription,
+	"errorType" : error.errorType,
+	"node" : "On Error Propagate"
+}]]></ee:set-payload>
+				</ee:message>
+			</ee:transform>
+		</on-error-propagate>
+	</error-handler>
+</mule>

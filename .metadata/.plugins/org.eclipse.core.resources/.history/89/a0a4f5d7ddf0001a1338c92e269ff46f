@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:email="http://www.mulesoft.org/schema/mule/email" xmlns:batch="http://www.mulesoft.org/schema/mule/batch"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns:db="http://www.mulesoft.org/schema/mule/db" xmlns:twilio-connector="http://www.mulesoft.org/schema/mule/twilio-connector" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:salesforce="http://www.mulesoft.org/schema/mule/salesforce" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/salesforce http://www.mulesoft.org/schema/mule/salesforce/current/mule-salesforce.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/twilio-connector http://www.mulesoft.org/schema/mule/twilio-connector/current/mule-twilio-connector.xsd
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/batch http://www.mulesoft.org/schema/mule/batch/current/mule-batch.xsd
+http://www.mulesoft.org/schema/mule/email http://www.mulesoft.org/schema/mule/email/current/mule-email.xsd">
+	<sub-flow name="updateOrderInOMS" doc:id="627b94a7-c6cd-48a4-a090-a2ce8145f552" >
+		<logger level="INFO" doc:name="Logger[Status]" doc:id="d1da32a5-00c6-4a72-b5d3-0288e2ea57b1" message="#[payload.data.payload.Status__c]" category="Logger[Status]"/>
+		<set-variable value="#[payload.data.payload.Status__c as String]" doc:name="Set[Status]" doc:id="ea675e4f-a0ca-4a31-a48f-85506b57c8a4" variableName="orderStatus"/>
+		<logger level="INFO" doc:name="Logger[OrderId]" doc:id="679967ee-e80b-417b-a6f0-8067d2a19ca5" message="#[vars.orderId]" category="Logger[OrderId]"/>
+		<db:update doc:name="Update[OrderStatus]" doc:id="0fdad3e9-8cad-4581-84f9-1e0a182da636" config-ref="DatabaseConfig">
+			<db:sql>
+UPDATE orders SET status =: status WHERE orderId =: orderId;
+</db:sql>
+			<db:input-parameters><![CDATA[#[{
+  status  : payload.data.payload.Status__c,
+  orderId : vars.orderId,
+}]]]></db:input-parameters>
+		</db:update>
+		<logger level="INFO" doc:name="Logger[UPDATED]" doc:id="413b6466-daf6-4f2b-8ab3-207439d133d4" message="#[payload]" category="Logger[UPDATED]"/>
+		<db:select doc:name="Select[PhoneNo]" doc:id="0d17e85e-4876-449a-9f01-6bbdd6b93149" target="existingOrder" config-ref="DatabaseConfig">
+			<db:sql>SELECT `orders`.`orderNumber`,
+    `orders`.`status`,
+    `orders`.`phone`
+FROM `classicmodels`.`orders` 
+WHERE `orders`.`orderId` =:orderId 
+LIMIT 1;</db:sql>
+			<db:input-parameters><![CDATA[#[{
+  orderId : vars.orderId
+}]]]></db:input-parameters>
+		</db:select>
+		<ee:transform doc:name="Transform Message" doc:id="5718f6c2-2dd9-489d-820a-09c292bcc582">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
+output application/java
+---
+vars.existingOrder[0]]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<set-variable value="#[vars.existingOrder[0]]" doc:name="Set[orderRecord]" doc:id="163d1d4c-541b-49f0-976b-a05ea278227a" variableName="orderRecord" />
+		<ee:transform doc:name="Send Order Update Information" doc:id="71f1bf0e-6a66-45c7-8bfa-496be8fbfc0a" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	To : vars.orderRecord.phone,
+	From : p('twillio.from'),
+	Body : "Dear Customer!! \n We have 
+			processed your Order " ++
+			vars.orderRecord.orderNumber as String ++
+			" status of your order is " 
+			++ vars.orderStatus ++
+			". if you have any queries, you can connect with us "
+			++ "sfdcpanther@gmail.com"
+} as Object {
+ class: "org.mule.modules.twilio.pojo.sendmessagerequest.MessageInput"
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<flow-ref doc:name="Flow Reference" doc:id="906ad5d5-3569-49b2-a74f-a937cf1e0f86" name="sendOrderConfirmation"/>
+		<logger level="INFO" doc:name="Logger" doc:id="3a176407-52ed-480e-a778-07d9bfecd1cd" />
+	</sub-flow>
+	<sub-flow name="CreateOrder" doc:id="6da72565-4c7f-459c-b389-8251c100e5b5" >
+		<logger level="INFO" doc:name="Logger[orderNum]" doc:id="9ffd3daa-af13-4ae1-933e-ffa7d968469d" message='#["\n" ++ vars.orderNum]' category="orderNum" />
+		<set-variable value='#[if(payload.data.payload.Customer_Phone__c !=null )
+payload.data.payload.Customer_Phone__c as String
+else if(payload.data.payload.Phone__c != null)
+	payload.data.payload.Phone__c as String
+else "+91-"]' doc:name="Set Phone No" doc:id="4c6ab4cb-2a38-4a37-b797-df3c84678baf" variableName="phoneNo" />
+		<logger level="INFO" doc:name="Logger[PhoneNo]" doc:id="c05f2b57-9d77-435c-a704-22f925dfea66" message='#["\n" ++ vars.phoneNo]' />
+		<ee:transform doc:name="Prepare SQL for OMS Database" doc:id="c9c5d522-176b-41c0-bfb9-2f19ded67b93">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"orderNumber" : payload.data.payload.Name as Number,
+	"orderDate" :  payload.data.payload.Order_Date__c as String {format: "yyyy-MM-dd"},
+	"requiredDate" : payload.data.payload.Order_Date__c as String {format: "yyyy-MM-dd"},
+	"shippedDate" : payload.data.payload.Order_Date__c as String {format: "yyyy-MM-dd"},
+	"status" : payload.data.payload.Status__c default "Created",
+	"comments" : payload.data.payload.comments__c as String default "",
+	"customerNumber" : payload.data.payload.Customer_Id__c as String default "363",
+	"orderId" : payload.data.payload.ChangeEventHeader.recordIds[0] as String,
+	"amount" : payload.data.payload.Amount__c default 0.00,
+	"phone" : payload.data.payload.Phone__c default ""
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<flow-ref doc:name="Create Order in OMS" doc:id="542031d7-54db-4fdb-8dfb-1a2e38491d5d" name="createOrderInOMS" target="orderDetails" />
+		<ee:transform doc:name="Prepare Twillio Message" doc:id="d612749b-b3d5-4b70-bde5-794f1c765806">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{
+	To : vars.phoneNo,
+	From : p('twillio.from'),
+	Body : "Dear Customer!! \n We have 
+			received your Order and here 
+			is the order no for your reference "
+			++ vars.orderNum as String ++ 
+			". if you have any queries, you can connect with us "
+			++ "sfdcpanther@gmail.com"
+} as Object {
+ class: "org.mule.modules.twilio.pojo.sendmessagerequest.MessageInput"
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<flow-ref doc:name="SendOrderConfirmation" doc:id="18263501-99ac-432e-aa98-482d4607dcf3" name="sendOrderConfirmation" />
+	</sub-flow>
+	<sub-flow name="createOrderInOMS" doc:id="b04bf823-b092-48ff-bcae-898259a4ee85" >
+		<db:insert doc:name="CreateOrder" doc:id="1a06470d-2cce-4106-9e76-68da8b0a7478" config-ref="DatabaseConfig">
+			<db:sql>INSERT INTO `classicmodels`.`orders`(`orderNumber`,`orderDate`,`status`,`comments`,`customerNumber`,`requiredDate`,
+`shippedDate`, `orderId`, `amount`, `phone`) VALUES (:orderNumber, :orderDate, :status, :comments, :customerNumber,:requiredDate,:shippedDate, :orderId, :amount, :phone);</db:sql>
+			<db:input-parameters><![CDATA[#[payload]]]></db:input-parameters>
+		</db:insert>
+		<ee:transform doc:name="Transform Message" doc:id="85c941a7-cdb5-4f50-ab20-f469753624c9">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Logger[OMS]" doc:id="bccded2a-0abc-46bf-8ff5-04ea4fbcaecd" message="#[payload]"/>
+	</sub-flow>
+	<sub-flow name="sendOrderConfirmation" doc:id="ad5ec2c6-37c4-4c6b-b970-972915d06c4b" >
+		<twilio-connector:send-message doc:name="Send Order Confirmation" doc:id="adc24109-d8f5-43e6-90c2-040e9c4a8fce" account-sid="${twillio.ssid}" target="twillioResponse" config-ref="TwilioConnectorConfig"/>
+		<ee:transform doc:name="Transform Message" doc:id="a98d4448-18fb-499d-a980-51d35e3e0288">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+vars.twillioResponse]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</sub-flow>
+	<flow name="createOrderFlow" doc:id="51f0a203-dc52-44a3-a220-4aed171d2fc0" initialState="started">
+		<salesforce:subscribe-channel-listener streamingChannel="/data/Mule_Orders__ChangeEvent" doc:name="Subscribe channel listener" doc:id="a7468449-aa9c-433e-8ed3-32855a0f8f08" config-ref="Salesforce_Config"/>
+		<logger level="INFO" doc:name="Logger" doc:id="cd22b5fb-5311-4622-bd84-0b3ca44328bc" message="#[%dw 2.0
+output application/json
+---
+payload.data.payload]" />
+		<set-variable value='#[payload.data.payload.ChangeEventHeader.changeType as String default "CREATE"]' doc:name="Set ChangeType" doc:id="d9184a04-f4ff-4f81-bee3-43150046776d" variableName="changeType"/>
+		<choice doc:name="Choice" doc:id="805e6958-678f-49d3-9e4c-f2fdbab7651d" >
+			<when expression='#[vars.changeType == "CREATE"]'>
+				<set-variable value="#[payload.data.payload.Name as String]" doc:name="Set Order No" doc:id="eafa61f2-c3f8-4177-8879-2fe9f7004057" variableName="orderNum" />
+				<flow-ref doc:name="Flow Reference" doc:id="837a95ee-4a55-4eda-bd55-8fbd6ebedeec" name="CreateOrder" />
+			</when>
+			<when expression='#[vars.changeType == "UPDATE"]'>
+				<set-variable value="#[payload.data.payload.ChangeEventHeader.recordIds[0] 
+as String]" doc:name="Set OrderId" doc:id="f5d65ab7-fdf6-4958-a5ef-461e5b292d97" variableName="orderId"/>
+				<flow-ref doc:name="Flow Reference[Update Order]" doc:id="28b467a1-0618-465d-a614-cd52e09b9fef" name="updateOrderInOMS" />
+			</when>
+			<otherwise >
+				<logger level="INFO" doc:name="Logger[RESTOPERATION]" doc:id="53aa9978-3fe1-4caa-9a28-73cf9e69fafa" message="#[payload]"/>
+			</otherwise>
+		</choice>
+		<error-handler>
+			<on-error-continue enableNotifications="true" logException="true" doc:name="On Error Continue" doc:id="3487c502-48ef-43f2-8c79-d988383e79df" >
+				<ee:transform doc:name="Transform Message" doc:id="9fa01e96-887b-46b0-8b2f-bac357ce0fad" >
+					<ee:message >
+						<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"message" : error.detailedDescription,
+	"type" : error.errorType,
+	"status" : 400
+}
+]]></ee:set-payload>
+					</ee:message>
+				</ee:transform>
+				<logger level="INFO" doc:name="LoggerError" doc:id="5c410269-a9c0-4251-b89e-ef9f4bb5f0ff" category="LoggerError"/>
+			</on-error-continue>
+		</error-handler>
+	</flow>
+</mule>

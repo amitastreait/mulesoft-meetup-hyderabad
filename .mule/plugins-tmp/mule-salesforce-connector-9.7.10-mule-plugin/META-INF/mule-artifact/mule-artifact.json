@@ -1,0 +1,37 @@
+{
+  "extensionModelLoaderDescriptor": {
+    "id": "java",
+    "attributes": {
+      "type": "org.mule.extension.salesforce.internal.extension.SalesforceExtension",
+      "version": "9.7.10"
+    }
+  },
+  "license": {
+    "allowsEvaluation": true
+  },
+  "name": "Salesforce",
+  "requiredProduct": "MULE_EE",
+  "classLoaderModelLoaderDescriptor": {
+    "id": "mule",
+    "attributes": {
+      "privilegedExportedPackages": [],
+      "privilegedArtifactIds": [],
+      "exportedPackages": [
+        "org.mule.extension.salesforce.api.core",
+        "org.mule.extension.salesforce.api",
+        "org.mule.extension.salesforce.api.param",
+        "org.mule.extension.salesforce.api.search",
+        "org.mule.extension.salesforce.api.bulk",
+        "org.mule.extension.salesforce.api.metadata",
+        "org.mule.extension.salesforce.api.utility",
+        "org.mule.extension.salesforce.api.stream"
+      ],
+      "exportedResources": []
+    }
+  },
+  "bundleDescriptorLoader": {
+    "id": "mule",
+    "attributes": {}
+  },
+  "minMuleVersion": "4.1.1"
+}

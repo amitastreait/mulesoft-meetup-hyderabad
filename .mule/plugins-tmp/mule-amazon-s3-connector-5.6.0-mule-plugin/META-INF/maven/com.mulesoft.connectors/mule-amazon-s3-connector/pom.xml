@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>mule-amazon-s3-connector</artifactId>
+    <version>5.6.0</version>
+    <name>Amazon S3 Connector - Mule 4</name>
+
+    <packaging>mule-extension</packaging>
+
+    <parent>
+        <groupId>com.mulesoft.connectors</groupId>
+        <artifactId>mule-connectivity-parent</artifactId>
+        <version>1.3.3</version>
+    </parent>
+
+    <properties>
+        <!-- Exclude whole api package as it influence coverage significantly and contains no logic to test. -->
+        <sonar.exclusions>**org/mule/extension/s3/api/**/*.java</sonar.exclusions>
+        <!-- Property added to comply with a faulty feature on SDK 1.1 which makes the connector fail. -->
+        <extensionsAnnotationProcessor>
+            org.mule.runtime.module.extension.internal.resources.ExtensionResourcesGeneratorAnnotationProcessor
+        </extensionsAnnotationProcessor>
+        <!-- Property added to comply with a faulty feature on SDK 1.1 which makes the connector fail. -->
+        <apt.phase>compile</apt.phase>
+        <amazon.sdk.version>1.11.649</amazon.sdk.version>
+        <!-- Remove when a new parent version with MTF is available -->
+        <mavenResourcesVersion>3.0.2</mavenResourcesVersion>
+        <!-- runtime version to run -->
+        <runtimeVersion>4.2.0</runtimeVersion>
+        <runtimeProduct>MULE_EE</runtimeProduct>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-java-sdk-s3</artifactId>
+            <version>${amazon.sdk.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-java-sdk-sqs</artifactId>
+            <version>${amazon.sdk.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.mulesoft.connectors</groupId>
+            <artifactId>aws-connector-commons</artifactId>
+            <version>2.2.1</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/commons-lang/commons-lang -->
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>2.6</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.5</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.8.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mule.connectors</groupId>
+            <artifactId>mule-file-connector</artifactId>
+            <version>1.1.3</version>
+            <classifier>mule-plugin</classifier>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mule.connectors</groupId>
+            <artifactId>mule-http-connector</artifactId>
+            <version>1.3.1</version>
+            <classifier>mule-plugin</classifier>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mule.connectors</groupId>
+            <artifactId>mule-sockets-connector</artifactId>
+            <version>1.1.1</version>
+            <classifier>mule-plugin</classifier>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.0.2</version>
+                <executions>
+                    <execution>
+                        <id>connector-analyze</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>analyze-only</goal>
+                        </goals>
+                        <configuration>
+                            <ignoredDependencies>
+                                <ignoredDependency>org.mule.*</ignoredDependency>
+                            </ignoredDependencies>
+                            <failOnWarning>true</failOnWarning>
+                            <ignoredUsedUndeclaredDependencies>
+                                <ignoredUsedUndeclaredDependency>*</ignoredUsedUndeclaredDependency>
+                            </ignoredUsedUndeclaredDependencies>
+                            <ignoredUnusedDeclaredDependencies>
+                                <ignoredUnusedDeclaredDependency>com.sun.mail:jakarta.mail</ignoredUnusedDeclaredDependency>
+                            </ignoredUnusedDeclaredDependencies>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+    <scm>
+        <connection>scm:git:git@github.com:mulesoft/mule-amazon-s3-connector.git</connection>
+        <developerConnection>scm:git:git@github.com:mulesoft/mule-amazon-s3-connector.git</developerConnection>
+        <url>https://github.com/mulesoft/mule-amazon-s3-connector</url>
+        <tag>mule-amazon-s3-connector-5.6.0</tag>
+    </scm>
+    <repositories>
+        <repository>
+            <id>mule-releases</id>
+            <name>Nexus Public Releases</name>
+            <url>https://repository-master.mulesoft.org/nexus/content/repositories/releases/</url>
+        </repository>
+    </repositories>
+</project>

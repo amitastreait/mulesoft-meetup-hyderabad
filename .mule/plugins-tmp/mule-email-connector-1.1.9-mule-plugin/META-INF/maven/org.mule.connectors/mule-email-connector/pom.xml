@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>org.mule.extensions</groupId>
+        <artifactId>mule-core-modules-parent</artifactId>
+        <version>1.1.6</version>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.mule.connectors</groupId>
+    <artifactId>mule-email-connector</artifactId>
+    <packaging>mule-extension</packaging>
+    <version>1.1.9</version>
+
+    <name>Email Connector</name>
+    <description>A Mule extension that provides functionality to send and receive emails through POP3, IMAP and SMTP</description>
+
+    <properties>
+        <commonsIoVersion>2.6</commonsIoVersion>
+        <commonsCollectionsVersion>3.2.2</commonsCollectionsVersion>
+        <commonsLangVersion>3.7</commonsLangVersion>
+        <javaMailVersion>1.6.3</javaMailVersion>
+        <greenmailVersion>1.5.0</greenmailVersion>
+        <powermockVersion>1.6.5</powermockVersion>
+        <formatterConfigPath>formatter.xml</formatterConfigPath>
+
+        <!-- Remove when a new parent version with MTF is available -->
+        <munit.input.directory>src/test/munit</munit.input.directory>
+        <munit.output.directory>${basedir}/target/test-mule/munit</munit.output.directory>
+        <munit.extensions.maven.plugin.version>1.0.0-BETA3</munit.extensions.maven.plugin.version>
+        <munit.version>2.2.1</munit.version>
+        <mavenResourcesVersion>3.0.2</mavenResourcesVersion>
+
+        <validations.module.version>1.1.0</validations.module.version>
+        <java.module.version>1.1.1</java.module.version>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>${mavenResourcesVersion}</version>
+                <executions>
+                    <execution>
+                        <id>copy-munit-resources</id>
+                        <phase>process-test-resources</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${munit.output.directory}</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>${munit.input.directory}</directory>
+                                    <filtering>true</filtering>
+                                </resource>
+                            </resources>
+
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.mulesoft.munit</groupId>
+                <artifactId>munit-extensions-maven-plugin</artifactId>
+                <version>${munit.extensions.maven.plugin.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>test</goal>
+                        </goals>
+                        <phase>integration-test</phase>
+                    </execution>
+                </executions>
+                <configuration>
+                    <runtimeConfiguration>
+                        <discoverRuntimes>
+                            <product>EE</product>
+                            <includeSnapshots>true</includeSnapshots>
+                        </discoverRuntimes>
+                    </runtimeConfiguration>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.mulesoft.munit</groupId>
+                        <artifactId>munit-runner</artifactId>
+                        <version>${munit.version}</version>
+                        <classifier>mule-plugin</classifier>
+                    </dependency>
+                    <dependency>
+                        <groupId>com.mulesoft.munit</groupId>
+                        <artifactId>munit-tools</artifactId>
+                        <version>${munit.version}</version>
+                        <classifier>mule-plugin</classifier>
+                    </dependency>
+                    <dependency>
+                        <groupId>com.sun.mail</groupId>
+                        <artifactId>jakarta.mail</artifactId>
+                        <version>${javaMailVersion}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>jakarta.mail</artifactId>
+            <version>${javaMailVersion}</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+            <version>${commonsCollectionsVersion}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${commonsLangVersion}</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>${commonsIoVersion}</version>
+        </dependency>
+
+        <!--TODO: MULE-10837-->
+        <dependency>
+            <groupId>org.mule.runtime</groupId>
+            <artifactId>mule-module-service</artifactId>
+            <version>${mule.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mule.services</groupId>
+            <artifactId>mule-service-scheduler</artifactId>
+            <version>${muleSchedulerServiceVersion}</version>
+            <classifier>mule-service</classifier>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Test dependencies -->
+        <dependency>
+            <groupId>com.icegreen</groupId>
+            <artifactId>greenmail</artifactId>
+            <version>${greenmailVersion}</version>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-api</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.powermock</groupId>
+            <artifactId>powermock-core</artifactId>
+            <version>${powermockVersion}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.powermock</groupId>
+            <artifactId>powermock-api-mockito</artifactId>
+            <version>${powermockVersion}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.powermock</groupId>
+            <artifactId>powermock-module-junit4</artifactId>
+            <version>${powermockVersion}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- MTF -->
+
+        <dependency>
+            <groupId>org.mule.module</groupId>
+            <artifactId>mule-java-module</artifactId>
+            <version>${java.module.version}</version>
+            <classifier>mule-plugin</classifier>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mule.modules</groupId>
+            <artifactId>mule-validation-module</artifactId>
+            <version>${validations.module.version}</version>
+            <classifier>mule-plugin</classifier>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <repositories>
+        <repository>
+            <id>mule</id>
+            <name>Mule Repository</name>
+            <url>https://repository.mulesoft.org/nexus/content/repositories/public/</url>
+        </repository>
+        <repository>
+            <id>spring-snapshot</id>
+            <name>Spring Snapshot Repository</name>
+            <url>http://repo.spring.io/snapshot/</url>
+        </repository>
+    </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>mule-plugin</id>
+            <name>Mule Repository</name>
+            <url>https://repository.mulesoft.org/nexus/content/repositories/public/</url>
+        </pluginRepository>
+    </pluginRepositories>
+
+</project>
