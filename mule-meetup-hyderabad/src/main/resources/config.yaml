@@ -9,9 +9,9 @@ sfdc:
   password: "wH59H7cCPJn4zZghEVN7cVfT"
   
 twillio:
-  username: "ACa00a4edbc7287e934766721779b4c04a8b3e5"
-  password: "04302702ecfa278213ebuy34hj345dfe2a119dbf"
-  ssid: "ACa00a4edbc7287e9341779b4c04a8b3e5"
+  username: "YOUR_CLIENT_ID"
+  password: "YOUR_SSID"
+  ssid: "YOUR_SSID"
   path: "/2010-04-01"
   port: "443"
   scheme: "HTTP"
